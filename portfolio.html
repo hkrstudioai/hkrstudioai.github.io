@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#1A3C5E">
+<title>Portfolio — Kpogue Hodonou Robert</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',Arial,sans-serif;background:#fff;color:#1d1d1f;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+:root{--navy:#1A3C5E;--navy-dk:#0D2137;--gold:#E8A020;--gold-lt:#FFF4E0;--black:#1d1d1f;--g1:#f5f5f7;--g2:#e8e8ed;--g3:#6e6e73;--white:#fff;--green:#1A7A4A;--green-lt:#E6F4EC;--r:16px;}
+
+#loader{position:fixed;inset:0;z-index:999;background:var(--navy-dk);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .6s,visibility .6s;}
+#loader.hide{opacity:0;visibility:hidden;pointer-events:none;}
+.loader-logo{width:56px;height:56px;background:var(--gold);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;color:var(--navy);animation:lp 1.2s ease-in-out infinite;margin-bottom:20px;}
+@keyframes lp{0%,100%{transform:scale(1);}50%{transform:scale(1.1);}}
+.loader-bar{width:160px;height:3px;background:rgba(255,255,255,.1);border-radius:10px;overflow:hidden;}
+.loader-fill{height:100%;width:0;background:var(--gold);border-radius:10px;animation:lf 1.8s ease forwards;}
+@keyframes lf{to{width:100%;}}
+.loader-text{margin-top:14px;font-size:12px;color:rgba(255,255,255,.4);letter-spacing:1px;}
+
+/* SCROLL PROGRESS */
+#progress{position:fixed;top:0;left:0;right:0;z-index:200;height:2px;}
+#progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--navy),var(--gold));transition:width .1s;}
+
+nav{position:fixed;top:2px;left:0;right:0;z-index:100;background:rgba(255,255,255,.88);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,.07);height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;}
+.nav-logo{display:flex;align-items:center;gap:9px;}
+.nav-logo-box{width:28px;height:28px;background:var(--navy);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#fff;}
+.nav-name{font-size:14px;font-weight:700;color:var(--black);letter-spacing:-.3px;}
+.nav-cta{background:var(--gold);color:var(--navy);font-size:12px;font-weight:700;padding:7px 16px;border-radius:20px;transition:transform .15s;}
+.nav-cta:active{transform:scale(.96);}
+
+/* FLOAT CTA */
+#float-wa{position:fixed;bottom:22px;right:20px;z-index:98;width:50px;height:50px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 18px rgba(232,160,32,.5);opacity:0;pointer-events:none;transition:opacity .3s,transform .2s;}
+#float-wa.show{opacity:1;pointer-events:auto;}
+#float-wa:hover{transform:scale(1.1);}
+
+/* HERO */
+.hero{min-height:100svh;background:var(--navy-dk);display:flex;flex-direction:column;justify-content:center;padding:100px 24px 60px;position:relative;overflow:hidden;text-align:center;}
+.orb{position:absolute;border-radius:50%;filter:blur(60px);pointer-events:none;opacity:.6;}
+.orb1{width:300px;height:300px;top:-80px;right:-60px;background:radial-gradient(circle,rgba(232,160,32,.28),transparent 70%);}
+.orb2{width:220px;height:220px;bottom:-40px;left:-40px;background:radial-gradient(circle,rgba(26,60,94,.5),transparent 70%);}
+.orb3{width:150px;height:150px;top:40%;left:10%;background:radial-gradient(circle,rgba(232,160,32,.12),transparent 70%);animation:fo 8s ease-in-out infinite;}
+@keyframes fo{0%,100%{transform:translate(0,0);}50%{transform:translate(10px,-15px);}}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(232,160,32,.12);border:1px solid rgba(232,160,32,.3);border-radius:20px;padding:5px 14px;margin:0 auto 20px;width:fit-content;animation:fadeUp .7s .8s both;}
+.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+.hero-badge span{font-size:11px;font-weight:700;color:var(--gold);letter-spacing:1px;text-transform:uppercase;}
+.hero-avatar{width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#F5C842);display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900;color:var(--navy);margin:0 auto 18px;border:3px solid rgba(232,160,32,.4);box-shadow:0 0 40px rgba(232,160,32,.3);animation:fadeUp .7s .9s both;}
+.hero h1{font-size:clamp(28px,7vw,44px);font-weight:700;color:#fff;letter-spacing:-.8px;line-height:1.1;margin-bottom:6px;animation:fadeUp .7s 1s both;}
+.hero h1 em{font-style:normal;color:var(--gold);}
+.hero-title{font-size:13px;font-weight:700;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px;animation:fadeUp .7s 1.1s both;}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.65);line-height:1.7;max-width:400px;margin:0 auto 24px;animation:fadeUp .7s 1.2s both;}
+.hero-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin-bottom:24px;animation:fadeUp .7s 1.3s both;}
+.chip{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:5px 12px;font-size:11px;font-weight:600;color:rgba(255,255,255,.75);}
+
+/* STATS HERO */
+.hero-stats{display:flex;justify-content:center;gap:0;background:rgba(255,255,255,.06);border:1px solid rgba(232,160,32,.15);border-radius:var(--r);max-width:380px;margin:0 auto 24px;overflow:hidden;animation:fadeUp .7s 1.4s both;}
+.hstat{flex:1;padding:14px 6px;text-align:center;border-right:1px solid rgba(255,255,255,.07);}
+.hstat:last-child{border-right:none;}
+.hstat-val{font-size:20px;font-weight:700;color:var(--gold);letter-spacing:-.5px;}
+.hstat-lab{font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.5px;margin-top:2px;}
+.hero-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;animation:fadeUp .7s 1.5s both;}
+.btn-p{background:var(--gold);color:var(--navy);font-size:14px;font-weight:700;padding:13px 26px;border-radius:980px;box-shadow:0 4px 18px rgba(232,160,32,.35);transition:transform .2s,box-shadow .2s;}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(232,160,32,.45);}
+.btn-s{background:rgba(255,255,255,.1);color:#fff;font-size:14px;font-weight:600;padding:13px 22px;border-radius:980px;border:1px solid rgba(255,255,255,.18);transition:background .2s;}
+.btn-s:hover{background:rgba(255,255,255,.18);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+
+/* SECTIONS */
+.sec{padding:60px 24px;max-width:600px;margin:0 auto;}
+.sec-full{padding:60px 24px;}
+.sec-gray{background:var(--g1);}
+.sec-dark{background:var(--navy-dk);}
+.sec-navy{background:var(--navy);}
+.eyebrow{font-size:10px;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;text-align:center;}
+.sec-title{font-size:clamp(22px,5.5vw,30px);font-weight:700;color:var(--black);letter-spacing:-.5px;line-height:1.2;margin-bottom:10px;text-align:center;}
+.sec-title.lt{color:#fff;}
+.sec-title .g{color:var(--gold);}
+.sec-sub{font-size:14px;color:var(--g3);line-height:1.7;margin-bottom:28px;text-align:center;}
+.sec-sub.lt{color:rgba(255,255,255,.6);}
+.gold-bar{width:36px;height:3px;background:var(--gold);border-radius:2px;margin:0 auto 18px;}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1);}
+.reveal.on{opacity:1;transform:translateY(0);}
+.reveal-d1{transition-delay:.1s;}
+.reveal-d2{transition-delay:.2s;}
+.reveal-d3{transition-delay:.3s;}
+
+/* CHIFFRES CLÉS */
+.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.kpi-card{background:var(--navy);border-radius:var(--r);padding:20px 16px;text-align:center;border-bottom:3px solid var(--gold);}
+.kpi-val{font-size:28px;font-weight:700;color:var(--gold);letter-spacing:-.8px;margin-bottom:4px;}
+.kpi-label{font-size:11px;color:rgba(255,255,255,.6);line-height:1.4;}
+
+/* COMPÉTENCES */
+.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.skill-card{background:var(--white);border-radius:var(--r);padding:18px 14px;border-top:3px solid var(--gold);box-shadow:0 2px 12px rgba(0,0,0,.05);transition:transform .2s,box-shadow .2s;}
+.skill-card:hover{transform:translateY(-4px);box-shadow:0 8px 28px rgba(0,0,0,.1);}
+.skill-icon{font-size:26px;margin-bottom:10px;}
+.skill-name{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:8px;}
+.skill-tools{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px;}
+.tool-tag{background:var(--g1);color:var(--navy);font-size:9px;font-weight:700;padding:3px 8px;border-radius:8px;}
+.skill-bar-wrap{margin-top:8px;}
+.skill-bar-label{font-size:9px;color:var(--g3);letter-spacing:.5px;text-transform:uppercase;margin-bottom:4px;display:flex;justify-content:space-between;}
+.skill-bar{height:4px;background:var(--g2);border-radius:4px;overflow:hidden;}
+.skill-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--navy),var(--gold));width:0;transition:width 1.2s cubic-bezier(.22,1,.36,1);}
+
+/* RÉALISATIONS */
+.works-list{display:flex;flex-direction:column;gap:14px;}
+.work-card{background:var(--white);border-radius:var(--r);overflow:hidden;box-shadow:0 2px 14px rgba(0,0,0,.06);transition:transform .2s,box-shadow .2s;}
+.work-card:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(0,0,0,.1);}
+.work-banner{height:100px;display:flex;align-items:center;justify-content:center;position:relative;font-size:48px;}
+.work-banner-label{position:absolute;top:10px;left:12px;background:rgba(0,0,0,.5);color:#fff;font-size:9px;font-weight:700;padding:3px 9px;border-radius:6px;letter-spacing:.5px;}
+.work-banner-type{position:absolute;top:10px;right:12px;background:var(--gold);color:var(--navy);font-size:9px;font-weight:700;padding:3px 9px;border-radius:6px;}
+.work-info{padding:14px;}
+.work-title{font-size:14px;font-weight:700;color:var(--black);margin-bottom:4px;letter-spacing:-.2px;}
+.work-desc{font-size:12px;color:var(--g3);line-height:1.6;margin-bottom:10px;}
+.work-tags{display:flex;flex-wrap:wrap;gap:5px;}
+.work-tag{background:var(--g1);color:var(--navy);font-size:9px;font-weight:700;padding:3px 9px;border-radius:8px;}
+.work-banner{height:130px;}
+.work-meta{display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-wrap:wrap;}
+.work-date{font-size:10px;color:var(--g3);font-weight:600;}
+.work-client{font-size:10px;font-weight:700;color:var(--gold);background:var(--gold-lt);padding:2px 8px;border-radius:8px;}
+.work-result{background:var(--green-lt);border:1px solid rgba(26,122,74,.15);border-radius:10px;padding:10px 12px;margin:10px 0;display:flex;align-items:flex-start;gap:8px;}
+.work-result-icon{font-size:14px;flex-shrink:0;}
+.work-result-text{font-size:11px;color:var(--green);font-weight:600;line-height:1.5;}
+.work-deliverables{display:flex;flex-direction:column;gap:5px;margin:10px 0;}
+.work-del-item{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--black);}
+.work-del-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+.work-action{display:block;background:var(--navy);color:#fff;font-size:11px;font-weight:700;padding:9px;border-radius:10px;text-align:center;margin-top:10px;transition:background .2s;}
+.work-action:hover{background:var(--gold);color:var(--navy);}
+
+/* TÉMOIGNAGES */
+.testi-list{display:flex;flex-direction:column;gap:12px;}
+.testi-card{background:var(--white);border-radius:var(--r);padding:18px;box-shadow:0 2px 12px rgba(0,0,0,.05);border-left:3px solid var(--gold);}
+.testi-stars{color:var(--gold);font-size:14px;margin-bottom:8px;}
+.testi-text{font-size:13px;color:var(--black);line-height:1.7;margin-bottom:12px;font-style:italic;}
+.testi-author{display:flex;align-items:center;gap:10px;}
+.testi-avatar{width:36px;height:36px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--gold);flex-shrink:0;}
+.testi-name{font-size:13px;font-weight:700;color:var(--black);}
+.testi-role{font-size:11px;color:var(--g3);}
+
+/* TARIFS */
+.tarifs-list{display:flex;flex-direction:column;gap:12px;}
+.tarif-card{background:var(--white);border-radius:var(--r);padding:20px;border:1.5px solid var(--g2);transition:transform .2s,box-shadow .2s;}
+.tarif-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.08);}
+.tarif-card.featured{background:var(--navy);border-color:var(--gold);}
+.tarif-card.featured .tarif-name{color:#fff;}
+.tarif-card.featured .tarif-desc{color:rgba(255,255,255,.6);}
+.tarif-card.featured .tarif-feat{color:rgba(255,255,255,.7);}
+.tarif-card.featured .tarif-feat::before{background:var(--gold);}
+.tarif-card.featured .tarif-divider{background:rgba(255,255,255,.12);}
+.tarif-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;}
+.tarif-type{font-size:9px;font-weight:700;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;}
+.tarif-name{font-size:18px;font-weight:700;color:var(--black);letter-spacing:-.4px;}
+.tarif-price{font-size:18px;font-weight:700;color:var(--gold);}
+.tarif-period{font-size:10px;color:var(--g3);margin-top:2px;text-align:right;}
+.tarif-divider{height:1px;background:var(--g2);margin-bottom:12px;}
+.tarif-feats{display:flex;flex-direction:column;gap:7px;margin-bottom:14px;}
+.tarif-desc{font-size:12px;color:var(--g3);margin-bottom:10px;line-height:1.5;}
+.tarif-feat{font-size:12px;color:var(--g3);padding-left:14px;position:relative;line-height:1.5;}
+.tarif-feat::before{content:'';position:absolute;left:0;top:7px;width:5px;height:5px;border-radius:50%;background:var(--navy);}
+.tarif-cta{display:block;background:var(--gold);color:var(--navy);font-size:13px;font-weight:700;padding:12px;border-radius:980px;text-align:center;transition:transform .15s;}
+.tarif-cta:active{transform:scale(.97);}
+
+/* PARCOURS */
+.parcours-list{display:flex;flex-direction:column;}
+.parcours-item{display:flex;gap:14px;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.07);}
+.parcours-item:last-child{border-bottom:none;}
+.p-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0;}
+.p-circle{width:36px;height:36px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:16px;}
+.p-line{width:2px;flex:1;background:rgba(232,160,32,.15);margin-top:6px;}
+.p-info{flex:1;padding-top:6px;}
+.p-year{font-size:9px;font-weight:700;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;}
+.p-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:3px;}
+.p-sub{font-size:12px;color:rgba(255,255,255,.5);line-height:1.6;}
+
+/* OUTILS */
+.tools-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
+.tool-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px 8px;text-align:center;transition:transform .2s,background .2s;}
+.tool-card:hover{transform:translateY(-3px);background:rgba(232,160,32,.1);}
+.tool-icon{font-size:24px;margin-bottom:5px;}
+.tool-name{font-size:9px;font-weight:700;color:rgba(255,255,255,.65);line-height:1.3;}
+
+/* CONTACT */
+.contact-block{background:linear-gradient(135deg,var(--navy-dk),var(--navy));border-radius:var(--r);padding:28px 20px;text-align:center;border:1px solid rgba(232,160,32,.2);}
+.contact-title{font-size:22px;font-weight:700;color:#fff;letter-spacing:-.5px;margin-bottom:8px;}
+.contact-sub{font-size:13px;color:rgba(255,255,255,.6);line-height:1.6;margin-bottom:20px;}
+.contact-items{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
+.contact-item{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.06);border-radius:10px;padding:12px 14px;}
+.contact-icon{font-size:18px;flex-shrink:0;}
+.contact-val{font-size:13px;font-weight:600;color:#fff;text-align:left;}
+.btn-wa{display:block;background:var(--gold);color:var(--navy);font-size:15px;font-weight:700;padding:15px;border-radius:980px;margin-bottom:8px;box-shadow:0 4px 16px rgba(232,160,32,.35);transition:transform .2s;}
+.btn-wa:hover{transform:translateY(-2px);}
+.btn-mail{display:block;background:rgba(255,255,255,.1);color:#fff;font-size:14px;font-weight:600;padding:13px;border-radius:980px;border:1px solid rgba(255,255,255,.15);}
+
+footer{background:var(--navy-dk);padding:28px 20px;text-align:center;border-top:2px solid var(--gold);}
+.footer-copy{font-size:10px;color:rgba(255,255,255,.35);line-height:1.8;}
+
+/* ── ANIMATIONS AVANCÉES ── */
+
+/* Typing cursor sur le titre hero */
+@keyframes cursor{0%,100%{opacity:1;}50%{opacity:0;}}
+
+/* Particules flottantes */
+.particle{position:absolute;border-radius:50%;pointer-events:none;animation:particleFloat linear infinite;}
+@keyframes particleFloat{
+  0%{transform:translateY(100vh) rotate(0deg);opacity:0;}
+  10%{opacity:1;}
+  90%{opacity:1;}
+  100%{transform:translateY(-100px) rotate(720deg);opacity:0;}
+}
+
+/* Shimmer sur les KPI cards */
+.kpi-card{position:relative;overflow:hidden;}
+.kpi-card::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.08) 50%,transparent 60%);
+  background-size:200% 100%;
+  animation:shimmer 3s infinite;
+}
+@keyframes shimmer{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
+
+/* Glow sur les work-cards au hover */
+.work-card::before{
+  content:'';position:absolute;inset:0;border-radius:var(--r);
+  background:linear-gradient(135deg,rgba(232,160,32,.06),rgba(26,60,94,.06));
+  opacity:0;transition:opacity .3s;pointer-events:none;
+}
+.work-card{position:relative;}
+.work-card:hover::before{opacity:1;}
+
+/* Pulse sur le float WA */
+#float-wa::before{
+  content:'';position:absolute;inset:-4px;border-radius:50%;
+  background:var(--gold);opacity:.3;
+  animation:waPulse 2s ease-in-out infinite;
+}
+@keyframes waPulse{0%,100%{transform:scale(1);opacity:.3;}50%{transform:scale(1.3);opacity:0;}}
+
+/* Slide-in depuis la gauche pour parcours */
+.parcours-item{transition:transform .5s cubic-bezier(.22,1,.36,1),opacity .5s;}
+.parcours-item.on{transform:translateX(0)!important;opacity:1!important;}
+
+/* Stagger cards */
+.skill-card:nth-child(1){transition-delay:.05s;}
+.skill-card:nth-child(2){transition-delay:.1s;}
+.skill-card:nth-child(3){transition-delay:.15s;}
+.skill-card:nth-child(4){transition-delay:.2s;}
+.skill-card:nth-child(5){transition-delay:.25s;}
+.skill-card:nth-child(6){transition-delay:.3s;}
+
+.work-card:nth-child(1){transition-delay:.05s;}
+.work-card:nth-child(2){transition-delay:.1s;}
+.work-card:nth-child(3){transition-delay:.15s;}
+.work-card:nth-child(4){transition-delay:.2s;}
+.work-card:nth-child(5){transition-delay:.25s;}
+.work-card:nth-child(6){transition-delay:.3s;}
+.work-card:nth-child(7){transition-delay:.35s;}
+.work-card:nth-child(8){transition-delay:.4s;}
+
+.kpi-card:nth-child(1){transition-delay:.05s;}
+.kpi-card:nth-child(2){transition-delay:.1s;}
+.kpi-card:nth-child(3){transition-delay:.15s;}
+.kpi-card:nth-child(4){transition-delay:.2s;}
+.kpi-card:nth-child(5){transition-delay:.25s;}
+.kpi-card:nth-child(6){transition-delay:.3s;}
+
+.testi-card:nth-child(1){transition-delay:.05s;}
+.testi-card:nth-child(2){transition-delay:.1s;}
+.testi-card:nth-child(3){transition-delay:.15s;}
+.testi-card:nth-child(4){transition-delay:.2s;}
+
+/* Bounce sur les tool-cards */
+.tool-card{animation:none;}
+.tool-card:hover .tool-icon{animation:bounce .4s cubic-bezier(.22,1,.36,1);}
+@keyframes bounce{0%{transform:scale(1);}40%{transform:scale(1.3);}70%{transform:scale(.9);}100%{transform:scale(1);}}
+
+/* Gradient animé sur le gold-bar */
+.gold-bar{background:linear-gradient(90deg,var(--navy),var(--gold),var(--navy));background-size:200% 100%;animation:barShift 3s ease infinite;}
+@keyframes barShift{0%,100%{background-position:0% 0;}50%{background-position:100% 0;}}
+
+/* Avatar hero pulse ring */
+.hero-avatar::after{
+  content:'';position:absolute;inset:-8px;border-radius:50%;
+  border:2px solid rgba(232,160,32,.3);
+  animation:avatarRing 2.5s ease-in-out infinite;
+}
+.hero-avatar{position:relative;}
+@keyframes avatarRing{0%,100%{transform:scale(1);opacity:.5;}50%{transform:scale(1.15);opacity:.1;}}
+
+/* Ripple sur les boutons */
+.btn-p,.btn-s,.tarif-cta,.work-action,.nav-cta{position:relative;overflow:hidden;}
+.ripple-fx{
+  position:absolute;border-radius:50%;
+  background:rgba(255,255,255,.25);
+  width:0;height:0;
+  transform:translate(-50%,-50%);
+  animation:ripple .6s ease forwards;
+  pointer-events:none;
+}
+@keyframes ripple{to{width:200px;height:200px;opacity:0;}}
+
+/* Hover slide sur les tarif-feat */
+.tarif-feat{transition:transform .2s,color .2s;}
+.tarif-feat:hover{transform:translateX(6px);color:var(--navy);}
+.tarif-card.featured .tarif-feat:hover{color:var(--gold);}
+
+/* Glow cursor sur le hero */
+.hero-cursor{
+  position:absolute;width:300px;height:300px;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,160,32,.08),transparent 70%);
+  pointer-events:none;transform:translate(-50%,-50%);
+  transition:left .1s,top .1s;z-index:1;
+}
+</style>
+</head>
+<body>
+
+<div id="loader"><div class="loader-logo">R</div><div class="loader-bar"><div class="loader-fill"></div></div><div class="loader-text">Chargement du portfolio…</div></div>
+<div id="progress"><div id="progress-fill"></div></div>
+<a id="float-wa" href="https://wa.me/2250715734985?text=Bonjour%20Robert%2C%20j%27ai%20consult%C3%A9%20votre%20portfolio%20et%20souhaite%20collaborer." target="_blank" rel="noopener noreferrer">💬</a>
+
+<nav style="position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,.07);height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;">
+  <a href="index.html" style="display:flex;align-items:center;gap:8px;text-decoration:none;">
+    <div style="width:28px;height:28px;background:#1A3C5E;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#E8A020;">H</div>
+    <span style="font-size:13px;font-weight:700;color:#1d1d1f;letter-spacing:-.3px;">Hkr-Studio AI</span>
+  </a>
+  <div style="display:flex;align-items:center;gap:5px;overflow-x:auto;scrollbar-width:none;">
+    <a href="index.html" style="font-size:11px;font-weight:600;color:#1d1d1f;padding:6px 11px;border-radius:20px;background:#f5f5f7;border:1px solid #e8e8ed;">🏠</a><a href="about.html" style="font-size:11px;font-weight:600;color:#1d1d1f;padding:6px 11px;border-radius:20px;background:#f5f5f7;border:1px solid #e8e8ed;">À propos</a><a href="etude-de-cas.html" style="font-size:11px;font-weight:600;color:#1d1d1f;padding:6px 11px;border-radius:20px;background:#f5f5f7;border:1px solid #e8e8ed;">Cas clients</a><a href="tarifs-ia.html" style="font-size:11px;font-weight:600;color:#1d1d1f;padding:6px 11px;border-radius:20px;background:#f5f5f7;border:1px solid #e8e8ed;">🤖 IA</a><a href="portfolio.html" style="font-size:11px;font-weight:700;color:#1A3C5E;padding:6px 11px;border-radius:20px;background:#E8A020;">Portfolio</a><a href="contact.html" style="font-size:11px;font-weight:600;color:#1d1d1f;padding:6px 11px;border-radius:20px;background:#f5f5f7;border:1px solid #e8e8ed;">Contact</a>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div>
+  <div class="hero-badge"><div class="hero-badge-dot"></div><span>Abidjan · Cocody Riviera 3 · Côte d'Ivoire</span></div>
+  <div class="hero-avatar">H</div>
+  <div class="hero-title">Vidéaste · Designer · Développeur · Expert IA</div>
+  <h1>KPOGUE HODONOU<br><em>ROBERT</em></h1>
+  <p class="hero-sub">Entrepreneur digital, fondateur de Hkr-Studio AI. Je crée des contenus vidéo percutants, des identités visuelles mémorables et des solutions digitales sur mesure pour les entreprises africaines.</p>
+  <div class="hero-chips">
+    <span class="chip">🎬 Montage vidéo</span>
+    <span class="chip">🎨 Design graphique</span>
+    <span class="chip">🌐 Développement web</span>
+    <span class="chip">🤖 Intelligence artificielle</span>
+    <span class="chip">📱 Community Management</span>
+    <span class="chip">📊 Finance & Gestion</span>
+  </div>
+  <div class="hero-stats">
+    <div class="hstat"><div class="hstat-val">6+</div><div class="hstat-lab">Expertises</div></div>
+    <div class="hstat"><div class="hstat-val">12</div><div class="hstat-lab">Agents IA</div></div>
+    <div class="hstat"><div class="hstat-val">58</div><div class="hstat-lab">Services</div></div>
+    <div class="hstat"><div class="hstat-val">360°</div><div class="hstat-lab">Digital</div></div>
+  </div>
+  <div class="hero-btns">
+    <a href="#realisations" class="btn-p">Voir mes réalisations</a>
+    <a href="#contact" class="btn-s">Me contacter</a>
+  </div>
+</section><section style="background:#1A3C5E;padding:20px 24px;">
+  <div style="max-width:600px;margin:0 auto;display:flex;justify-content:space-around;flex-wrap:wrap;gap:12px;">
+    <div style="text-align:center;"><div style="font-size:18px;font-weight:700;color:#E8A020;">58</div><div style="font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;">Services</div></div>
+    <div style="text-align:center;"><div style="font-size:18px;font-weight:700;color:#E8A020;">12</div><div style="font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;">Agents IA</div></div>
+    <div style="text-align:center;"><div style="font-size:18px;font-weight:700;color:#E8A020;">24/7</div><div style="font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;">Disponible</div></div>
+    <div style="text-align:center;"><div style="font-size:18px;font-weight:700;color:#E8A020;">7j</div><div style="font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;">Livraison</div></div>
+  </div>
+</section>
+
+<!-- ══ CHIFFRES CLÉS ══ -->
+<section class="sec-full sec-navy">
+  <div class="sec" style="padding:0;">
+    <div class="eyebrow reveal" style="color:var(--gold);">Impact</div>
+    <h2 class="sec-title lt reveal">En <span class="g">chiffres</span></h2>
+    <div class="gold-bar reveal"></div>
+    <div class="kpi-grid">
+      <div class="kpi-card reveal reveal-d1"><div class="kpi-val">14 000+</div><div class="kpi-label">Paragraphes de documentation stratégique produits</div></div>
+      <div class="kpi-card reveal reveal-d2"><div class="kpi-val">58</div><div class="kpi-label">Services digitaux disponibles sur 12 départements</div></div>
+      <div class="kpi-card reveal reveal-d3"><div class="kpi-val">12</div><div class="kpi-label">Agents IA conçus et documentés (HKR AI Suite)</div></div>
+      <div class="kpi-card reveal reveal-d1"><div class="kpi-val">13</div><div class="kpi-label">Templates sites web HTML produits (6 secteurs)</div></div>
+      <div class="kpi-card reveal reveal-d2"><div class="kpi-val">9</div><div class="kpi-label">Formats livrés par projet (PDF, SVG, PNG, HTML…)</div></div>
+      <div class="kpi-card reveal reveal-d3"><div class="kpi-val">24/7</div><div class="kpi-label">Disponibilité des agents IA commerciaux</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ COMPÉTENCES ══ -->
+<section class="sec-full sec-gray">
+  <div class="sec" style="padding:0;">
+    <div class="eyebrow reveal">Expertises</div>
+    <h2 class="sec-title reveal">Mes <span class="g">compétences</span></h2>
+    <div class="gold-bar reveal"></div>
+    <p class="sec-sub reveal">6 domaines maîtrisés, des outils concrets, des résultats mesurables.</p>
+    <div class="skills-grid">
+      <div class="skill-card reveal reveal-d1">
+        <div class="skill-icon">🎬</div>
+        <div class="skill-name">Vidéo & Montage</div>
+        <div class="skill-tools"><span class="tool-tag">CapCut</span><span class="tool-tag">Canva Video</span><span class="tool-tag">IA Vidéo</span></div>
+        <div class="skill-bar-wrap"><div class="skill-bar-label"><span>Maîtrise</span><span>Opérationnel</span></div><div class="skill-bar"><div class="skill-fill" data-width="82"></div></div></div>
+      </div>
+      <div class="skill-card reveal reveal-d2">
+        <div class="skill-icon">🎨</div>
+        <div class="skill-name">Design & Infographie</div>
+        <div class="skill-tools"><span class="tool-tag">Canva</span><span class="tool-tag">SVG</span><span class="tool-tag">Figma</span></div>
+        <div class="skill-bar-wrap"><div class="skill-bar-label"><span>Maîtrise</span><span>Avancé</span></div><div class="skill-bar"><div class="skill-fill" data-width="88"></div></div></div>
+      </div>
+      <div class="skill-card reveal reveal-d1">
+        <div class="skill-icon">🌐</div>
+        <div class="skill-name">Développement Web</div>
+        <div class="skill-tools"><span class="tool-tag">HTML</span><span class="tool-tag">CSS</span><span class="tool-tag">JavaScript</span></div>
+        <div class="skill-bar-wrap"><div class="skill-bar-label"><span>Maîtrise</span><span>Avancé</span></div><div class="skill-bar"><div class="skill-fill" data-width="85"></div></div></div>
+      </div>
+      <div class="skill-card reveal reveal-d2">
+        <div class="skill-icon">🤖</div>
+        <div class="skill-name">Intelligence Artificielle</div>
+        <div class="skill-tools"><span class="tool-tag">IA HKR</span><span class="tool-tag">notre moteur d'automatisation</span><span class="tool-tag">Prompt Eng.</span></div>
+        <div class="skill-bar-wrap"><div class="skill-bar-label"><span>Maîtrise</span><span>Expert</span></div><div class="skill-bar"><div class="skill-fill" data-width="92"></div></div></div>
+      </div>
+      <div class="skill-card reveal reveal-d1">
+        <div class="skill-icon">📊</div>
+        <div class="skill-name">Finance & Gestion</div>
+        <div class="skill-tools"><span class="tool-tag">Comptabilité</span><span class="tool-tag">BTS FCG</span><span class="tool-tag">Analyse</span></div>
+        <div class="skill-bar-wrap"><div class="skill-bar-label"><span>Maîtrise</span><span>Expert</span></div><div class="skill-bar"><div class="skill-fill" data-width="95"></div></div></div>
+      </div>
+      <div class="skill-card reveal reveal-d2">
+        <div class="skill-icon">📱</div>
+        <div class="skill-name">Community Management</div>
+        <div class="skill-tools"><span class="tool-tag">Instagram</span><span class="tool-tag">LinkedIn</span><span class="tool-tag">TikTok</span></div>
+        <div class="skill-bar-wrap"><div class="skill-bar-label"><span>Maîtrise</span><span>Avancé</span></div><div class="skill-bar"><div class="skill-fill" data-width="80"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ RÉALISATIONS ══ -->
+<section class="sec-full" id="realisations">
+  <div class="sec" style="padding:0;">
+    <div class="eyebrow reveal">Portfolio</div>
+    <h2 class="sec-title reveal">Mes <span class="g">réalisations</span></h2>
+    <div class="gold-bar reveal"></div>
+    <p class="sec-sub reveal">8 projets concrets réalisés pour Hkr-Studio AI et ses partenaires. Chaque livrable est accompagné de son contexte, ses livrables et son impact mesurable.</p>
+    <div class="works-list">
+
+      <!-- 1 — VIDÉO -->
+      <div class="work-card reveal">
+        <div class="work-banner" style="background:linear-gradient(135deg,#1A3C5E,#0D2137);">🎬<div class="work-banner-label">VIDÉO & MOTION DESIGN</div><div class="work-banner-type">CapCut · Canva Video</div></div>
+        <div class="work-info">
+          <div class="work-meta"><span class="work-client">Hkr-Studio AI</span><span class="work-date">📅 Juin 2025</span></div>
+          <div class="work-title">Série de 4 Affiches Animées — Réseaux Sociaux</div>
+          <div class="work-desc">Conception et animation d'une série de 4 affiches format carré 1:1 pour la communication digitale de Hkr-Studio AI. Chaque affiche cible un service clé de l'agence avec un message percutant, des animations fluides et une identité visuelle cohérente sur tous les réseaux.</div>
+          <div class="work-deliverables">
+            <div class="work-del-item"><div class="work-del-dot"></div>Affiche 1 — Présentation générale (fond bleu marine, grille dorée)</div>
+            <div class="work-del-item"><div class="work-del-dot"></div>Affiche 2 — Service Infographie (fond or, contraste inversé)</div>
+            <div class="work-del-item"><div class="work-del-dot"></div>Affiche 3 — Community Management (grille géométrique, métriques)</div>
+            <div class="work-del-item"><div class="work-del-dot"></div>Affiche 4 — Offre Pack 360° (composition diagonale bleu/or)</div>
+          </div>
+          <div class="work-result"><span class="work-result-icon">📈</span><span class="work-result-text">Visuels immédiatement publiables sur Instagram, Facebook, LinkedIn et TikTok sans retouche supplémentaire. Temps de production : 1 journée.</span></div>
+          <div class="work-tags"><span class="work-tag">Motion Design</span><span class="work-tag">Format 1:1</span><span class="work-tag">4 réseaux</span><span class="work-tag">Identité visuelle</span></div>
+          <a href="https://wa.me/2250715734985?text=Bonjour%20Robert%2C%20je%20souhaite%20des%20visuels%20anim%C3%A9s%20pour%20mes%20r%C3%A9seaux%20sociaux." target="_blank" rel="noopener noreferrer" class="work-action">💬 Commander ce type de contenu</a>
+        </div>
+      </div>
+
+      <!-- 2 — KIT LOGO -->
+      <div class="work-card reveal">
+        <div class="work-banner" style="background:linear-gradient(135deg,#E8A020,#B8860B);">🎨<div class="work-banner-label">DESIGN & BRANDING</div><div class="work-banner-type">SVG · PDF · PNG · Kit complet</div></div>
+        <div class="work-info">
+          <div class="work-meta"><span class="work-client">Hkr-Studio AI</span><span class="work-date">📅 Juin 2025</span></div>
+          <div class="work-title">Kit Logo Officiel 9 Fichiers — Hkr-Studio AI</div>
+          <div class="work-desc">Création complète de l'identité visuelle officielle de Hkr-Studio AI. Concept : icône "H" blanc centré dans un carré bleu marine aux bords arrondis, logotype "Hkr-Studio AI" avec "AI" en or, tagline "Votre Partenaire Digital 360°". Livré en kit multi-format professionnel selon le standard HKR.</div>
+          <div class="work-deliverables">
+            <div class="work-del-item"><div class="work-del-dot"></div>PDF 4 pages — Guide d'utilisation, variantes, charte couleurs, règles usage</div>
+            <div class="work-del-item"><div class="work-del-dot"></div>SVG vectoriel fond blanc (qualité infinie, imprimable)</div>
+            <div class="work-del-item"><div class="work-del-dot"></div>SVG vectoriel fond sombre (pour affiches et fond noir)</div>
+            <div class="work-del-item"><div class="work-del-dot"></div>PNG 1000px fond blanc + PNG 1000px fond sombre</div>
+            <div class="work-del-item"><div class="work-del-dot"></div>Icône H seule — PNG 500px bleu + PNG 500px or (avatar RS)</div>
+          </div>
+          <div class="work-result"><span class="work-result-icon">✅</span><span class="work-result-text">Palette officielle : Bleu marine #1A3C5E · Or #E8A020 · Blanc #FFFFFF · Texte #1d1d1f. Utilisable immédiatement par l'imprimeur, Canva, Word, PowerPoint.</span></div>
+          <div class="work-tags"><span class="work-tag">Logo</span><span class="work-tag">Charte graphique</span><span class="work-tag">9 fichiers</span><span class="work-tag">Vectoriel</span><span class="work-tag">Imprimeur</span></div>
+          <a href="https://wa.me/2250715734985?text=Bonjour%20Robert%2C%20je%20souhaite%20un%20kit%20logo%20complet%20pour%20mon%20entreprise." target="_blank" rel="noopener noreferrer" class="work-action">💬 Commander un kit logo</a>
+        </div>
+      </div>
+
+      <!-- 3 — CATALOGUE WEB -->
+      <div class="work-card reveal">
+        <div class="work-banner" style="background:linear-gradient(135deg,#0D2137,#1A3C5E);">🌐<div class="work-banner-label">DÉVELOPPEMENT WEB</div><div class="work-banner-type">HTML · CSS · JS · GitHub Pages</div></div>
+        <div class="work-info">
+          <div class="work-meta"><span class="work-client">Hkr-Studio AI</span><span class="work-date">📅 Juin 2025</span></div>
+          <div class="work-title">Catalogue Services Interactif Style Apple — Hkr-Studio AI</div>
+          <div class="work-desc">Développement from scratch d'un catalogue digital complet en HTML/CSS/JS pur, sans framework externe. Design inspiré de l'interface Apple : blanc dominant, typographie SF Pro, espaces généreux, animations fluides. Déployé en production sur GitHub Pages.</div>
+          <div class="work-deliverables">
+            <div class="work-del-item"><div class="work-del-dot"></div>12 départements · 58 services · 4 packs tarifaires en FCFA</div>
+            <div class="work-del-item"><div class="work-del-dot"></div>Animations : loader, scroll reveal, compteurs, orbes flottantes</div>
+            <div class="work-del-item"><div class="work-del-dot"></div>Accordéons dynamiques, navigation sticky, barre de progression</div>
+            <div class="work-del-item"><div class="work-del-dot"></div>Bouton WhatsApp flottant, 8 liens actifs vers numéro +225 07 15 73 49 85</div>
+            <div class="work-del-item"><div class="work-del-dot"></div>100% responsive mobile · Compatible tous navigateurs</div>
+          </div>
+          <div class="work-result"><span class="work-result-icon">🚀</span><span class="work-result-text">Déployé en production sur GitHub Pages. URL publique stable et permanente. QR code intégré sur carte de visite pour accès direct depuis un smartphone.</span></div>
+          <div class="work-tags"><span class="work-tag">Site web</span><span class="work-tag">Apple Design</span><span class="work-tag">Animations</span><span class="work-tag">Mobile-first</span><span class="work-tag">En ligne</span></div>
+          <a href="https://hkrstudioai.github.io" target="_blank" rel="noopener noreferrer" class="work-action">🌐 Voir le site en ligne →</a>
+        </div>
+      </div>
+
+      <!-- 4 — HKR AI SUITE -->
+      <div class="work-card reveal">
+        <div class="work-banner" style="background:linear-gradient(135deg,#312E81,#5B21B6);">🤖<div class="work-banner-label">INTELLIGENCE ARTIFICIELLE</div><div class="work-banner-type">IA HKR · notre moteur d'automatisation · AILAB-7</div></div>
+        <div class="work-info">
+          <div class="work-meta"><span class="work-client">Hkr-Studio AI</span><span class="work-date">📅 Juin 2025</span></div>
+          <div class="work-title">HKR AI Suite — 12 Agents IA Métier Documentés</div>
+          <div class="work-desc">Conception et documentation complète d'une suite de 12 agents IA spécialisés selon la méthodologie propriétaire AILAB-7 (7 étapes : fondations, architecture, prompt, connexions, tests, déploiement, monitoring). Chaque agent est une pièce d'un système intégré qui fait tourner l'agence automatiquement.</div>
+          <div class="work-deliverables">
+            <div class="work-del-item"><div class="work-del-dot"></div>Agent 01 Commercial — Répond aux leads WhatsApp en &lt;5 min, 24h/24</div>
+            <div class="work-del-item"><div class="work-del-dot"></div>Agent 02 CRM — Onboarding, santé client, upsell, NPS automatique</div>
+            <div class="work-del-item"><div class="work-del-dot"></div>Agent 03 Chef de Projet — Planning, jalons, rapports d'avancement</div>
+            <div class="work-del-item"><div class="work-del-dot"></div>Agents 04-12 — Designer, Dev Web, CM, IA, Marketing, VIP, QA, Support, Admin</div>
+            <div class="work-del-item"><div class="work-del-dot"></div>Guide de conception AILAB-7 + document HTML interactif</div>
+          </div>
+          <div class="work-result"><span class="work-result-icon">⚡</span><span class="work-result-text">Système capable d'automatiser 80% des tâches répétitives d'une agence. Zéro lead perdu. Réponse commerciale en moins de 5 minutes, même la nuit.</span></div>
+          <div class="work-tags"><span class="work-tag">12 Agents IA</span><span class="work-tag">IA HKR</span><span class="work-tag">notre moteur d'automatisation</span><span class="work-tag">AILAB-7</span><span class="work-tag">WhatsApp 24/7</span></div>
+          <a href="https://wa.me/2250715734985?text=Bonjour%20Robert%2C%20je%20souhaite%20un%20agent%20IA%20pour%20mon%20entreprise." target="_blank" rel="noopener noreferrer" class="work-action">💬 Demander un agent IA</a>
+        </div>
+      </div>
+
+      <!-- 5 — BOS -->
+      <div class="work-card reveal">
+        <div class="work-banner" style="background:linear-gradient(135deg,#1A5C38,#0F3B22);">📋<div class="work-banner-label">STRATÉGIE D'ENTREPRISE</div><div class="work-banner-type">BOS · KMS · Sales System · CES</div></div>
+        <div class="work-info">
+          <div class="work-meta"><span class="work-client">Hkr-Studio AI</span><span class="work-date">📅 Mai–Juin 2025</span></div>
+          <div class="work-title">Système d'Exploitation Complet — Hkr-Studio AI (14 000+ §)</div>
+          <div class="work-desc">Rédaction du système d'exploitation intégral de l'agence. Un ensemble de documents stratégiques interconnectés qui permettent à Hkr-Studio AI de fonctionner comme une machine structurée, scalable et performante — même en l'absence du fondateur.</div>
+          <div class="work-deliverables">
+            <div class="work-del-item"><div class="work-del-dot"></div>BOS — Vision, mission, valeurs, organigramme, processus, KPI par département</div>
+            <div class="work-del-item"><div class="work-del-dot"></div>KMS — Base de connaissances, SOP, arborescence Drive, REX, capitalisation</div>
+            <div class="work-del-item"><div class="work-del-dot"></div>Sales System — Pipeline 9 étapes, scripts BANT+, relances 21 jours, CRM Sheets</div>
+            <div class="work-del-item"><div class="work-del-dot"></div>CES — Parcours client, onboarding J+0 à J+14, NPS, programme ambassadeur</div>
+            <div class="work-del-item"><div class="work-del-dot"></div>Plan d'Automatisation — Architecture digitale, roadmap 18 mois, ROI estimé</div>
+          </div>
+          <div class="work-result"><span class="work-result-icon">📊</span><span class="work-result-text">Plus de 14 000 paragraphes de documentation stratégique. 11 documents Word professionnels. Base qui peut être adaptée pour n'importe quelle PME ivoirienne.</span></div>
+          <div class="work-tags"><span class="work-tag">BOS</span><span class="work-tag">KMS</span><span class="work-tag">Sales System</span><span class="work-tag">14 000+ §</span><span class="work-tag">Scalabilité</span></div>
+          <a href="https://wa.me/2250715734985?text=Bonjour%20Robert%2C%20je%20souhaite%20structurer%20mon%20entreprise%20avec%20un%20BOS." target="_blank" rel="noopener noreferrer" class="work-action">💬 Structurer mon entreprise</a>
+        </div>
+      </div>
+
+      <!-- 6 — CARTE DE VISITE -->
+      <div class="work-card reveal">
+        <div class="work-banner" style="background:linear-gradient(135deg,#7C2D12,#9A3412);">🃏<div class="work-banner-label">PRINT & IDENTITÉ</div><div class="work-banner-type">PDF Imprimeur · 300 DPI · 85×54mm</div></div>
+        <div class="work-info">
+          <div class="work-meta"><span class="work-client">Hkr-Studio AI</span><span class="work-date">📅 Juin 2025</span></div>
+          <div class="work-title">Carte de Visite Premium 2 Faces — KPOGUE HODONOU ROBERT</div>
+          <div class="work-desc">Conception d'une carte de visite professionnelle haut de gamme, 2 faces, respectant les standards d'impression professionnelle. Chaque face raconte une histoire : la face avant positionne la marque, la face arrière connecte à la personne et au digital.</div>
+          <div class="work-deliverables">
+            <div class="work-del-item"><div class="work-del-dot"></div>Face avant — Logo centré, fond bleu marine, bandes or, cercles décoratifs</div>
+            <div class="work-del-item"><div class="work-del-dot"></div>Face arrière — Nom, titre, téléphone, email, localisation + QR code stylisé</div>
+            <div class="work-del-item"><div class="work-del-dot"></div>Format 85×54mm · Fond perdu 3mm · 300 DPI · Papier 350g couché mat</div>
+            <div class="work-del-item"><div class="work-del-dot"></div>QR code aux couleurs HKR (#1A3C5E) pointant vers le catalogue en ligne</div>
+            <div class="work-del-item"><div class="work-del-dot"></div>Livré en PDF imprimeur + HTML aperçu</div>
+          </div>
+          <div class="work-result"><span class="work-result-icon">🎯</span><span class="work-result-text">Carte prête à envoyer à l'imprimeur. Le QR code ouvre directement le catalogue des 58 services HKR sur le téléphone du contact.</span></div>
+          <div class="work-tags"><span class="work-tag">Print</span><span class="work-tag">300 DPI</span><span class="work-tag">Fond perdu</span><span class="work-tag">QR code</span><span class="work-tag">2 faces</span></div>
+          <a href="https://wa.me/2250715734985?text=Bonjour%20Robert%2C%20je%20souhaite%20une%20carte%20de%20visite%20professionnelle." target="_blank" rel="noopener noreferrer" class="work-action">💬 Commander ma carte de visite</a>
+        </div>
+      </div>
+
+      <!-- 7 — FORMULAIRE FQ-02 -->
+      <div class="work-card reveal">
+        <div class="work-banner" style="background:linear-gradient(135deg,#0D7377,#08484B);">📋<div class="work-banner-label">UX · FORMULAIRE INTERACTIF</div><div class="work-banner-type">HTML · CSS · JS · 7 sections</div></div>
+        <div class="work-info">
+          <div class="work-meta"><span class="work-client">Hkr-Studio AI</span><span class="work-date">📅 Juin 2025</span></div>
+          <div class="work-title">Dossier de Qualification Client FQ-02 — Interactif</div>
+          <div class="work-desc">Formulaire web interactif de pré-qualification client, conçu pour être rempli avant le premier rendez-vous commercial. L'objectif : permettre à Hkr-Studio AI d'arriver préparé à chaque consultation, avec une solution déjà adaptée au profil du prospect.</div>
+          <div class="work-deliverables">
+            <div class="work-del-item"><div class="work-del-dot"></div>Section 1 — Entreprise (nom, secteur, nombre d'employés)</div>
+            <div class="work-del-item"><div class="work-del-dot"></div>Section 2 — Besoin (service, défi en 3-5 lignes, coût du problème)</div>
+            <div class="work-del-item"><div class="work-del-dot"></div>Section 3 — Timing · Section 4 — Budget (aligné sur les 4 packs HKR)</div>
+            <div class="work-del-item"><div class="work-del-dot"></div>Section 5 — Décision · Section 6 — Expérience digitale</div>
+            <div class="work-del-item"><div class="work-del-dot"></div>Section 7 — Contact (nom, WhatsApp, email, préférence, disponibilités)</div>
+          </div>
+          <div class="work-result"><span class="work-result-icon">💡</span><span class="work-result-text">Barre de progression temps réel, sélection des 12 services par tap, validation champs obligatoires, écran de confirmation animé. Déployé en ligne et lié au catalogue.</span></div>
+          <div class="work-tags"><span class="work-tag">Formulaire</span><span class="work-tag">7 sections</span><span class="work-tag">Qualification</span><span class="work-tag">UX mobile</span><span class="work-tag">En ligne</span></div>
+          <a href="https://hkrstudioai.github.iodossier-client" target="_blank" rel="noopener noreferrer" class="work-action">🌐 Voir le formulaire en ligne →</a>
+        </div>
+      </div>
+
+      <!-- 8 — TEMPLATES HTML -->
+      <div class="work-card reveal">
+        <div class="work-banner" style="background:linear-gradient(135deg,#1C3144,#254460);">🏗️<div class="work-banner-label">BIBLIOTHÈQUE TEMPLATES WEB</div><div class="work-banner-type">6 secteurs · 13 templates · Variables</div></div>
+        <div class="work-info">
+          <div class="work-meta"><span class="work-client">Hkr-Studio AI — Usage clients</span><span class="work-date">📅 Juillet 2025</span></div>
+          <div class="work-title">13 Templates HTML Sectoriels — Bibliothèque Réutilisable</div>
+          <div class="work-desc">Développement d'une bibliothèque complète de templates HTML professionnels, chacun conçu pour un secteur précis avec ses codes visuels, ses sections métier et ses appels à l'action adaptés. Chaque template utilise des variables {{VARIABLE}} pour une personnalisation rapide lors de la livraison client.</div>
+          <div class="work-deliverables">
+            <div class="work-del-item"><div class="work-del-dot"></div>ONG & Association — Site vitrine vert + landing page campagne don</div>
+            <div class="work-del-item"><div class="work-del-dot"></div>Institution & École — Vitrine + landing candidature (countdown intégré)</div>
+            <div class="work-del-item"><div class="work-del-dot"></div>Commerce & Boutique — Vitrine + landing promo (timer) + e-commerce panier</div>
+            <div class="work-del-item"><div class="work-del-dot"></div>Cabinet Médical — Vitrine teal + landing prise de RDV</div>
+            <div class="work-del-item"><div class="work-del-dot"></div>Restaurant — Vitrine brun-rouge + landing commande rapide</div>
+            <div class="work-del-item"><div class="work-del-dot"></div>Immobilier — Vitrine prestige or + landing estimation gratuite</div>
+          </div>
+          <div class="work-result"><span class="work-result-icon">⚡</span><span class="work-result-text">Temps de livraison d'un site client réduit à 24-48h grâce aux templates. Chaque template est mobile-first, animé, avec signature HKR et bouton WhatsApp actif.</span></div>
+          <div class="work-tags"><span class="work-tag">13 templates</span><span class="work-tag">6 secteurs</span><span class="work-tag">Variables</span><span class="work-tag">Mobile-first</span><span class="work-tag">Animé</span></div>
+          <a href="https://wa.me/2250715734985?text=Bonjour%20Robert%2C%20je%20souhaite%20un%20site%20web%20pour%20mon%20entreprise." target="_blank" rel="noopener noreferrer" class="work-action">💬 Commander mon site web</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ TÉMOIGNAGES ══ -->
+<section class="sec-full sec-gray">
+  <div class="sec" style="padding:0;">
+    <div class="eyebrow reveal">Références</div>
+    <h2 class="sec-title reveal">Ce qu'on dit <span class="g">de moi</span></h2>
+    <div class="gold-bar reveal"></div>
+    <div class="testi-list">
+      <div class="testi-card reveal">
+        <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+        <div class="testi-text">"Robert a transformé la présence digitale de notre structure en un temps record. Son catalogue web, son design et sa maîtrise des outils IA sont impressionnants. Un vrai professionnel qui comprend les besoins africains."</div>
+        <div class="testi-author"><div class="testi-avatar">DK</div><div><div class="testi-name">Directeur Kouassi</div><div class="testi-role">Responsable — ONG Éducation, Abidjan</div></div></div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+        <div class="testi-text">"Ce qui m'a surpris, c'est la qualité du kit livré : logo en SVG, PDF multi-pages, charte complète. On sent qu'il y a une vraie méthodologie derrière. Je recommande Robert les yeux fermés pour toute création digitale."</div>
+        <div class="testi-author"><div class="testi-avatar">SN</div><div><div class="testi-name">Sandra N.</div><div class="testi-role">Gérante — Boutique Mode, Cocody</div></div></div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+        <div class="testi-text">"Le site qu'il a développé pour notre cabinet s'affiche parfaitement sur mobile, les animations sont soignées et le bouton de prise de rendez-vous WhatsApp fonctionne immédiatement. Très satisfait du résultat."</div>
+        <div class="testi-author"><div class="testi-avatar">DM</div><div><div class="testi-name">Dr. Moussa</div><div class="testi-role">Médecin — Cabinet Médical, Plateau</div></div></div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+        <div class="testi-text">"Robert a réalisé le montage de nos vidéos promotionnelles avec CapCut et Canva. Le rendu est professionnel, dynamique, et nos posts ont généré 3x plus d'engagement depuis. Je lui confie maintenant tout notre contenu vidéo."</div>
+        <div class="testi-author"><div class="testi-avatar">AK</div><div><div class="testi-name">Adjoua K.</div><div class="testi-role">Community Manager — Restaurant Abidjan</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TARIFS FREELANCE ══ -->
+<section class="sec-full">
+  <div class="sec" style="padding:0;">
+    <div class="eyebrow reveal">Freelance</div>
+    <h2 class="sec-title reveal">Mes <span class="g">tarifs</span></h2>
+    <div class="gold-bar reveal"></div>
+    <p class="sec-sub reveal">Tarifs en FCFA. Devis personnalisé gratuit pour tout projet spécifique.</p>
+    <div class="tarifs-list">
+      <div class="tarif-card reveal">
+        <div class="tarif-head">
+          <div><div class="tarif-type">VIDÉO & MONTAGE</div><div class="tarif-name">Contenu Vidéo</div></div>
+          <div><div class="tarif-price">15K – 80K</div><div class="tarif-period">FCFA / vidéo</div></div>
+        </div>
+        <div class="tarif-divider"></div>
+        <div class="tarif-desc">Montage de vidéos promotionnelles, reels, stories, vidéos institutionnelles.</div>
+        <div class="tarif-feats">
+          <div class="tarif-feat">Reel / Story RS (30-60s) — 15 000 FCFA</div>
+          <div class="tarif-feat">Vidéo promo courte (1-3 min) — 35 000 FCFA</div>
+          <div class="tarif-feat">Vidéo institutionnelle (3-5 min) — 80 000 FCFA</div>
+          <div class="tarif-feat">Sous-titres + musique + effets inclus</div>
+        </div>
+        <a href="https://wa.me/2250715734985" target="_blank" rel="noopener noreferrer" class="tarif-cta">Demander un devis →</a>
+      </div>
+      <div class="tarif-card featured reveal">
+        <div class="tarif-head">
+          <div><div class="tarif-type">⭐ LE PLUS DEMANDÉ</div><div class="tarif-name">Pack Contenu Mensuel</div></div>
+          <div><div class="tarif-price">150K – 300K</div><div class="tarif-period">FCFA / mois</div></div>
+        </div>
+        <div class="tarif-divider"></div>
+        <div class="tarif-desc">Création et gestion complète de votre contenu digital mensuel.</div>
+        <div class="tarif-feats">
+          <div class="tarif-feat">8 à 15 vidéos/reels par mois</div>
+          <div class="tarif-feat">20 à 30 visuels graphiques</div>
+          <div class="tarif-feat">Gestion RS (publication + captions)</div>
+          <div class="tarif-feat">Rapport de performance mensuel</div>
+        </div>
+        <a href="https://wa.me/2250715734985" target="_blank" rel="noopener noreferrer" class="tarif-cta">Choisir ce pack →</a>
+      </div>
+      <div class="tarif-card reveal">
+        <div class="tarif-head">
+          <div><div class="tarif-type">DESIGN & BRANDING</div><div class="tarif-name">Identité Visuelle</div></div>
+          <div><div class="tarif-price">50K – 200K</div><div class="tarif-period">FCFA / projet</div></div>
+        </div>
+        <div class="tarif-divider"></div>
+        <div class="tarif-desc">Création de logo, charte graphique et supports de communication.</div>
+        <div class="tarif-feats">
+          <div class="tarif-feat">Logo + charte graphique — 80 000 FCFA</div>
+          <div class="tarif-feat">Pack visuels RS (10 templates) — 50 000 FCFA</div>
+          <div class="tarif-feat">Kit complet (logo + charte + RS) — 150 000 FCFA</div>
+          <div class="tarif-feat">Livraison SVG + PDF + PNG</div>
+        </div>
+        <a href="https://wa.me/2250715734985" target="_blank" rel="noopener noreferrer" class="tarif-cta">Demander un devis →</a>
+      </div>
+      <div class="tarif-card reveal">
+        <div class="tarif-head">
+          <div><div class="tarif-type">DÉVELOPPEMENT WEB</div><div class="tarif-name">Site Web</div></div>
+          <div><div class="tarif-price">100K – 500K</div><div class="tarif-period">FCFA / projet</div></div>
+        </div>
+        <div class="tarif-divider"></div>
+        <div class="tarif-desc">Création de sites web professionnels, landing pages et catalogues.</div>
+        <div class="tarif-feats">
+          <div class="tarif-feat">Landing page 1 page — 100 000 FCFA</div>
+          <div class="tarif-feat">Site vitrine 5-8 pages — 250 000 FCFA</div>
+          <div class="tarif-feat">Catalogue interactif animé — 350 000 FCFA</div>
+          <div class="tarif-feat">100% mobile, déployé en ligne</div>
+        </div>
+        <a href="https://wa.me/2250715734985" target="_blank" rel="noopener noreferrer" class="tarif-cta">Demander un devis →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PARCOURS ══ -->
+<section class="sec-full sec-dark">
+  <div class="sec" style="padding:0;">
+    <div class="eyebrow reveal" style="color:var(--gold);">Parcours</div>
+    <h2 class="sec-title lt reveal">Mon <span class="g">histoire</span></h2>
+    <div class="gold-bar reveal"></div>
+    <div class="parcours-list">
+      <div class="parcours-item reveal">
+        <div class="p-left"><div class="p-circle">🎓</div><div class="p-line"></div></div>
+        <div class="p-info"><div class="p-year">Formation académique</div><div class="p-title">BTS Finance, Comptabilité & Gestion d'Entreprise</div><div class="p-sub">Formation supérieure en gestion financière, comptabilité analytique, contrôle de gestion et management des entreprises. Ce socle donne une vision stratégique unique qui distingue mes créations digitales de celles des créatifs purement artistiques.</div></div>
+      </div>
+      <div class="parcours-item reveal">
+        <div class="p-left"><div class="p-circle">💻</div><div class="p-line"></div></div>
+        <div class="p-info"><div class="p-year">Autoformation intensive</div><div class="p-title">Marketing Digital · Design · Développement Web · IA</div><div class="p-sub">Maîtrise progressive des outils du digital : Canva, CapCut, HTML/CSS/JavaScript, prompt engineering avancé sur IA HKR, automatisation notre moteur d'automatisation, community management et stratégie digitale. Chaque compétence acquise par la pratique réelle, pas la théorie seule.</div></div>
+      </div>
+      <div class="parcours-item reveal">
+        <div class="p-left"><div class="p-circle">🚀</div><div class="p-line"></div></div>
+        <div class="p-info"><div class="p-year">Entrepreneuriat</div><div class="p-title">Fondateur & DG — Hkr-Studio AI</div><div class="p-sub">Création de Hkr-Studio AI, studio technologique 360° basé à Abidjan Cocody Riviera. 12 départements, 58 services, équipe de 12 agents IA. Positionnement : rendre le digital accessible, puissant et rentable pour chaque entreprise africaine.</div></div>
+      </div>
+      <div class="parcours-item reveal">
+        <div class="p-left"><div class="p-circle">🤖</div><div class="p-line"></div></div>
+        <div class="p-info"><div class="p-year">Innovation propriétaire</div><div class="p-title">Méthodologie AILAB-7 & HKR AI Suite</div><div class="p-sub">Développement d'une méthodologie propriétaire en 7 étapes pour concevoir des agents IA métier. Création d'une suite de 12 agents IA qui automatisent les fonctions clés d'une agence digitale moderne : acquisition, production, support et finance.</div></div>
+      </div>
+      <div class="parcours-item reveal">
+        <div class="p-left"><div class="p-circle">🎬</div></div>
+        <div class="p-info"><div class="p-year">Création de contenu</div><div class="p-title">Vidéaste · Monteur · Motion Designer</div><div class="p-sub">Production quotidienne de contenus vidéo et animés pour Hkr-Studio AI et ses clients. Maîtrise opérationnelle de CapCut et Canva Video pour créer des reels, vidéos promotionnelles, affiches animées et contenus RS qui génèrent de l'engagement réel.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ OUTILS ══ -->
+<section class="sec-full sec-navy">
+  <div class="sec" style="padding:0;">
+    <div class="eyebrow reveal" style="color:var(--gold);">Stack</div>
+    <h2 class="sec-title lt reveal">Mes <span class="g">outils</span></h2>
+    <div class="gold-bar reveal"></div>
+    <div class="tools-grid reveal">
+      <div class="tool-card"><div class="tool-icon">🎬</div><div class="tool-name">Montage Vidéo</div></div>
+      <div class="tool-card"><div class="tool-icon">🎨</div><div class="tool-name">Design Graphique</div></div>
+      <div class="tool-card"><div class="tool-icon">🤖</div><div class="tool-name">Intelligence IA</div></div>
+      <div class="tool-card"><div class="tool-icon">⚙️</div><div class="tool-name">Automatisation</div></div>
+      <div class="tool-card"><div class="tool-icon">🌐</div><div class="tool-name">Développement Web</div></div>
+      <div class="tool-card"><div class="tool-icon">📊</div><div class="tool-name">CRM & Données</div></div>
+      <div class="tool-card"><div class="tool-icon">📧</div><div class="tool-name">Email Marketing</div></div>
+      <div class="tool-card"><div class="tool-icon">📱</div><div class="tool-name">WhatsApp Business</div></div>
+      <div class="tool-card"><div class="tool-icon">🗂️</div><div class="tool-name">Cloud & Stockage</div></div>
+      <div class="tool-card"><div class="tool-icon">📅</div><div class="tool-name">Planning & Agenda</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section class="sec-full" id="contact">
+  <div class="sec" style="padding:0;">
+    <div class="eyebrow reveal">Contact</div>
+    <h2 class="sec-title reveal">Travaillons <span class="g">ensemble.</span></h2>
+    <div class="gold-bar reveal"></div>
+    <div class="contact-block reveal">
+      <div class="contact-title">Je suis disponible</div>
+      <div class="contact-sub">Pour toute collaboration, prestation freelance ou partenariat — réponse garantie sous 2 heures.</div>
+      <div class="contact-items">
+        <div class="contact-item"><span class="contact-icon">📱</span><span class="contact-val">+225 07 15 73 49 85</span></div>
+        <div class="contact-item"><span class="contact-icon">📧</span><span class="contact-val">hkrstudioai@gmail.com</span></div>
+        <div class="contact-item"><span class="contact-icon">📍</span><span class="contact-val">Abidjan, Cocody Riviera 3, Côte d'Ivoire</span></div>
+        <div class="contact-item"><span class="contact-icon">🌐</span><span class="contact-val">hkrstudioai.github.io</span></div>
+      </div>
+      <a href="https://wa.me/2250715734985?text=Bonjour%20Robert%2C%20j%27ai%20consult%C3%A9%20votre%20portfolio%20et%20je%20souhaite%20collaborer%20avec%20vous." target="_blank" rel="noopener noreferrer" class="btn-wa">💬 Écrire sur WhatsApp</a>
+      <a href="mailto:hkrstudioai@gmail.com?subject=Collaboration%20Freelance%20-%20Portfolio%20Robert" class="btn-mail">📧 Envoyer un email</a>
+    </div>
+  </div>
+</section>
+
+<section style="padding:40px 24px;background:#f5f5f7;">
+  <div style="max-width:600px;margin:0 auto;">
+    <div style="font-size:10px;font-weight:700;color:#E8A020;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;text-align:center;">À explorer aussi</div>
+    <h3 style="font-size:20px;font-weight:700;color:#1A3C5E;text-align:center;margin-bottom:16px;letter-spacing:-.4px;">Continuez votre découverte</h3>
+    <div style="display:flex;flex-direction:column;gap:10px;"><a href="etude-de-cas.html" style="display:flex;align-items:center;gap:12px;background:#fff;border-radius:12px;padding:14px;box-shadow:0 2px 10px rgba(0,0,0,.05);text-decoration:none;border:1px solid #e8e8ed;transition:transform .15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+      <div style="width:40px;height:40px;background:#FFF4E0;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">📊</div>
+      <div><div style="font-size:13px;font-weight:700;color:#1A3C5E;margin-bottom:2px;">Études de cas</div><div style="font-size:11px;color:#6e6e73;">Résultats chiffrés de nos projets</div></div>
+      <div style="margin-left:auto;font-size:16px;color:#E8A020;">›</div>
+    </a><a href="tarifs-ia.html" style="display:flex;align-items:center;gap:12px;background:#fff;border-radius:12px;padding:14px;box-shadow:0 2px 10px rgba(0,0,0,.05);text-decoration:none;border:1px solid #e8e8ed;transition:transform .15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+      <div style="width:40px;height:40px;background:#FFF4E0;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🤖</div>
+      <div><div style="font-size:13px;font-weight:700;color:#1A3C5E;margin-bottom:2px;">Agents IA</div><div style="font-size:11px;color:#6e6e73;">Découvrir la HKR AI Suite</div></div>
+      <div style="margin-left:auto;font-size:16px;color:#E8A020;">›</div>
+    </a><a href="contact.html" style="display:flex;align-items:center;gap:12px;background:#fff;border-radius:12px;padding:14px;box-shadow:0 2px 10px rgba(0,0,0,.05);text-decoration:none;border:1px solid #e8e8ed;transition:transform .15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+      <div style="width:40px;height:40px;background:#FFF4E0;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">💬</div>
+      <div><div style="font-size:13px;font-weight:700;color:#1A3C5E;margin-bottom:2px;">Nous contacter</div><div style="font-size:11px;color:#6e6e73;">Démarrons votre projet</div></div>
+      <div style="margin-left:auto;font-size:16px;color:#E8A020;">›</div>
+    </a></div>
+  </div>
+</section>
+<footer style="background:#0D2137;padding:32px 20px 40px;border-top:3px solid #E8A020;">
+  <div style="max-width:600px;margin:0 auto;text-align:center;">
+    <!-- Logo -->
+    <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:14px;">
+      <div style="width:36px;height:36px;background:#E8A020;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:#1A3C5E;">H</div>
+      <div style="font-size:16px;font-weight:700;color:#fff;letter-spacing:-.3px;">Hkr-Studio <span style="color:#E8A020;">AI</span></div>
+    </div>
+    <div style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:18px;">Votre Partenaire Digital 360°</div>
+    <!-- Navigation footer -->
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:18px;">
+      <a href="index.html" style="font-size:11px;color:rgba(255,255,255,.5);">Catalogue</a>
+      <span style="color:rgba(255,255,255,.2);">·</span>
+      <a href="about.html" style="font-size:11px;color:rgba(255,255,255,.5);">À propos</a>
+      <span style="color:rgba(255,255,255,.2);">·</span>
+      <a href="etude-de-cas.html" style="font-size:11px;color:rgba(255,255,255,.5);">Cas clients</a>
+      <span style="color:rgba(255,255,255,.2);">·</span>
+      <a href="tarifs-ia.html" style="font-size:11px;color:rgba(255,255,255,.5);">Agents IA</a>
+      <span style="color:rgba(255,255,255,.2);">·</span>
+      <a href="portfolio.html" style="font-size:11px;color:rgba(255,255,255,.5);">Portfolio</a>
+      <span style="color:rgba(255,255,255,.2);">·</span>
+      <a href="faq-ia.html" style="font-size:11px;color:rgba(255,255,255,.5);">FAQ</a>
+      <span style="color:rgba(255,255,255,.2);">·</span>
+      <a href="contact.html" style="font-size:11px;color:rgba(255,255,255,.5);">Contact</a>
+    </div>
+    <!-- Contacts -->
+    <div style="display:flex;flex-direction:column;gap:4px;margin-bottom:16px;">
+      <div style="font-size:12px;color:rgba(255,255,255,.6);">📱 +225 07 15 73 49 85 &nbsp;·&nbsp; 📧 hkrstudioai@gmail.com</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.4);">📍 Abidjan, Cocody Riviera 3, Côte d'Ivoire</div>
+    </div>
+    <!-- CTA WhatsApp -->
+    <a href="https://wa.me/2250715734985?text=Bonjour%20Hkr-Studio%20AI%2C%20je%20souhaite%20un%20devis." target="_blank" rel="noopener noreferrer" style="display:inline-block;background:#E8A020;color:#1A3C5E;font-size:13px;font-weight:700;padding:11px 24px;border-radius:980px;margin-bottom:18px;">💬 Écrire sur WhatsApp</a>
+    <!-- Ligne -->
+    <div style="height:1px;background:rgba(255,255,255,.07);margin-bottom:14px;"></div>
+    <!-- Copyright -->
+    <div style="font-size:10px;color:rgba(255,255,255,.25);line-height:1.8;">
+      © 2025 Hkr-Studio AI · Tous droits réservés<br>
+      <span style="font-size:9px;color:rgba(255,255,255,.15);">© Hkr-Studio AI — Abidjan Cocody Riviera, Côte d'Ivoire</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── LOADER ── */
+window.addEventListener('load',()=>setTimeout(()=>document.getElementById('loader').classList.add('hide'),1800));
+
+/* ── SCROLL PROGRESS + FLOAT CTA ── */
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  const pct=(window.scrollY/(h.scrollHeight-h.clientHeight))*100;
+  document.getElementById('progress-fill').style.width=pct+'%';
+  const fw=document.getElementById('float-wa');
+  window.scrollY>400?fw.classList.add('show'):fw.classList.remove('show');
+},{passive:true});
+
+/* ── REVEAL SCROLL ── */
+const obs=new IntersectionObserver(e=>{
+  e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('on');});
+},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+/* ── SKILL BARS ── */
+const bObs=new IntersectionObserver(e=>{
+  e.forEach(el=>{if(el.isIntersecting){const f=el.querySelector('.skill-fill');if(f)f.style.width=f.dataset.width+'%';}});
+},{threshold:0.3});
+document.querySelectorAll('.skill-card').forEach(el=>bObs.observe(el));
+
+/* ── PARCOURS SLIDE LEFT ── */
+document.querySelectorAll('.parcours-item').forEach((el,i)=>{
+  el.style.transform='translateX(-40px)';
+  el.style.opacity='0';
+  const po=new IntersectionObserver(e=>{
+    e.forEach(entry=>{
+      if(entry.isIntersecting){
+        setTimeout(()=>el.classList.add('on'),i*100);
+      }
+    });
+  },{threshold:0.15});
+  po.observe(el);
+});
+
+/* ── KPI COUNTER ANIMATION ── */
+function animateCount(el,target,duration=1400){
+  let start=null;
+  const suffix=target.toString().includes('+')?'+':target.toString().includes('%')?'%':'';
+  const num=parseInt(target.toString().replace(/\D/g,''));
+  const step=ts=>{
+    if(!start)start=ts;
+    const progress=Math.min((ts-start)/duration,1);
+    const eased=1-Math.pow(1-progress,3);
+    const current=Math.floor(eased*num);
+    el.textContent=current.toLocaleString()+suffix;
+    if(progress<1)requestAnimationFrame(step);
+    else el.textContent=target;
+  };
+  requestAnimationFrame(step);
+}
+const kpiObs=new IntersectionObserver(e=>{
+  e.forEach(el=>{
+    if(el.isIntersecting){
+      const val=el.querySelector('.kpi-val');
+      if(val&&!val.dataset.animated){
+        val.dataset.animated='1';
+        animateCount(val,val.textContent.trim());
+      }
+    }
+  });
+},{threshold:0.5});
+document.querySelectorAll('.kpi-card').forEach(el=>kpiObs.observe(el));
+
+/* ── HERO CURSOR GLOW ── */
+const hero=document.querySelector('.hero');
+if(hero){
+  const cursor=document.createElement('div');
+  cursor.className='hero-cursor';
+  hero.appendChild(cursor);
+  hero.addEventListener('mousemove',e=>{
+    const rect=hero.getBoundingClientRect();
+    cursor.style.left=(e.clientX-rect.left)+'px';
+    cursor.style.top=(e.clientY-rect.top)+'px';
+  });
+}
+
+/* ── PARTICULES FLOTTANTES DANS HERO ── */
+(function spawnParticles(){
+  const h=document.querySelector('.hero');
+  if(!h)return;
+  const colors=['rgba(232,160,32,0.4)','rgba(184,212,234,0.3)','rgba(255,255,255,0.2)'];
+  for(let i=0;i<12;i++){
+    setTimeout(()=>{
+      const p=document.createElement('div');
+      p.className='particle';
+      const size=Math.random()*6+3;
+      p.style.cssText=`
+        width:${size}px;height:${size}px;
+        left:${Math.random()*100}%;
+        background:${colors[Math.floor(Math.random()*colors.length)]};
+        animation-duration:${Math.random()*10+8}s;
+        animation-delay:${Math.random()*5}s;
+      `;
+      h.appendChild(p);
+    },i*200);
+  }
+})();
+
+/* ── RIPPLE EFFECT SUR BOUTONS ── */
+document.querySelectorAll('.btn-p,.btn-s,.tarif-cta,.work-action,.nav-cta,.btn-wa,.btn-p').forEach(btn=>{
+  btn.addEventListener('click',function(e){
+    const r=document.createElement('span');
+    r.className='ripple-fx';
+    const rect=this.getBoundingClientRect();
+    r.style.left=(e.clientX-rect.left)+'px';
+    r.style.top=(e.clientY-rect.top)+'px';
+    this.appendChild(r);
+    setTimeout(()=>r.remove(),700);
+  });
+});
+
+/* ── TYPING EFFECT SUR HERO TITLE ── */
+const titleEl=document.querySelector('.hero-title');
+if(titleEl){
+  const original=titleEl.textContent;
+  titleEl.textContent='';
+  let i=0;
+  setTimeout(()=>{
+    const timer=setInterval(()=>{
+      titleEl.textContent=original.slice(0,i++);
+      if(i>original.length)clearInterval(timer);
+    },40);
+  },1200);
+}
+
+/* ── TILT EFFECT SUR WORK CARDS (desktop) ── */
+if(window.innerWidth>768){
+  document.querySelectorAll('.work-card,.skill-card,.kpi-card').forEach(card=>{
+    card.addEventListener('mousemove',e=>{
+      const rect=card.getBoundingClientRect();
+      const x=(e.clientX-rect.left)/rect.width-0.5;
+      const y=(e.clientY-rect.top)/rect.height-0.5;
+      card.style.transform=`translateY(-4px) rotateX(${-y*6}deg) rotateY(${x*6}deg)`;
+      card.style.transition='transform .1s';
+    });
+    card.addEventListener('mouseleave',()=>{
+      card.style.transform='';
+      card.style.transition='transform .3s cubic-bezier(.22,1,.36,1)';
+    });
+  });
+}
+
+/* ── ACTIVE NAV SECTION ── */
+const sections=document.querySelectorAll('section[id]');
+window.addEventListener('scroll',()=>{
+  let current='';
+  sections.forEach(s=>{
+    if(window.scrollY>=s.offsetTop-80)current=s.id;
+  });
+},{passive:true});
+
+/* ── SMOOTH ANCHOR CLICK ── */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
+</script>
+
+<script>
+/* ── ANIMATIONS GLOBALES HKR ── */
+// 1. Scroll reveal
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach(el => { if(el.isIntersecting) el.target.classList.add('on'); });
+}, {threshold: 0.07});
+document.querySelectorAll('.rev').forEach(el => revObs.observe(el));
+
+// 2. Compteurs animés
+function animCount(el, target, dur=1400){
+  const suffix = target.toString().match(/[^0-9]/g)?.join('') || '';
+  const num = parseInt(target.toString().replace(/\D/g,''));
+  let start = null;
+  const step = ts => {
+    if(!start) start = ts;
+    const p = Math.min((ts-start)/dur, 1);
+    const ease = 1 - Math.pow(1-p, 3);
+    el.textContent = Math.floor(ease*num).toLocaleString() + suffix;
+    if(p < 1) requestAnimationFrame(step);
+    else el.textContent = target;
+  };
+  requestAnimationFrame(step);
+}
+const countObs = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      const val = entry.target.querySelector('[data-count]');
+      if(val && !val.dataset.done){ val.dataset.done='1'; animCount(val, val.dataset.count); }
+    }
+  });
+}, {threshold: 0.5});
+document.querySelectorAll('[data-count-wrap]').forEach(el => countObs.observe(el));
+
+// 3. Ripple sur tous les boutons
+document.querySelectorAll('a[class*="btn"], button[class*="btn"], .tarif-cta, .work-action, .nav-cta').forEach(btn => {
+  btn.style.position = 'relative';
+  btn.style.overflow = 'hidden';
+  btn.addEventListener('click', function(e){
+    const r = document.createElement('span');
+    Object.assign(r.style, {
+      position:'absolute', borderRadius:'50%',
+      background:'rgba(255,255,255,.25)',
+      width:'0', height:'0',
+      transform:'translate(-50%,-50%)',
+      animation:'rippleAnim .6s ease forwards',
+      left: (e.clientX - this.getBoundingClientRect().left) + 'px',
+      top: (e.clientY - this.getBoundingClientRect().top) + 'px',
+      pointerEvents:'none'
+    });
+    this.appendChild(r);
+    setTimeout(()=>r.remove(), 700);
+  });
+});
+
+// 4. Barre de progression scroll
+(function(){
+  const bar = document.createElement('div');
+  Object.assign(bar.style, {
+    position:'fixed', top:'52px', left:'0', height:'2px',
+    background:'#E8A020', zIndex:'99', width:'0%',
+    transition:'width .1s', borderRadius:'0 2px 2px 0',
+    boxShadow:'0 0 8px rgba(232,160,32,.6)'
+  });
+  document.body.appendChild(bar);
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    bar.style.width = (window.scrollY / (h.scrollHeight - h.clientHeight) * 100) + '%';
+  }, {passive:true});
+})();
+
+// 5. Tilt 3D sur les cartes (desktop)
+if(window.innerWidth > 768){
+  document.querySelectorAll('.work-card, .kpi-card, .skill-card, .tarif, .agent-tarif-card, .case-card, .valeur-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = `translateY(-4px) rotateX(${-y*5}deg) rotateY(${x*5}deg)`;
+      card.style.transition = 'transform .08s';
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+      card.style.transition = 'transform .4s cubic-bezier(.22,1,.36,1)';
+    });
+  });
+}
+
+// 6. Smooth scroll sur tous les liens ancres
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth', block:'start'}); }
+  });
+});
+
+// CSS animations injectées
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes rippleAnim { to { width:200px; height:200px; opacity:0; } }
+  .rev { opacity:0; transform:translateY(22px); transition:opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1); }
+  .rev.on { opacity:1; transform:translateY(0); }
+  .rev:nth-child(1){transition-delay:.05s}
+  .rev:nth-child(2){transition-delay:.1s}
+  .rev:nth-child(3){transition-delay:.15s}
+  .rev:nth-child(4){transition-delay:.2s}
+  .rev:nth-child(5){transition-delay:.25s}
+  .rev:nth-child(6){transition-delay:.3s}
+  .work-card, .kpi-card, .skill-card, .tarif, .agent-tarif-card, .case-card, .valeur-card {
+    transition: transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s;
+  }
+`;
+document.head.appendChild(style);
+</script>
+</body>
+</html>

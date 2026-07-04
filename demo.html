@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#0D2137">
+<title>Démo Live — Agents IA · Hkr-Studio AI</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',Arial,sans-serif;background:#0D2137;color:#fff;-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden;}
+:root{--navy:#1A3C5E;--dk:#0D2137;--gold:#E8A020;--g1:#f5f5f7;--g2:#e8e8ed;--g3:#6e6e73;--green:#22C55E;--r:16px;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,33,55,.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(232,160,32,.15);height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.nav-logo-box{width:28px;height:28px;background:#E8A020;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#1A3C5E;}
+.nav-name{font-size:13px;font-weight:700;color:#fff;}
+.nav-links{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;}
+.nav-links::-webkit-scrollbar{display:none;}
+.nav-link{font-size:11px;font-weight:600;color:rgba(255,255,255,.6);padding:6px 10px;border-radius:20px;background:rgba(255,255,255,.07);white-space:nowrap;text-decoration:none;}
+.nav-link.active{color:#1A3C5E;background:#E8A020;font-weight:700;}
+
+/* CANVAS STARFIELD */
+#starfield{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;}
+
+/* HERO */
+.hero{padding:90px 24px 36px;text-align:center;position:relative;z-index:1;}
+.hero-live{display:inline-flex;align-items:center;gap:6px;background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.3);border-radius:20px;padding:5px 14px;margin-bottom:18px;animation:fadeDown .6s ease both;}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:translateY(0);}}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink 1.5s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+.hero-live span{font-size:11px;font-weight:700;color:var(--green);letter-spacing:.5px;}
+h1{font-size:clamp(24px,6vw,38px);font-weight:700;letter-spacing:-.8px;line-height:1.1;margin-bottom:10px;animation:fadeUp .7s .1s ease both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+h1 em{font-style:normal;color:var(--gold);}
+.hero-sub{font-size:14px;color:rgba(255,255,255,.55);line-height:1.7;max-width:360px;margin:0 auto 24px;animation:fadeUp .7s .2s ease both;}
+
+/* AGENT SELECTOR */
+.agent-selector{display:flex;gap:8px;overflow-x:auto;padding:0 4px 8px;justify-content:center;scrollbar-width:none;animation:fadeUp .7s .3s ease both;}
+.agent-selector::-webkit-scrollbar{display:none;}
+.agent-btn{flex-shrink:0;padding:12px 16px;border-radius:14px;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);cursor:pointer;text-align:center;transition:all .25s cubic-bezier(.22,1,.36,1);}
+.agent-btn.active{background:rgba(232,160,32,.15);border-color:var(--gold);transform:translateY(-2px);box-shadow:0 8px 20px rgba(232,160,32,.2);}
+.agent-btn:hover:not(.active){background:rgba(255,255,255,.1);transform:translateY(-1px);}
+.agent-btn-icon{font-size:24px;margin-bottom:4px;}
+.agent-btn-name{font-size:10px;font-weight:700;color:rgba(255,255,255,.6);}
+.agent-btn.active .agent-btn-name{color:var(--gold);}
+
+/* CHAT */
+.chat-wrap{max-width:500px;margin:24px auto 0;padding:0 20px 40px;position:relative;z-index:1;}
+.chat-window{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:20px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.4);animation:fadeUp .7s .4s ease both;}
+
+/* Header agent */
+.chat-header{background:rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.08);padding:14px 16px;display:flex;align-items:center;gap:12px;}
+.chat-av{width:38px;height:38px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:var(--navy);flex-shrink:0;box-shadow:0 0 0 3px rgba(232,160,32,.25);}
+.chat-agent-name{font-size:13px;font-weight:700;}
+.chat-agent-status{font-size:10px;color:var(--green);display:flex;align-items:center;gap:4px;margin-top:2px;}
+.chat-agent-status::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;}
+
+/* Messages */
+.chat-msgs{padding:16px;min-height:300px;max-height:440px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth;}
+.chat-msgs::-webkit-scrollbar{width:3px;}
+.chat-msgs::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:3px;}
+.msg-wrap{display:flex;flex-direction:column;animation:msgIn .35s cubic-bezier(.22,1,.36,1) both;}
+@keyframes msgIn{from{opacity:0;transform:scale(.94) translateY(8px);}to{opacity:1;transform:scale(1) translateY(0);}}
+.msg{max-width:88%;padding:11px 15px;border-radius:16px;font-size:13px;line-height:1.65;}
+.msg-user{background:rgba(26,60,94,.8);color:#fff;align-self:flex-end;border-radius:16px 16px 4px 16px;border:1px solid rgba(255,255,255,.08);}
+.msg-agent{background:var(--gold);color:var(--navy);align-self:flex-start;border-radius:16px 16px 16px 4px;font-weight:500;box-shadow:0 4px 12px rgba(232,160,32,.25);}
+.msg-time{font-size:9px;color:rgba(255,255,255,.25);margin-top:3px;padding:0 2px;}
+.msg-time.agent-t{text-align:left;}
+.msg-time.user-t{text-align:right;}
+
+/* Typing */
+.typing-wrap{display:none;align-items:center;gap:5px;padding:11px 15px;background:rgba(232,160,32,.08);border-radius:16px 16px 16px 4px;align-self:flex-start;width:fit-content;border:1px solid rgba(232,160,32,.2);}
+.typing-wrap.show{display:flex;}
+.td{width:7px;height:7px;border-radius:50%;background:var(--gold);animation:td .8s infinite;}
+.td:nth-child(2){animation-delay:.15s;}
+.td:nth-child(3){animation-delay:.3s;}
+@keyframes td{0%,100%{transform:scale(.8);opacity:.5;}50%{transform:scale(1.3);opacity:1;}}
+
+/* Input */
+.chat-input-row{display:flex;gap:8px;padding:12px 14px;background:rgba(255,255,255,.04);border-top:1px solid rgba(255,255,255,.07);}
+.chat-input{flex:1;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:980px;padding:11px 16px;font-size:13px;color:#fff;font-family:inherit;outline:none;transition:border-color .2s;}
+.chat-input::placeholder{color:rgba(255,255,255,.3);}
+.chat-input:focus{border-color:var(--gold);}
+.chat-send{width:40px;height:40px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;font-size:16px;flex-shrink:0;transition:transform .15s,box-shadow .15s;}
+.chat-send:hover{transform:scale(1.1);box-shadow:0 4px 14px rgba(232,160,32,.4);}
+.chat-send:active{transform:scale(.95);}
+.chat-send:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+
+/* Suggestions */
+.suggestions{margin-top:14px;}
+.sugg-label{font-size:10px;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;}
+.sugg-grid{display:flex;flex-direction:column;gap:6px;}
+.sugg-btn{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:10px;padding:10px 14px;font-size:12px;color:rgba(255,255,255,.7);cursor:pointer;text-align:left;transition:all .15s;font-family:inherit;}
+.sugg-btn:hover{background:rgba(232,160,32,.1);border-color:rgba(232,160,32,.3);color:#fff;transform:translateX(4px);}
+
+/* Chips agent info */
+.agent-chips{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:14px;margin-top:12px;}
+.chips-label{font-size:10px;font-weight:700;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;}
+.chips{display:flex;flex-wrap:wrap;gap:6px;}
+.chip{background:rgba(255,255,255,.07);border-radius:8px;padding:4px 10px;font-size:10px;font-weight:600;color:rgba(255,255,255,.6);}
+
+/* Ripple */
+.ripple-fx{position:absolute;border-radius:50%;background:rgba(255,255,255,.2);width:0;height:0;transform:translate(-50%,-50%);animation:ripple .6s ease forwards;pointer-events:none;}
+@keyframes ripple{to{width:180px;height:180px;opacity:0;}}
+
+/* Lien suite */
+.next-steps{margin-top:20px;display:flex;flex-direction:column;gap:8px;}
+.next-card{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:12px;padding:14px;text-decoration:none;transition:all .2s;}
+.next-card:hover{background:rgba(232,160,32,.1);border-color:rgba(232,160,32,.3);transform:translateX(4px);}
+.next-card-icon{width:36px;height:36px;background:rgba(232,160,32,.15);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.next-card-title{font-size:13px;font-weight:700;color:#fff;margin-bottom:2px;}
+.next-card-sub{font-size:11px;color:rgba(255,255,255,.45);}
+.next-card-arr{margin-left:auto;color:var(--gold);font-size:16px;}
+
+/* Footer */
+footer{background:rgba(0,0,0,.4);padding:24px 20px;text-align:center;font-size:10px;color:rgba(255,255,255,.3);line-height:1.8;border-top:1px solid rgba(232,160,32,.15);position:relative;z-index:1;}
+</style>
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="nav-logo-box">H</div>
+    <span class="nav-name">Hkr-Studio AI</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">🏠</a>
+    <a href="about.html" class="nav-link">À propos</a>
+    <a href="etude-de-cas.html" class="nav-link">Cas clients</a>
+    <a href="tarifs-ia.html" class="nav-link active">🤖 IA</a>
+    <a href="portfolio.html" class="nav-link">Portfolio</a>
+    <a href="contact.html" class="nav-link">Contact</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-live"><div class="live-dot"></div><span>Agent IA réel — Intelligence HKR</span></div>
+  <h1>Testez nos agents IA<br><em>en conditions réelles.</em></h1>
+  <p class="hero-sub">Ce n'est pas une simulation. L'agent connaît tout le catalogue HKR. Posez n'importe quelle question.</p>
+  <div class="agent-selector">
+    <div class="agent-btn active" onclick="switchAgent('sales',this)">
+      <div class="agent-btn-icon">📡</div>
+      <div class="agent-btn-name">Sales AI</div>
+    </div>
+    <div class="agent-btn" onclick="switchAgent('crm',this)">
+      <div class="agent-btn-icon">🔗</div>
+      <div class="agent-btn-name">CRM AI</div>
+    </div>
+    <div class="agent-btn" onclick="switchAgent('pm',this)">
+      <div class="agent-btn-icon">📋</div>
+      <div class="agent-btn-name">PM AI</div>
+    </div>
+    <div class="agent-btn" onclick="switchAgent('support',this)">
+      <div class="agent-btn-icon">🛟</div>
+      <div class="agent-btn-name">Support AI</div>
+    </div>
+  </div>
+</div>
+
+<div class="chat-wrap">
+  <div class="chat-window">
+    <div class="chat-header">
+      <div class="chat-av" id="chat-av">S</div>
+      <div>
+        <div class="chat-agent-name" id="chat-name">Sales AI · Hkr-Studio AI</div>
+        <div class="chat-agent-status">En ligne · IA active</div>
+      </div>
+    </div>
+    <div class="chat-msgs" id="chat-msgs">
+      <div class="msg-wrap">
+        <div class="msg msg-agent" id="welcome-msg">Bonjour ! 👋 Je suis Sales AI, l'agent commercial de Hkr-Studio AI. Je connais tout notre catalogue — 58 services, tarifs en FCFA, délais de livraison. Posez-moi n'importe quelle question sur nos services.</div>
+        <div class="msg-time agent-t">Sales AI · maintenant</div>
+      </div>
+      <div class="typing-wrap" id="typing">
+        <div class="td"></div><div class="td"></div><div class="td"></div>
+      </div>
+    </div>
+    <div class="chat-input-row">
+      <input class="chat-input" id="user-input" type="text" placeholder="Écrivez votre message…" onkeydown="if(event.key==='Enter'&&!event.shiftKey)sendMsg()">
+      <button class="chat-send" id="send-btn" onclick="sendMsg()">➤</button>
+    </div>
+  </div>
+
+  <!-- SUGGESTIONS -->
+  <div class="suggestions" id="sugg-block">
+    <div class="sugg-label">💡 Essayez ces questions</div>
+    <div class="sugg-grid" id="sugg-grid">
+      <div class="sugg-btn" onclick="useMsg(this)">J'ai besoin d'un site web pour mon restaurant à Abidjan</div>
+      <div class="sugg-btn" onclick="useMsg(this)">Combien coûte un agent IA commercial ?</div>
+      <div class="sugg-btn" onclick="useMsg(this)">Vous faites du Community Management ?</div>
+      <div class="sugg-btn" onclick="useMsg(this)">J'ai 500 000 FCFA de budget, que me conseillez-vous ?</div>
+    </div>
+  </div>
+
+  <!-- INFO AGENT -->
+  <div class="agent-chips" id="agent-chips">
+    <div class="chips-label">Sales AI · Capacités</div>
+    <div class="chips" id="chips-list">
+      <span class="chip">📡 WhatsApp + Gmail</span>
+      <span class="chip">⚡ Réponse &lt;5 min</span>
+      <span class="chip">🎯 Score BANT+</span>
+      <span class="chip">🔄 Relances 21 jours</span>
+      <span class="chip">📊 Rapport hebdo</span>
+      <span class="chip">🚨 Escalade DG</span>
+    </div>
+  </div>
+
+  <!-- PROCHAINES ÉTAPES -->
+  <div class="next-steps">
+    <a href="tarifs-ia.html" class="next-card">
+      <div class="next-card-icon">💰</div>
+      <div><div class="next-card-title">Voir les tarifs</div><div class="next-card-sub">Formules Starter et Business en FCFA</div></div>
+      <div class="next-card-arr">›</div>
+    </a>
+    <a href="dossier-client.html" class="next-card">
+      <div class="next-card-icon">📋</div>
+      <div><div class="next-card-title">Démarrer mon projet</div><div class="next-card-sub">Remplir le dossier client en 2 minutes</div></div>
+      <div class="next-card-arr">›</div>
+    </a>
+  </div>
+</div>
+
+<footer>
+  © 2025 Hkr-Studio AI · Démo — Technologie HKR AI Suite<br>
+  hkrstudioai@gmail.com · +225 07 15 73 49 85 · Abidjan Cocody Riviera, Côte d'Ivoire<br>
+  <span style="font-size:9px;color:rgba(255,255,255,.15);">Conçu par Hkr-Studio AI</span>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════
+   STARFIELD CANVAS
+══════════════════════════════════════════ */
+(function(){
+  const c=document.getElementById('starfield');
+  const ctx=c.getContext('2d');
+  let stars=[];
+  function resize(){c.width=window.innerWidth;c.height=window.innerHeight;}
+  function init(){
+    stars=[];
+    for(let i=0;i<80;i++){
+      stars.push({
+        x:Math.random()*c.width,
+        y:Math.random()*c.height,
+        r:Math.random()*1.5+.3,
+        a:Math.random(),
+        speed:Math.random()*.4+.1,
+        da:Math.random()*.005+.002
+      });
+    }
+  }
+  function draw(){
+    ctx.clearRect(0,0,c.width,c.height);
+    stars.forEach(s=>{
+      s.a+=s.da;
+      if(s.a>1||s.a<0)s.da*=-1;
+      s.y-=s.speed;
+      if(s.y<0){s.y=c.height;s.x=Math.random()*c.width;}
+      ctx.beginPath();
+      ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(232,160,32,${s.a*.6})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  resize();init();draw();
+  window.addEventListener('resize',()=>{resize();init();});
+})();
+
+/* ══════════════════════════════════════════
+   AGENTS CONFIG
+══════════════════════════════════════════ */
+const AGENTS = {
+  sales:{
+    av:'S', name:'Sales AI · Hkr-Studio AI',
+    welcome:'Bonjour ! 👋 Je suis Sales AI, l\'agent commercial de Hkr-Studio AI. Je connais tout notre catalogue — 58 services, tarifs en FCFA, délais de livraison. Posez-moi n\'importe quelle question sur nos services.',
+    chips:['📡 WhatsApp + Gmail','⚡ Réponse <5 min','🎯 Score BANT+','🔄 Relances 21j','📊 Rapport hebdo','🚨 Escalade DG'],
+    suggestions:['J\'ai besoin d\'un site web pour mon restaurant à Abidjan','Combien coûte un agent IA commercial ?','Vous faites du Community Management ?','J\'ai 500 000 FCFA de budget, que me conseillez-vous ?'],
+    system:`Tu es Sales AI, l'agent commercial de Hkr-Studio AI, une agence digitale 360° basée à Abidjan Cocody Riviera 3, Côte d'Ivoire. Fondateur : Kpogue Hodonou Robert.
+
+CATALOGUE COMPLET HKR :
+
+DESIGN & INFOGRAPHIE (DSIG) : Logo + charte graphique (50K-500K), Supports print (25K-300K), Motion design (75K-600K), Illustration digitale (50K-400K), Mockup produit (30K-200K).
+
+COMMUNITY MANAGEMENT (CM) : Gestion 1 réseau (100K/mois), Pack 3 réseaux (200K/mois), Pack full 5 réseaux (300K/mois), Campagne Meta Ads (150K/mois + budget).
+
+DÉVELOPPEMENT WEB (WEB) : Site vitrine simple (100K-200K), Site vitrine animé (250K-400K), Site e-commerce (400K-800K), Landing page (75K-200K), Application web (1M-5M).
+
+APP MOBILE (MOB) : App iOS ou Android (2M-8M), App hybride Flutter (1.5M-6M), MVP mobile (800K-2M).
+
+INTELLIGENCE ARTIFICIELLE (IA) : Agent commercial Sales AI Starter (350K), Sales AI Business (600K), CRM AI Starter (350K), CRM AI Business (600K), PM AI (350K-600K), Support AI (350K-600K), Admin AI (350K-600K), HKR AI Suite complète 5 agents (2.5M). Maintenance : 50K/mois par agent.
+
+MARKETING DIGITAL (MKT) : Stratégie digitale (150K-500K), SEO (100K-300K/mois), Email marketing (75K-200K/mois), Rapport analytics (50K/mois).
+
+PRODUCTION AUDIOVISUELLE (AV) : Vidéo promotionnelle 60s (200K-600K), Publicité vidéo (300K-800K), Série de contenus RS (150K-400K/mois), Podcast audio (100K-300K).
+
+FORMATION (FORM) : Formation marketing digital 1j (150K/pers), Formation IA & automatisation (200K/pers), Formation réseaux sociaux (100K/pers).
+
+CONSEIL & STRATÉGIE (CONS) : Audit digital (100K-300K), Plan stratégique 12 mois (200K-500K), Business plan (250K-600K).
+
+AUTOMATISATION (AUTO) : Automatisation notre moteur d'automatisation (200K-800K), CRM Google Sheets sur mesure (150K-400K), Pipeline commercial automatisé (300K-700K).
+
+PACKS TARIFAIRES :
+- Starter : 350K à 600K FCFA
+- Business : 1.5M à 3M FCFA
+- Premium : 5M à 12M FCFA
+- Enterprise : 20M+ FCFA
+
+DÉLAIS : Sites web 5-7 jours, Logos 3-5 jours, Agents IA 7-14 jours, Documents stratégiques 7-21 jours.
+
+CONTACTS : WhatsApp +225 07 15 73 49 85, Email hkrstudioai@gmail.com
+Formulaire client : hkrstudioai.github.io/dossier-client
+
+RÈGLES :
+- Réponds toujours en français, de façon chaleureuse et professionnelle
+- Sois précis sur les tarifs en FCFA
+- Pour chaque besoin, propose 1-2 services adaptés avec le prix
+- Invite à remplir le dossier client pour un devis personnalisé
+- Si budget < 100K, oriente vers des services entrée de gamme
+- Garde les réponses concises (max 5-7 lignes)`
+  },
+  crm:{
+    av:'C', name:'CRM AI · Hkr-Studio AI',
+    welcome:'Bonjour ! 🔗 Je suis CRM AI, spécialiste de la fidélisation client. Je surveille la santé de chaque relation client, détecte les signaux d\'insatisfaction et maximise votre rétention. Comment puis-je vous aider ?',
+    chips:['🏥 Score santé /4h','📊 Dashboard temps réel','🚨 Alertes insatisfaction','💳 Relances paiement','📈 Upsell ciblé','🎁 Onboarding J+0-180'],
+    suggestions:['Comment fonctionne le score santé client ?','Mon client n\'a pas payé sa facture, que faire ?','Comment fidéliser mes meilleurs clients ?','Quel est le tarif du CRM AI ?'],
+    system:`Tu es CRM AI, l'agent de fidélisation client de Hkr-Studio AI à Abidjan. Tu aides les entreprises à améliorer leur relation client, fidéliser leurs clients et augmenter leur valeur vie client (LTV).
+
+TES SPÉCIALITÉS :
+- Score santé client de 0 à 100 (calculé toutes les 4h)
+- Score 80-100 : Client ambassadeur → Programme ambassadeur
+- Score 60-79 : Client satisfait → Contenu valeur ajoutée
+- Score 40-59 : Signaux d'alerte → Contact DG urgent
+- Score 0-39 : Client en danger → Plan de sauvetage immédiat
+- Onboarding automatisé J+0 à J+180
+- Relances paiement J+7, J+14, J+21
+- Enquêtes NPS automatiques à J+30, J+90, J+180
+- Détection et alertes upsell (score >80% + 3 mois)
+
+TARIFS CRM AI :
+- Starter : 350 000 FCFA (déploiement) + 50 000 FCFA/mois
+- Business : 600 000 FCFA (déploiement) + 50 000 FCFA/mois
+
+Contact HKR : +225 07 15 73 49 85
+
+Réponds en français, de façon professionnelle et concise. Oriente vers WhatsApp ou le dossier client pour démarrer.`
+  },
+  pm:{
+    av:'P', name:'PM AI · Hkr-Studio AI',
+    welcome:'Bonjour ! 📋 Je suis PM AI, votre chef de projet digital automatisé. Je planifie, coordonne et livre chaque projet dans les délais. Parlez-moi de votre projet.',
+    chips:['📅 Planning automatique','🔔 Alertes retards','📊 Rapports avancement','👥 Coordination équipes','✅ Validation jalons','📁 Drive structuré'],
+    suggestions:['Comment fonctionne la gestion de projet IA ?','Quel est le délai pour un site web ?','Comment suivre l\'avancement de mon projet ?','Tarif du PM AI ?'],
+    system:`Tu es PM AI, le chef de projet automatisé de Hkr-Studio AI à Abidjan. Tu gères la livraison de tous les projets : sites web (5-21j), logos (3-5j), agents IA (7-14j), stratégie (14-30j).
+
+TON RÔLE :
+- Créer automatiquement le planning de chaque projet
+- Coordonner les agents de production (Design, Dev, CM, IA...)
+- Envoyer des rapports d'avancement hebdomadaires
+- Alerter le DG en cas de retard ou blocage
+- Structurer le Google Drive client
+- Valider chaque jalon avant livraison
+
+TARIFS PM AI :
+- Starter : 350 000 FCFA + 50 000 FCFA/mois
+- Business : 600 000 FCFA + 50 000 FCFA/mois
+
+Contact : +225 07 15 73 49 85 / hkrstudioai@gmail.com
+
+Réponds en français, de façon professionnelle et concise.`
+  },
+  support:{
+    av:'🛟', name:'Support AI · Hkr-Studio AI',
+    welcome:'Bonjour ! 🛟 Je suis Support AI. Je traite vos demandes, questions techniques et réclamations rapidement. Pour quel sujet puis-je vous aider aujourd\'hui ?',
+    chips:['🎫 Tickets auto','⚡ Réponse <1h','📊 Suivi statut','🚨 Escalade critique','📚 FAQ automatique','✅ Résolution confirmée'],
+    suggestions:['J\'ai un problème avec mon site web','Mon agent IA ne répond plus','Comment mettre à jour mon catalogue ?','Délai de réponse pour un bug urgent ?'],
+    system:`Tu es Support AI, l'agent de support technique de Hkr-Studio AI à Abidjan. Tu traites les demandes, problèmes techniques et réclamations des clients.
+
+TES CAPACITÉS :
+- Création automatique de tickets
+- Réponse en moins d'1 heure pour les urgences (SEV1)
+- Réponse en moins de 4 heures pour les demandes standard
+- Escalade vers le DG pour les cas critiques
+- FAQ automatique intégrée
+- Suivi de statut en temps réel
+
+NIVEAUX D'URGENCE :
+- SEV1 (critique) : Site down, agent IA planté → résolution en 1h
+- SEV2 (urgent) : Bug fonctionnel → résolution en 4h
+- SEV3 (standard) : Question, modification → résolution en 24h
+
+Contact direct : +225 07 15 73 49 85
+
+Réponds en français, de façon rassurante et professionnelle. Demande toujours des détails précis sur le problème pour mieux aider.`
+  }
+};
+
+/* ══════════════════════════════════════════
+   ÉTAT
+══════════════════════════════════════════ */
+let currentAgent = 'sales';
+let history = []; // historique multi-tours
+
+/* ══════════════════════════════════════════
+   SWITCH AGENT
+══════════════════════════════════════════ */
+function switchAgent(id, btn){
+  currentAgent = id;
+  history = [];
+  const a = AGENTS[id];
+
+  // Boutons actifs
+  document.querySelectorAll('.agent-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+
+  // Mise à jour header
+  document.getElementById('chat-av').textContent = a.av;
+  document.getElementById('chat-name').textContent = a.name;
+
+  // Reset messages
+  const msgs = document.getElementById('chat-msgs');
+  msgs.innerHTML = `
+    <div class="msg-wrap">
+      <div class="msg msg-agent">${a.welcome}</div>
+      <div class="msg-time agent-t">${a.name.split('·')[0].trim()} · maintenant</div>
+    </div>
+    <div class="typing-wrap" id="typing"><div class="td"></div><div class="td"></div><div class="td"></div></div>`;
+
+  // Chips
+  document.querySelector('.chips-label').textContent = a.name.split('·')[0].trim() + ' · Capacités';
+  document.getElementById('chips-list').innerHTML = a.chips.map(c=>`<span class="chip">${c}</span>`).join('');
+
+  // Suggestions — réafficher le bloc et recharger les questions
+  document.getElementById('sugg-block').style.display = '';
+  document.getElementById('sugg-grid').innerHTML = a.suggestions
+    .map(s=>`<div class="sugg-btn" onclick="useMsg(this)">${s}</div>`).join('');
+}
+
+/* ══════════════════════════════════════════
+   CLAUDE API CALL
+══════════════════════════════════════════ */
+async function callAgent(userMsg){
+  const agent = AGENTS[currentAgent];
+
+  // Ajouter le message dans l'historique
+  history.push({role:'user', content: userMsg});
+
+  const response = await fetch('https://api.anthropic.com/v1/messages', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({
+      model:'claude-sonnet-4-6',
+      max_tokens:1000,
+      system: agent.system,
+      messages: history
+    })
+  });
+
+  if(!response.ok){
+    const err = await response.json();
+    throw new Error(err.error?.message || 'Erreur API');
+  }
+
+  const data = await response.json();
+  const reply = data.content[0]?.text || 'Désolé, une erreur est survenue.';
+
+  // Ajouter la réponse dans l'historique
+  history.push({role:'assistant', content: reply});
+
+  return reply;
+}
+
+/* ══════════════════════════════════════════
+   ENVOYER MESSAGE
+══════════════════════════════════════════ */
+async function sendMsg(){
+  const input = document.getElementById('user-input');
+  const msg = input.value.trim();
+  if(!msg) return;
+
+  const msgs = document.getElementById('chat-msgs');
+  const typing = document.getElementById('typing');
+  const btn = document.getElementById('send-btn');
+
+  // Désactiver input pendant la réponse
+  input.value = '';
+  input.disabled = true;
+  btn.disabled = true;
+
+  // Masquer suggestions
+  document.getElementById('sugg-block').style.display='none';
+
+  // Afficher message utilisateur
+  const userDiv = document.createElement('div');
+  userDiv.className = 'msg-wrap';
+  userDiv.innerHTML = `<div class="msg msg-user">${escHtml(msg)}</div><div class="msg-time user-t">Vous · maintenant</div>`;
+  msgs.insertBefore(userDiv, typing);
+  msgs.scrollTop = msgs.scrollHeight;
+
+  // Afficher typing
+  typing.classList.add('show');
+  msgs.scrollTop = msgs.scrollHeight;
+
+  try {
+    const reply = await callAgent(msg);
+    typing.classList.remove('show');
+
+    // Afficher réponse agent
+    const agentDiv = document.createElement('div');
+    agentDiv.className = 'msg-wrap';
+    const agentName = AGENTS[currentAgent].name.split('·')[0].trim();
+    agentDiv.innerHTML = `<div class="msg msg-agent">${formatMsg(reply)}</div><div class="msg-time agent-t">${agentName} · maintenant</div>`;
+    msgs.insertBefore(agentDiv, typing);
+    msgs.scrollTop = msgs.scrollHeight;
+
+  } catch(err){
+    typing.classList.remove('show');
+    const errDiv = document.createElement('div');
+    errDiv.className = 'msg-wrap';
+    errDiv.innerHTML = `<div class="msg msg-agent">⚠️ Une erreur est survenue. Contactez-nous directement sur WhatsApp : <a href="https://wa.me/2250715734985" target="_blank" rel="noopener noreferrer" style="color:var(--navy);font-weight:700;">+225 07 15 73 49 85</a></div>`;
+    msgs.insertBefore(errDiv, typing);
+    msgs.scrollTop = msgs.scrollHeight;
+  } finally {
+    input.disabled = false;
+    btn.disabled = false;
+    input.focus();
+  }
+}
+
+function escHtml(t){
+  return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function formatMsg(text){
+  return text
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\n\n/g,'<br><br>')
+    .replace(/\n/g,'<br>');
+}
+
+function useMsg(el){
+  document.getElementById('user-input').value = el.textContent;
+  sendMsg();
+}
+
+/* ══════════════════════════════════════════
+   RIPPLE EFFECT
+══════════════════════════════════════════ */
+document.getElementById('send-btn').addEventListener('click', function(e){
+  const r = document.createElement('span');
+  r.className = 'ripple-fx';
+  r.style.position='absolute';
+  const rect=this.getBoundingClientRect();
+  r.style.left=(e.clientX-rect.left)+'px';
+  r.style.top=(e.clientY-rect.top)+'px';
+  this.style.position='relative';
+  this.appendChild(r);
+  setTimeout(()=>r.remove(), 700);
+});
+</script>
+</body>
+</html>

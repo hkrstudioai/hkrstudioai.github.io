@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#1A3C5E">
+<title>FAQ Agents IA — Hkr-Studio AI</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',Arial,sans-serif;background:#fff;color:#1d1d1f;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+:root{--navy:#1A3C5E;--navy-dk:#0D2137;--gold:#E8A020;--gold-lt:#FFF4E0;--g1:#f5f5f7;--g2:#e8e8ed;--g3:#6e6e73;--green:#1A7A4A;--r:16px;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.9);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,.07);height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;}
+.nav-logo{display:flex;align-items:center;gap:8px;}
+.nav-logo-box{width:28px;height:28px;background:var(--navy);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#fff;}
+.nav-name{font-size:13px;font-weight:700;color:#1d1d1f;}
+.nav-r{display:flex;gap:8px;}
+.nav-back{font-size:12px;color:var(--g3);padding:6px 12px;border-radius:20px;background:var(--g1);}
+.nav-cta{background:var(--gold);color:var(--navy);font-size:12px;font-weight:700;padding:7px 16px;border-radius:20px;}
+.hero{background:var(--navy-dk);padding:88px 24px 44px;text-align:center;position:relative;overflow:hidden;}
+.hero-orb{position:absolute;width:300px;height:300px;top:-60px;right:-60px;border-radius:50%;background:radial-gradient(circle,rgba(232,160,32,.15),transparent 70%);filter:blur(40px);pointer-events:none;}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(232,160,32,.12);border:1px solid rgba(232,160,32,.3);border-radius:20px;padding:5px 14px;margin-bottom:16px;}
+.hero-badge span{font-size:11px;font-weight:700;color:var(--gold);letter-spacing:1px;text-transform:uppercase;}
+h1{font-size:clamp(24px,6vw,38px);font-weight:700;color:#fff;letter-spacing:-.8px;line-height:1.1;margin-bottom:12px;}
+h1 em{font-style:normal;color:var(--gold);}
+.hero-sub{font-size:14px;color:rgba(255,255,255,.6);line-height:1.7;max-width:380px;margin:0 auto 20px;}
+.hero-count{font-size:13px;font-weight:700;color:var(--gold);}
+.sf{padding:48px 24px;}.sec{max-width:600px;margin:0 auto;}.sg{background:var(--g1);}
+.ey{font-size:10px;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;text-align:center;}
+.st{font-size:clamp(20px,5vw,26px);font-weight:700;color:#1d1d1f;letter-spacing:-.5px;line-height:1.2;margin-bottom:10px;text-align:center;}
+.gb{width:36px;height:3px;background:var(--gold);border-radius:2px;margin:0 auto 20px;}
+.rev{opacity:0;transform:translateY(20px);transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1);}.rev.on{opacity:1;transform:translateY(0);}
+
+/* CATÉGORIES */
+.cat-tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:20px;scrollbar-width:none;}
+.cat-tabs::-webkit-scrollbar{display:none;}
+.cat-tab{flex-shrink:0;padding:8px 16px;border-radius:20px;background:#fff;border:1.5px solid var(--g2);font-size:12px;font-weight:600;color:var(--g3);cursor:pointer;transition:all .15s;white-space:nowrap;}
+.cat-tab.active,.cat-tab:hover{background:var(--navy);color:#fff;border-color:var(--navy);}
+
+/* FAQ ITEMS */
+.faq-list{display:flex;flex-direction:column;gap:8px;}
+.faq-item{background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.05);border:1px solid var(--g2);}
+.faq-item.open{border-color:var(--gold);}
+.faq-q{display:flex;align-items:flex-start;gap:12px;padding:16px 18px;cursor:pointer;user-select:none;}
+.faq-num{font-size:11px;font-weight:700;color:var(--gold);min-width:24px;margin-top:1px;}
+.faq-text{font-size:14px;font-weight:600;color:#1d1d1f;flex:1;line-height:1.5;letter-spacing:-.2px;}
+.faq-arrow{font-size:14px;color:var(--g3);transition:transform .25s;flex-shrink:0;margin-top:2px;}
+.faq-item.open .faq-arrow{transform:rotate(90deg);color:var(--gold);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.22,1,.36,1),padding .3s;}
+.faq-item.open .faq-a{max-height:400px;padding:0 18px 16px 54px;}
+.faq-answer{font-size:13px;color:var(--g3);line-height:1.8;}
+.faq-answer strong{color:#1d1d1f;font-weight:700;}
+.faq-answer em{color:var(--navy);font-style:normal;font-weight:600;}
+.faq-tag{display:inline-block;background:var(--gold-lt);color:var(--navy);font-size:9px;font-weight:700;padding:2px 8px;border-radius:8px;margin-top:8px;}
+
+/* CTA FINAL */
+.cta-block{background:linear-gradient(135deg,var(--navy-dk),var(--navy));border-radius:var(--r);padding:26px 20px;text-align:center;border:1px solid rgba(232,160,32,.2);}
+.cta-title{font-size:20px;font-weight:700;color:#fff;margin-bottom:8px;}
+.cta-sub{font-size:13px;color:rgba(255,255,255,.6);line-height:1.6;margin-bottom:16px;}
+.btn-cta{display:block;background:var(--gold);color:var(--navy);font-size:14px;font-weight:700;padding:14px;border-radius:980px;margin-bottom:8px;box-shadow:0 4px 14px rgba(232,160,32,.35);}
+.btn-cta-s{display:block;background:rgba(255,255,255,.1);color:#fff;font-size:13px;padding:12px;border-radius:980px;border:1px solid rgba(255,255,255,.15);}
+footer{background:var(--navy-dk);padding:24px 20px;text-align:center;font-size:10px;color:rgba(255,255,255,.35);line-height:1.8;border-top:2px solid var(--gold);}
+</style>
+</head>
+<body>
+<nav style="position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,.07);height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;">
+  <a href="index.html" style="display:flex;align-items:center;gap:8px;text-decoration:none;">
+    <div style="width:28px;height:28px;background:#1A3C5E;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#E8A020;">H</div>
+    <span style="font-size:13px;font-weight:700;color:#1d1d1f;letter-spacing:-.3px;">Hkr-Studio AI</span>
+  </a>
+  <div style="display:flex;align-items:center;gap:5px;overflow-x:auto;scrollbar-width:none;">
+    <a href="index.html" style="font-size:11px;font-weight:600;color:#1d1d1f;padding:6px 11px;border-radius:20px;background:#f5f5f7;border:1px solid #e8e8ed;">🏠</a><a href="about.html" style="font-size:11px;font-weight:600;color:#1d1d1f;padding:6px 11px;border-radius:20px;background:#f5f5f7;border:1px solid #e8e8ed;">À propos</a><a href="etude-de-cas.html" style="font-size:11px;font-weight:600;color:#1d1d1f;padding:6px 11px;border-radius:20px;background:#f5f5f7;border:1px solid #e8e8ed;">Cas clients</a><a href="tarifs-ia.html" style="font-size:11px;font-weight:600;color:#1d1d1f;padding:6px 11px;border-radius:20px;background:#f5f5f7;border:1px solid #e8e8ed;">🤖 IA</a><a href="portfolio.html" style="font-size:11px;font-weight:600;color:#1d1d1f;padding:6px 11px;border-radius:20px;background:#f5f5f7;border:1px solid #e8e8ed;">Portfolio</a><a href="contact.html" style="font-size:11px;font-weight:600;color:#1d1d1f;padding:6px 11px;border-radius:20px;background:#f5f5f7;border:1px solid #e8e8ed;">Contact</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-orb"></div>
+  <div class="hero-badge"><span>FAQ — Agents IA · Hkr-Studio AI</span></div>
+  <h1>Toutes vos questions<br><em>sur les agents IA.</em></h1>
+  <p class="hero-sub">Les 24 questions que nos clients posent avant de déployer un agent IA dans leur entreprise.</p>
+  <div class="hero-count">24 questions · 6 catégories</div>
+</div>
+
+<section class="sf">
+  <div class="sec" style="padding:0;">
+    <div class="cat-tabs rev">
+      <div class="cat-tab active" onclick="filterFaq('all',this)">Toutes (24)</div>
+      <div class="cat-tab" onclick="filterFaq('general',this)">Général</div>
+      <div class="cat-tab" onclick="filterFaq('technique',this)">Technique</div>
+      <div class="cat-tab" onclick="filterFaq('tarif',this)">Tarifs</div>
+      <div class="cat-tab" onclick="filterFaq('deploiement',this)">Déploiement</div>
+      <div class="cat-tab" onclick="filterFaq('securite',this)">Sécurité</div>
+      <div class="cat-tab" onclick="filterFaq('resultats',this)">Résultats</div>
+    </div>
+
+    <div class="faq-list" id="faq-list">
+
+      <!-- GÉNÉRAL -->
+      <div class="faq-item rev" data-cat="general">
+        <div class="faq-q" onclick="toggle(this)"><span class="faq-num">01</span><span class="faq-text">C'est quoi exactement un "agent IA" ?</span><span class="faq-arrow">›</span></div>
+        <div class="faq-a"><div class="faq-answer">Un agent IA est un programme qui <strong>pense et agit automatiquement</strong> à votre place pour une tâche précise. Concrètement, c'est un assistant virtuel connecté à WhatsApp, Gmail et votre CRM qui répond à vos clients, qualifie vos prospects, génère des propositions et relance automatiquement — sans que vous ayez à intervenir.<br><br>Chez Hkr-Studio AI, nos agents sont alimentés par une <em>IA de dernière génération</em> et un moteur d'orchestration propriétaire.</div><span class="faq-tag">Concept de base</span></div>
+      </div>
+
+      <div class="faq-item rev" data-cat="general">
+        <div class="faq-q" onclick="toggle(this)"><span class="faq-num">02</span><span class="faq-text">Est-ce que ça fonctionne pour les petites entreprises ?</span><span class="faq-arrow">›</span></div>
+        <div class="faq-a"><div class="faq-answer">Absolument. Les agents IA sont particulièrement <strong>précieux pour les TPE et PME</strong> qui n'ont pas les moyens de recruter un commercial ou un service client à temps plein. Un solo-entrepreneur bénéficie autant qu'une entreprise de 50 personnes du Sales AI — le coût est le même, mais le gain de temps est proportionnellement plus grand.<br><br>Nous avons des clients dès 1 employé.</div><span class="faq-tag">Toutes tailles</span></div>
+      </div>
+
+      <div class="faq-item rev" data-cat="general">
+        <div class="faq-q" onclick="toggle(this)"><span class="faq-num">03</span><span class="faq-text">Faut-il des compétences techniques pour utiliser un agent IA ?</span><span class="faq-arrow">›</span></div>
+        <div class="faq-a"><div class="faq-answer"><strong>Non, aucune compétence technique n'est requise.</strong> Vous continuez à utiliser WhatsApp et Gmail comme d'habitude. L'agent travaille en arrière-plan et vous prévenez seulement quand votre intervention est nécessaire.<br><br>On vous forme en 90 minutes à la lecture des rapports et à la gestion des escalades. C'est tout ce qu'il faut savoir.</div><span class="faq-tag">Zéro compétence requise</span></div>
+      </div>
+
+      <div class="faq-item rev" data-cat="general">
+        <div class="faq-q" onclick="toggle(this)"><span class="faq-num">04</span><span class="faq-text">L'agent peut-il parler en dioula, baoulé ou en anglais ?</span><span class="faq-arrow">›</span></div>
+        <div class="faq-a"><div class="faq-answer">L'agent travaille principalement en <strong>français</strong>. Il peut détecter et répondre en <em>anglais</em> si le client écrit en anglais.<br><br>Pour les langues locales (dioula, baoulé, bété…), l'agent peut reconnaître quelques phrases simples, mais la réponse sera en français avec une touche de respect culturel intégré dans le prompt. Une version avec support dioula est en développement pour 2025.</div><span class="faq-tag">Multilingue partiel</span></div>
+      </div>
+
+      <!-- TECHNIQUE -->
+      <div class="faq-item rev" data-cat="technique">
+        <div class="faq-q" onclick="toggle(this)"><span class="faq-num">05</span><span class="faq-text">Quels outils faut-il pour faire fonctionner l'agent ?</span><span class="faq-arrow">›</span></div>
+        <div class="faq-a"><div class="faq-answer">L'agent nécessite côté client :<br><br>• <strong>Un numéro WhatsApp Business</strong> dédié à l'agent (peut être votre numéro actuel)<br>• <strong>Un compte Gmail</strong> pour les emails (votre compte actuel suffira)<br>• <strong>Un compte Google Sheets</strong> (gratuit, pour le CRM)<br>• <strong>Un compte Google Drive</strong> (gratuit, pour les documents)<br><br>Tout le reste — orchestration, IA, base de données — est géré et hébergé par Hkr-Studio AI. Vous n'installez rien.</div><span class="faq-tag">Stack simple</span></div>
+      </div>
+
+      <div class="faq-item rev" data-cat="technique">
+        <div class="faq-q" onclick="toggle(this)"><span class="faq-num">06</span><span class="faq-text">L'agent peut-il s'intégrer à mes outils existants ?</span><span class="faq-arrow">›</span></div>
+        <div class="faq-a"><div class="faq-answer">Oui. L'agent peut se connecter à :<br><br>• <strong>Google Workspace</strong> : Sheets, Gmail, Drive, Calendar, Forms, Docs<br>• <strong>WhatsApp Business API</strong><br>• <strong>Formulaires web</strong> : Typeform, Google Forms, votre site HTML<br>• <strong>Wave, Orange Money</strong> pour le suivi des paiements<br><br>Si vous avez un autre outil spécifique, dites-le nous lors de la consultation — on évalue la faisabilité de l'intégration.</div><span class="faq-tag">Intégrations flexibles</span></div>
+      </div>
+
+      <div class="faq-item rev" data-cat="technique">
+        <div class="faq-q" onclick="toggle(this)"><span class="faq-num">07</span><span class="faq-text">Que se passe-t-il si l'internet coupe en Côte d'Ivoire ?</span><span class="faq-arrow">›</span></div>
+        <div class="faq-a"><div class="faq-answer">Nos agents tournent sur des <strong>serveurs cloud dans le monde entier</strong> (non sur votre ordinateur). Si votre connexion locale coupe, les serveurs continuent de fonctionner normalement.<br><br>Si WhatsApp ou les serveurs d'notre partenaire technologique (IA HKR) connaissent une interruption, l'agent entre en mode pause automatique et reprend dès que la connexion revient. Vous êtes notifié par alerte en cas d'interruption > 15 minutes.</div><span class="faq-tag">Disponibilité 99.5%</span></div>
+      </div>
+
+      <div class="faq-item rev" data-cat="technique">
+        <div class="faq-q" onclick="toggle(this)"><span class="faq-num">08</span><span class="faq-text">L'agent peut-il passer des appels téléphoniques ?</span><span class="faq-arrow">›</span></div>
+        <div class="faq-a"><div class="faq-answer">Non, l'agent <strong>ne passe pas d'appels vocaux</strong>. Il fonctionne uniquement par messages textes (WhatsApp messages, Gmail).<br><br>En revanche, il peut <strong>planifier un appel</strong> : "Je vous contacte demain à 10h" et créer automatiquement l'événement dans Google Calendar avec un rappel pour vous. L'appel reste effectué par un humain.</div><span class="faq-tag">Messages uniquement</span></div>
+      </div>
+
+      <!-- TARIFS -->
+      <div class="faq-item rev" data-cat="tarif">
+        <div class="faq-q" onclick="toggle(this)"><span class="faq-num">09</span><span class="faq-text">Pourquoi y a-t-il un coût de déploiement + une maintenance mensuelle ?</span><span class="faq-arrow">›</span></div>
+        <div class="faq-a"><div class="faq-answer">Le <strong>déploiement unique</strong> (350K ou 600K FCFA) couvre : la configuration complète de l'agent, l'intégration à vos outils, la rédaction du prompt IA, les tests (100 cas), la formation et la mise en production.<br><br>La <strong>maintenance mensuelle</strong> (50K FCFA) couvre : les mises à jour de prompt quand vous changez de services ou de tarifs, le monitoring des performances, les corrections de bugs et les rapports mensuels. Sans maintenance, l'agent devient obsolète et moins performant.</div><span class="faq-tag">Tarification transparente</span></div>
+      </div>
+
+      <div class="faq-item rev" data-cat="tarif">
+        <div class="faq-q" onclick="toggle(this)"><span class="faq-num">10</span><span class="faq-text">Peut-on payer en plusieurs fois ?</span><span class="faq-arrow">›</span></div>
+        <div class="faq-a"><div class="faq-answer">Oui. Pour le déploiement, nous acceptons :<br><br>• <strong>50% à la commande + 50% à la livraison</strong> (standard)<br>• <strong>3 versements égaux</strong> sur 3 mois (sur demande, selon profil)<br><br>La maintenance est payée mensuellement, en début de mois, via Wave ou Orange Money.<br><br>Contactez-nous pour discuter des modalités adaptées à votre situation.</div><span class="faq-tag">Paiement flexible</span></div>
+      </div>
+
+      <div class="faq-item rev" data-cat="tarif">
+        <div class="faq-q" onclick="toggle(this)"><span class="faq-num">11</span><span class="faq-text">Y a-t-il des coûts cachés ?</span><span class="faq-arrow">›</span></div>
+        <div class="faq-a"><div class="faq-answer"><strong>Non, aucun coût caché.</strong> Voici ce qui est inclus dans le prix :<br><br>✅ Tous les outils Google (Sheets, Drive, Gmail, Calendar) — gratuits<br>✅ L'hébergement notre moteur d'automatisation — inclus dans la maintenance<br>✅ Les appels à IA HKR — inclus dans la maintenance<br>✅ Le stockage Firestore — inclus dans la maintenance<br><br>La seule dépense supplémentaire possible : si vous avez besoin d'un numéro WhatsApp Business API premium (5-10K FCFA/mois selon l'opérateur).</div><span class="faq-tag">Zéro surprise</span></div>
+      </div>
+
+      <div class="faq-item rev" data-cat="tarif">
+        <div class="faq-q" onclick="toggle(this)"><span class="faq-num">12</span><span class="faq-text">Peut-on arrêter la maintenance à tout moment ?</span><span class="faq-arrow">›</span></div>
+        <div class="faq-a"><div class="faq-answer">Oui. <strong>Aucun engagement annuel</strong>. Vous pouvez arrêter la maintenance à tout moment avec un préavis de 30 jours.<br><br>Si vous arrêtez la maintenance, l'agent continue de fonctionner avec sa configuration existante, mais ne sera plus mis à jour ni surveillé. Les pannes ne seront plus corrigées automatiquement.</div><span class="faq-tag">Sans engagement</span></div>
+      </div>
+
+      <!-- DÉPLOIEMENT -->
+      <div class="faq-item rev" data-cat="deploiement">
+        <div class="faq-q" onclick="toggle(this)"><span class="faq-num">13</span><span class="faq-text">Combien de temps dure le déploiement ?</span><span class="faq-arrow">›</span></div>
+        <div class="faq-a"><div class="faq-answer">Le déploiement standard dure <strong>7 jours ouvrables</strong> :<br><br>• J+1 à J+2 : Collecte des informations + configuration technique<br>• J+3 à J+4 : Développement du prompt + intégration outils<br>• J+5 : Tests sur 100 cas (données fictives)<br>• J+6 : Tests utilisateurs + correction<br>• J+7 : Mise en production + formation<br><br>Pour la Suite complète (5 agents), compter 21 jours.</div><span class="faq-tag">7 jours</span></div>
+      </div>
+
+      <div class="faq-item rev" data-cat="deploiement">
+        <div class="faq-q" onclick="toggle(this)"><span class="faq-num">14</span><span class="faq-text">Qu'est-ce que vous avez besoin de nous pour déployer l'agent ?</span><span class="faq-arrow">›</span></div>
+        <div class="faq-a"><div class="faq-answer">Pour déployer l'agent, nous avons besoin de :<br><br>• <strong>Vos services et tarifs</strong> en détail (pour alimenter le catalogue de l'agent)<br>• <strong>Accès à votre Gmail</strong> (pour configurer l'envoi/réception automatique)<br>• <strong>Votre numéro WhatsApp Business</strong> (pour la connexion API)<br>• <strong>Vos scripts de vente</strong> existants (si vous en avez)<br>• <strong>2 heures de votre temps</strong> pour le kick-off et la formation<br><br>C'est tout. On s'occupe du reste.</div><span class="faq-tag">Minimum d'effort client</span></div>
+      </div>
+
+      <div class="faq-item rev" data-cat="deploiement">
+        <div class="faq-q" onclick="toggle(this)"><span class="faq-num">15</span><span class="faq-text">Peut-on tester l'agent avant de le mettre en production ?</span><span class="faq-arrow">›</span></div>
+        <div class="faq-a"><div class="faq-answer">Oui, absolument. Nous appliquons une <strong>procédure de déploiement progressif</strong> en 4 phases :<br><br>1. Phase staging (2 semaines) — Tests uniquement avec données fictives<br>2. Soft launch (1 semaine) — 10% du trafic réel<br>3. Partiel (1 semaine) — 50% du trafic<br>4. Full launch — 100% du trafic<br><br>À chaque phase, vous validez avant de passer à la suivante. <strong>Aucun déploiement forcé.</strong></div><span class="faq-tag">Déploiement progressif</span></div>
+      </div>
+
+      <!-- SÉCURITÉ -->
+      <div class="faq-item rev" data-cat="securite">
+        <div class="faq-q" onclick="toggle(this)"><span class="faq-num">16</span><span class="faq-text">Est-ce que les données de mes clients sont sécurisées ?</span><span class="faq-arrow">›</span></div>
+        <div class="faq-a"><div class="faq-answer">Oui. Voici les mesures de sécurité appliquées :<br><br>• Les données clients restent dans <strong>votre Google Sheets</strong> (vous en êtes propriétaire)<br>• Nous n'avons accès qu'en lecture/écriture technique, jamais en consultation commerciale<br>• Les conversations sont stockées dans <strong>Firestore</strong> avec chiffrement AES-256<br>• <strong>Aucune donnée d'un client A n'est croisée avec celle d'un client B</strong><br>• Les données sensibles (mots de passe, IBAN) ne sont jamais stockées</div><span class="faq-tag">Données protégées</span></div>
+      </div>
+
+      <div class="faq-item rev" data-cat="securite">
+        <div class="faq-q" onclick="toggle(this)"><span class="faq-num">17</span><span class="faq-text">L'agent peut-il prendre des décisions irréversibles à ma place ?</span><span class="faq-arrow">›</span></div>
+        <div class="faq-a"><div class="faq-answer"><strong>Non.</strong> L'agent est conçu avec des limites strictes. Il <strong>ne peut pas</strong> :<br><br>• Valider une commande ou signer un contrat<br>• Accorder une remise non autorisée<br>• Promettre des délais sans validation<br>• Effectuer des paiements ou virements<br>• Révéler des informations confidentielles<br><br>Toute situation critique déclenche automatiquement une <strong>escalade vers vous</strong> via WhatsApp. L'agent propose, vous décidez.</div><span class="faq-tag">Contrôle humain conservé</span></div>
+      </div>
+
+      <div class="faq-item rev" data-cat="securite">
+        <div class="faq-q" onclick="toggle(this)"><span class="faq-num">18</span><span class="faq-text">Que se passe-t-il si l'agent dit quelque chose de faux ou d'inapproprié ?</span><span class="faq-arrow">›</span></div>
+        <div class="faq-a"><div class="faq-answer">Notre procédure de tests préventifs (100 cas dont 15 adversariaux) réduit ce risque à quasi-zéro. En cas d'incident :<br><br>• <strong>Monitoring continu</strong> : toute réponse anormale est détectée et alertée<br>• <strong>Correction dans les 2 heures</strong> pour les incidents SEV1<br>• <strong>Log complet</strong> : chaque message est archivé et auditable<br>• <strong>Rollback possible</strong> en moins de 30 minutes si nécessaire<br><br>Aucun système IA n'est parfait à 100%, mais le nôtre vise ≥ 90% de précision avant déploiement.</div><span class="faq-tag">Monitoring 24/7</span></div>
+      </div>
+
+      <!-- RÉSULTATS -->
+      <div class="faq-item rev" data-cat="resultats">
+        <div class="faq-q" onclick="toggle(this)"><span class="faq-num">19</span><span class="faq-text">En combien de temps voit-on des résultats ?</span><span class="faq-arrow">›</span></div>
+        <div class="faq-a"><div class="faq-answer">Les résultats sont <strong>immédiats dès le jour 1</strong> : l'agent répond à tous les messages entrants en moins de 5 minutes, même la nuit.<br><br>Pour les résultats mesurables :<br>• <strong>Semaine 1</strong> : Zéro lead sans réponse<br>• <strong>Mois 1</strong> : Augmentation visible du taux de qualification<br>• <strong>Mois 3</strong> : ROI positif constaté et mesuré<br><br>Nos clients récupèrent en moyenne <strong>3 heures par jour</strong> dès la première semaine.</div><span class="faq-tag">Résultats dès J+1</span></div>
+      </div>
+
+      <div class="faq-item rev" data-cat="resultats">
+        <div class="faq-q" onclick="toggle(this)"><span class="faq-num">20</span><span class="faq-text">Est-ce que l'agent remplace mon équipe commerciale ?</span><span class="faq-arrow">›</span></div>
+        <div class="faq-a"><div class="faq-answer"><strong>Non, il la complète.</strong> L'agent gère les tâches répétitives et chronophages : réponses initiales, qualification, relances, rapports. Votre équipe (ou vous-même) intervient sur ce qui compte vraiment : les négociations complexes, les clients VIP, la finalisation des contrats.<br><br>L'agent est comme un <strong>assistant commercial inépuisable</strong> qui prépare le terrain pour que l'humain conclue.</div><span class="faq-tag">Complémentarité humain-IA</span></div>
+      </div>
+
+      <div class="faq-item rev" data-cat="resultats">
+        <div class="faq-q" onclick="toggle(this)"><span class="faq-num">21</span><span class="faq-text">Comment mesurer le ROI de mon agent IA ?</span><span class="faq-arrow">›</span></div>
+        <div class="faq-a"><div class="faq-answer">Le rapport hebdomadaire de votre agent inclut :<br><br>• <strong>Nombre de leads traités</strong> automatiquement<br>• <strong>Temps économisé</strong> (en heures) par rapport à un traitement manuel<br>• <strong>Taux de qualification</strong> et évolution mensuelle<br>• <strong>CA potentiel</strong> des propositions générées<br>• <strong>Nombre de relances</strong> qui ont converti<br><br>Formule ROI simple : (CA supplémentaire généré - coût agent) / coût agent × 100.</div><span class="faq-tag">ROI mesurable</span></div>
+      </div>
+
+      <div class="faq-item rev" data-cat="resultats">
+        <div class="faq-q" onclick="toggle(this)"><span class="faq-num">22</span><span class="faq-text">Est-ce que vos agents IA ont déjà été déployés chez des vrais clients ?</span><span class="faq-arrow">›</span></div>
+        <div class="faq-a"><div class="faq-answer">Hkr-Studio AI utilise ses propres agents IA en interne — <strong>Sales AI et CRM AI tournent dans notre agence</strong>. Nous sommes notre premier client et notre meilleure référence.<br><br>Nos agents sont en phase de commercialisation active. Si vous êtes parmi les <strong>5 premiers clients à déployer</strong>, vous bénéficiez d'un tarif early adopter et d'un suivi hebdomadaire renforcé pendant 3 mois.</div><span class="faq-tag">Early adopter</span></div>
+      </div>
+
+      <div class="faq-item rev" data-cat="resultats">
+        <div class="faq-q" onclick="toggle(this)"><span class="faq-num">23</span><span class="faq-text">Et si les résultats ne correspondent pas à mes attentes ?</span><span class="faq-arrow">›</span></div>
+        <div class="faq-a"><div class="faq-answer">Nous proposons une <strong>garantie satisfaction à 30 jours</strong> : si après 30 jours en production, l'agent ne remplit pas les KPI convenus ensemble lors du kick-off, nous effectuons les ajustements nécessaires <strong>sans frais supplémentaires</strong>.<br><br>Les KPI sont définis et signés avant le déploiement : taux de réponse, délai, précision, satisfaction. Pas de flou.</div><span class="faq-tag">Garantie 30 jours</span></div>
+      </div>
+
+      <div class="faq-item rev" data-cat="general">
+        <div class="faq-q" onclick="toggle(this)"><span class="faq-num">24</span><span class="faq-text">Comment démarrer ?</span><span class="faq-arrow">›</span></div>
+        <div class="faq-a"><div class="faq-answer">3 étapes simples :<br><br><strong>1.</strong> Remplissez notre dossier client FQ-02 (2 min) — cela nous permet de préparer votre consultation :<br>👉 hkrstudioai.github.io/dossier-client<br><br><strong>2.</strong> Notre équipe vous contacte dans les 2 heures pour une consultation gratuite de 30 min<br><br><strong>3.</strong> Si vous validez la proposition, déploiement en 7 jours<br><br>C'est tout. Pas de réunion inutile, pas de processus compliqué.</div><span class="faq-tag">3 étapes</span></div>
+      </div>
+
+    </div>
+  </div>
+</section><section style="background:#1A3C5E;padding:20px 24px;">
+  <div style="max-width:600px;margin:0 auto;display:flex;justify-content:space-around;flex-wrap:wrap;gap:12px;">
+    <div style="text-align:center;"><div style="font-size:18px;font-weight:700;color:#E8A020;">58</div><div style="font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;">Services</div></div>
+    <div style="text-align:center;"><div style="font-size:18px;font-weight:700;color:#E8A020;">12</div><div style="font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;">Agents IA</div></div>
+    <div style="text-align:center;"><div style="font-size:18px;font-weight:700;color:#E8A020;">24/7</div><div style="font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;">Disponible</div></div>
+    <div style="text-align:center;"><div style="font-size:18px;font-weight:700;color:#E8A020;">7j</div><div style="font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;">Livraison</div></div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="sf sg">
+  <div class="sec" style="padding:0;">
+    <div class="cta-block rev">
+      <div class="cta-title">Votre question n'est pas là ?</div>
+      <div class="cta-sub">Posez-la directement sur WhatsApp. Notre équipe répond en moins de 2 heures.</div>
+      <a href="https://wa.me/2250715734985?text=Bonjour%2C%20j%27ai%20une%20question%20sur%20les%20agents%20IA%20Hkr-Studio%20AI." target="_blank" rel="noopener noreferrer" class="btn-cta">💬 Poser ma question sur WhatsApp</a>
+      <a href="demo.html" class="btn-cta-s">🎮 Tester la démo interactive</a>
+    </div>
+  </div>
+</section>
+
+<section style="padding:40px 24px;background:#f5f5f7;">
+  <div style="max-width:600px;margin:0 auto;">
+    <div style="font-size:10px;font-weight:700;color:#E8A020;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;text-align:center;">À explorer aussi</div>
+    <h3 style="font-size:20px;font-weight:700;color:#1A3C5E;text-align:center;margin-bottom:16px;letter-spacing:-.4px;">Continuez votre découverte</h3>
+    <div style="display:flex;flex-direction:column;gap:10px;"><a href="demo.html" style="display:flex;align-items:center;gap:12px;background:#fff;border-radius:12px;padding:14px;box-shadow:0 2px 10px rgba(0,0,0,.05);text-decoration:none;border:1px solid #e8e8ed;transition:transform .15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+      <div style="width:40px;height:40px;background:#FFF4E0;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🎮</div>
+      <div><div style="font-size:13px;font-weight:700;color:#1A3C5E;margin-bottom:2px;">Démo interactive</div><div style="font-size:11px;color:#6e6e73;">Testez sans engagement</div></div>
+      <div style="margin-left:auto;font-size:16px;color:#E8A020;">›</div>
+    </a><a href="tarifs-ia.html" style="display:flex;align-items:center;gap:12px;background:#fff;border-radius:12px;padding:14px;box-shadow:0 2px 10px rgba(0,0,0,.05);text-decoration:none;border:1px solid #e8e8ed;transition:transform .15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+      <div style="width:40px;height:40px;background:#FFF4E0;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">💰</div>
+      <div><div style="font-size:13px;font-weight:700;color:#1A3C5E;margin-bottom:2px;">Voir les tarifs</div><div style="font-size:11px;color:#6e6e73;">Formules Starter et Business</div></div>
+      <div style="margin-left:auto;font-size:16px;color:#E8A020;">›</div>
+    </a><a href="dossier-client.html" style="display:flex;align-items:center;gap:12px;background:#fff;border-radius:12px;padding:14px;box-shadow:0 2px 10px rgba(0,0,0,.05);text-decoration:none;border:1px solid #e8e8ed;transition:transform .15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+      <div style="width:40px;height:40px;background:#FFF4E0;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">📋</div>
+      <div><div style="font-size:13px;font-weight:700;color:#1A3C5E;margin-bottom:2px;">Démarrer maintenant</div><div style="font-size:11px;color:#6e6e73;">Remplir le dossier en 2 min</div></div>
+      <div style="margin-left:auto;font-size:16px;color:#E8A020;">›</div>
+    </a></div>
+  </div>
+</section>
+<footer style="background:#0D2137;padding:32px 20px 40px;border-top:3px solid #E8A020;">
+  <div style="max-width:600px;margin:0 auto;text-align:center;">
+    <!-- Logo -->
+    <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:14px;">
+      <div style="width:36px;height:36px;background:#E8A020;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:#1A3C5E;">H</div>
+      <div style="font-size:16px;font-weight:700;color:#fff;letter-spacing:-.3px;">Hkr-Studio <span style="color:#E8A020;">AI</span></div>
+    </div>
+    <div style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:18px;">Votre Partenaire Digital 360°</div>
+    <!-- Navigation footer -->
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:18px;">
+      <a href="index.html" style="font-size:11px;color:rgba(255,255,255,.5);">Catalogue</a>
+      <span style="color:rgba(255,255,255,.2);">·</span>
+      <a href="about.html" style="font-size:11px;color:rgba(255,255,255,.5);">À propos</a>
+      <span style="color:rgba(255,255,255,.2);">·</span>
+      <a href="etude-de-cas.html" style="font-size:11px;color:rgba(255,255,255,.5);">Cas clients</a>
+      <span style="color:rgba(255,255,255,.2);">·</span>
+      <a href="tarifs-ia.html" style="font-size:11px;color:rgba(255,255,255,.5);">Agents IA</a>
+      <span style="color:rgba(255,255,255,.2);">·</span>
+      <a href="portfolio.html" style="font-size:11px;color:rgba(255,255,255,.5);">Portfolio</a>
+      <span style="color:rgba(255,255,255,.2);">·</span>
+      <a href="faq-ia.html" style="font-size:11px;color:rgba(255,255,255,.5);">FAQ</a>
+      <span style="color:rgba(255,255,255,.2);">·</span>
+      <a href="contact.html" style="font-size:11px;color:rgba(255,255,255,.5);">Contact</a>
+    </div>
+    <!-- Contacts -->
+    <div style="display:flex;flex-direction:column;gap:4px;margin-bottom:16px;">
+      <div style="font-size:12px;color:rgba(255,255,255,.6);">📱 +225 07 15 73 49 85 &nbsp;·&nbsp; 📧 hkrstudioai@gmail.com</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.4);">📍 Abidjan, Cocody Riviera 3, Côte d'Ivoire</div>
+    </div>
+    <!-- CTA WhatsApp -->
+    <a href="https://wa.me/2250715734985?text=Bonjour%20Hkr-Studio%20AI%2C%20je%20souhaite%20un%20devis." target="_blank" rel="noopener noreferrer" style="display:inline-block;background:#E8A020;color:#1A3C5E;font-size:13px;font-weight:700;padding:11px 24px;border-radius:980px;margin-bottom:18px;">💬 Écrire sur WhatsApp</a>
+    <!-- Ligne -->
+    <div style="height:1px;background:rgba(255,255,255,.07);margin-bottom:14px;"></div>
+    <!-- Copyright -->
+    <div style="font-size:10px;color:rgba(255,255,255,.25);line-height:1.8;">
+      © 2025 Hkr-Studio AI · Tous droits réservés<br>
+      <span style="font-size:9px;color:rgba(255,255,255,.15);">© Hkr-Studio AI — Abidjan Cocody Riviera, Côte d'Ivoire</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Reveal
+const obs=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('on');});},{threshold:0.08});
+document.querySelectorAll('.rev').forEach(el=>obs.observe(el));
+
+// Toggle FAQ
+function toggle(btn){
+  const item=btn.closest('.faq-item');
+  const isOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
+  if(!isOpen)item.classList.add('open');
+}
+
+// Filtre catégories
+function filterFaq(cat,el){
+  document.querySelectorAll('.cat-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.faq-item').forEach(item=>{
+    item.style.display=(cat==='all'||item.dataset.cat===cat)?'block':'none';
+  });
+}
+</script>
+
+<script>
+/* ── ANIMATIONS GLOBALES HKR ── */
+// 1. Scroll reveal
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach(el => { if(el.isIntersecting) el.target.classList.add('on'); });
+}, {threshold: 0.07});
+document.querySelectorAll('.rev').forEach(el => revObs.observe(el));
+
+// 2. Compteurs animés
+function animCount(el, target, dur=1400){
+  const suffix = target.toString().match(/[^0-9]/g)?.join('') || '';
+  const num = parseInt(target.toString().replace(/\D/g,''));
+  let start = null;
+  const step = ts => {
+    if(!start) start = ts;
+    const p = Math.min((ts-start)/dur, 1);
+    const ease = 1 - Math.pow(1-p, 3);
+    el.textContent = Math.floor(ease*num).toLocaleString() + suffix;
+    if(p < 1) requestAnimationFrame(step);
+    else el.textContent = target;
+  };
+  requestAnimationFrame(step);
+}
+const countObs = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      const val = entry.target.querySelector('[data-count]');
+      if(val && !val.dataset.done){ val.dataset.done='1'; animCount(val, val.dataset.count); }
+    }
+  });
+}, {threshold: 0.5});
+document.querySelectorAll('[data-count-wrap]').forEach(el => countObs.observe(el));
+
+// 3. Ripple sur tous les boutons
+document.querySelectorAll('a[class*="btn"], button[class*="btn"], .tarif-cta, .work-action, .nav-cta').forEach(btn => {
+  btn.style.position = 'relative';
+  btn.style.overflow = 'hidden';
+  btn.addEventListener('click', function(e){
+    const r = document.createElement('span');
+    Object.assign(r.style, {
+      position:'absolute', borderRadius:'50%',
+      background:'rgba(255,255,255,.25)',
+      width:'0', height:'0',
+      transform:'translate(-50%,-50%)',
+      animation:'rippleAnim .6s ease forwards',
+      left: (e.clientX - this.getBoundingClientRect().left) + 'px',
+      top: (e.clientY - this.getBoundingClientRect().top) + 'px',
+      pointerEvents:'none'
+    });
+    this.appendChild(r);
+    setTimeout(()=>r.remove(), 700);
+  });
+});
+
+// 4. Barre de progression scroll
+(function(){
+  const bar = document.createElement('div');
+  Object.assign(bar.style, {
+    position:'fixed', top:'52px', left:'0', height:'2px',
+    background:'#E8A020', zIndex:'99', width:'0%',
+    transition:'width .1s', borderRadius:'0 2px 2px 0',
+    boxShadow:'0 0 8px rgba(232,160,32,.6)'
+  });
+  document.body.appendChild(bar);
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    bar.style.width = (window.scrollY / (h.scrollHeight - h.clientHeight) * 100) + '%';
+  }, {passive:true});
+})();
+
+// 5. Tilt 3D sur les cartes (desktop)
+if(window.innerWidth > 768){
+  document.querySelectorAll('.work-card, .kpi-card, .skill-card, .tarif, .agent-tarif-card, .case-card, .valeur-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = `translateY(-4px) rotateX(${-y*5}deg) rotateY(${x*5}deg)`;
+      card.style.transition = 'transform .08s';
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+      card.style.transition = 'transform .4s cubic-bezier(.22,1,.36,1)';
+    });
+  });
+}
+
+// 6. Smooth scroll sur tous les liens ancres
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth', block:'start'}); }
+  });
+});
+
+// CSS animations injectées
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes rippleAnim { to { width:200px; height:200px; opacity:0; } }
+  .rev { opacity:0; transform:translateY(22px); transition:opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1); }
+  .rev.on { opacity:1; transform:translateY(0); }
+  .rev:nth-child(1){transition-delay:.05s}
+  .rev:nth-child(2){transition-delay:.1s}
+  .rev:nth-child(3){transition-delay:.15s}
+  .rev:nth-child(4){transition-delay:.2s}
+  .rev:nth-child(5){transition-delay:.25s}
+  .rev:nth-child(6){transition-delay:.3s}
+  .work-card, .kpi-card, .skill-card, .tarif, .agent-tarif-card, .case-card, .valeur-card {
+    transition: transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s;
+  }
+`;
+document.head.appendChild(style);
+</script>
+</body>
+</html>

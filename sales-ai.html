@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#1A3C5E">
+<title>Sales AI — Agent Commercial IA · Hkr-Studio AI</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',Arial,sans-serif;background:#fff;color:#1d1d1f;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+:root{--navy:#1A3C5E;--navy-dk:#0D2137;--gold:#E8A020;--gold-lt:#FFF4E0;--g1:#f5f5f7;--g2:#e8e8ed;--g3:#6e6e73;--white:#fff;--green:#1A7A4A;--green-lt:#E6F4EC;--r:16px;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.9);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,.07);height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;}
+.nav-logo{display:flex;align-items:center;gap:8px;}
+.nav-logo-box{width:28px;height:28px;background:var(--navy);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#fff;}
+.nav-name{font-size:13px;font-weight:700;color:#1d1d1f;}
+.nav-r{display:flex;gap:8px;align-items:center;}
+.nav-back{font-size:12px;color:var(--g3);padding:6px 12px;border-radius:20px;background:var(--g1);}
+.nav-cta{background:var(--gold);color:var(--navy);font-size:12px;font-weight:700;padding:7px 16px;border-radius:20px;}
+
+/* HERO */
+.hero{min-height:100svh;background:var(--navy-dk);display:flex;flex-direction:column;justify-content:center;padding:100px 24px 60px;position:relative;overflow:hidden;}
+.hero-orb1{position:absolute;width:350px;height:350px;top:-80px;right:-80px;border-radius:50%;background:radial-gradient(circle,rgba(232,160,32,.2),transparent 70%);filter:blur(40px);}
+.hero-orb2{position:absolute;width:200px;height:200px;bottom:-40px;left:-40px;border-radius:50%;background:radial-gradient(circle,rgba(26,60,94,.5),transparent 70%);filter:blur(30px);}
+.hero-live{display:inline-flex;align-items:center;gap:6px;background:rgba(26,122,74,.2);border:1px solid rgba(26,122,74,.4);border-radius:20px;padding:5px 14px;margin-bottom:20px;}
+.live-dot{width:7px;height:7px;border-radius:50%;background:#22C55E;animation:blink 1.5s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+.hero-live span{font-size:11px;font-weight:700;color:#22C55E;letter-spacing:.5px;}
+.hero-product-badge{background:rgba(232,160,32,.15);border:1px solid rgba(232,160,32,.3);border-radius:8px;padding:6px 12px;font-size:11px;font-weight:700;color:var(--gold);letter-spacing:1px;text-transform:uppercase;display:inline-block;margin-bottom:14px;}
+h1{font-size:clamp(28px,7vw,44px);font-weight:700;color:#fff;letter-spacing:-.8px;line-height:1.1;margin-bottom:12px;}
+h1 em{font-style:normal;color:var(--gold);}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.65);line-height:1.7;max-width:400px;margin-bottom:24px;}
+.hero-metrics{display:flex;gap:0;background:rgba(255,255,255,.06);border:1px solid rgba(232,160,32,.15);border-radius:var(--r);overflow:hidden;margin-bottom:24px;}
+.hm{flex:1;padding:14px 8px;text-align:center;border-right:1px solid rgba(255,255,255,.07);}
+.hm:last-child{border-right:none;}
+.hm-val{font-size:20px;font-weight:700;color:var(--gold);}
+.hm-lab{font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.5px;margin-top:2px;}
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap;}
+.btn-gold{background:var(--gold);color:var(--navy);font-size:14px;font-weight:700;padding:14px 26px;border-radius:980px;box-shadow:0 4px 18px rgba(232,160,32,.4);}
+.btn-ghost{background:rgba(255,255,255,.1);color:#fff;font-size:14px;font-weight:600;padding:14px 22px;border-radius:980px;border:1px solid rgba(255,255,255,.18);}
+
+/* SECTIONS */
+.sec{padding:56px 24px;max-width:600px;margin:0 auto;}
+.sf{padding:56px 24px;}
+.sg{background:var(--g1);}
+.sd{background:var(--navy-dk);}
+.ey{font-size:10px;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;text-align:center;}
+.st{font-size:clamp(22px,5.5vw,30px);font-weight:700;color:#1d1d1f;letter-spacing:-.5px;line-height:1.2;margin-bottom:10px;text-align:center;}
+.st.lt{color:#fff;}
+.ss{font-size:14px;color:var(--g3);line-height:1.7;margin-bottom:28px;text-align:center;}
+.ss.lt{color:rgba(255,255,255,.6);}
+.gb{width:36px;height:3px;background:var(--gold);border-radius:2px;margin:0 auto 20px;}
+.rev{opacity:0;transform:translateY(24px);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1);}
+.rev.on{opacity:1;transform:translateY(0);}
+
+/* FONCTIONNALITÉS */
+.feat-list{display:flex;flex-direction:column;gap:12px;}
+.feat-item{background:var(--white);border-radius:var(--r);padding:18px;display:flex;gap:14px;align-items:flex-start;box-shadow:0 2px 12px rgba(0,0,0,.05);}
+.feat-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;background:var(--gold-lt);}
+.feat-title{font-size:14px;font-weight:700;color:#1d1d1f;margin-bottom:4px;letter-spacing:-.2px;}
+.feat-desc{font-size:12px;color:var(--g3);line-height:1.6;}
+.feat-tag{display:inline-block;background:var(--green-lt);color:var(--green);font-size:9px;font-weight:700;padding:2px 8px;border-radius:8px;margin-top:6px;}
+
+/* WORKFLOW */
+.workflow{display:flex;flex-direction:column;gap:0;}
+.wf-step{display:flex;gap:14px;padding:16px 0;}
+.wf-step:not(:last-child){border-bottom:1px solid rgba(255,255,255,.07);}
+.wf-num{width:36px;height:36px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:var(--navy);flex-shrink:0;margin-top:2px;}
+.wf-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:4px;}
+.wf-desc{font-size:12px;color:rgba(255,255,255,.55);line-height:1.6;}
+.wf-time{font-size:10px;font-weight:700;color:var(--gold);margin-top:4px;}
+
+/* TARIFS */
+.tarifs{display:flex;flex-direction:column;gap:12px;}
+.tarif{background:var(--white);border-radius:var(--r);padding:20px;border:1.5px solid var(--g2);transition:transform .2s,box-shadow .2s;}
+.tarif:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.08);}
+.tarif.popular{background:var(--navy);border-color:var(--gold);}
+.tarif-badge{font-size:9px;font-weight:700;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;}
+.tarif-name{font-size:18px;font-weight:700;color:#1d1d1f;margin-bottom:4px;}
+.tarif.popular .tarif-name{color:#fff;}
+.tarif-price{font-size:26px;font-weight:700;color:var(--gold);margin-bottom:4px;}
+.tarif-period{font-size:11px;color:var(--g3);margin-bottom:14px;}
+.tarif.popular .tarif-period{color:rgba(255,255,255,.5);}
+.tarif-div{height:1px;background:var(--g2);margin-bottom:14px;}
+.tarif.popular .tarif-div{background:rgba(255,255,255,.12);}
+.tarif-feats{display:flex;flex-direction:column;gap:7px;margin-bottom:16px;}
+.tf{font-size:12px;color:var(--g3);display:flex;align-items:flex-start;gap:7px;line-height:1.5;}
+.tarif.popular .tf{color:rgba(255,255,255,.7);}
+.tf-check{color:var(--gold);font-size:13px;flex-shrink:0;margin-top:1px;}
+.tarif-cta{display:block;background:var(--gold);color:var(--navy);font-size:13px;font-weight:700;padding:12px;border-radius:980px;text-align:center;}
+
+/* ROI */
+.roi-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.roi-card{background:var(--white);border-radius:var(--r);padding:18px 14px;text-align:center;border-bottom:3px solid var(--gold);box-shadow:0 2px 10px rgba(0,0,0,.05);}
+.roi-val{font-size:26px;font-weight:700;color:var(--navy);letter-spacing:-.8px;}
+.roi-label{font-size:11px;color:var(--g3);margin-top:4px;line-height:1.4;}
+
+/* CHAT DEMO */
+.chat-demo{background:var(--navy);border-radius:var(--r);overflow:hidden;margin-bottom:20px;}
+.chat-header{background:rgba(232,160,32,.15);border-bottom:1px solid rgba(232,160,32,.2);padding:12px 16px;display:flex;align-items:center;gap:10px;}
+.chat-avatar{width:34px;height:34px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--navy);}
+.chat-agent-name{font-size:13px;font-weight:700;color:#fff;}
+.chat-agent-status{font-size:10px;color:#22C55E;display:flex;align-items:center;gap:4px;}
+.chat-body{padding:16px;display:flex;flex-direction:column;gap:10px;}
+.msg{max-width:85%;padding:10px 14px;border-radius:14px;font-size:13px;line-height:1.6;}
+.msg-client{background:rgba(255,255,255,.1);color:rgba(255,255,255,.85);align-self:flex-end;border-radius:14px 14px 4px 14px;}
+.msg-agent{background:var(--gold);color:var(--navy);align-self:flex-start;border-radius:14px 14px 14px 4px;font-weight:500;}
+.msg-time{font-size:9px;color:rgba(255,255,255,.3);text-align:right;margin-top:2px;}
+.msg-agent-time{font-size:9px;color:rgba(26,60,94,.5);text-align:left;margin-top:2px;}
+.chat-typing{display:flex;gap:4px;align-items:center;padding:10px 14px;background:rgba(255,255,255,.05);border-radius:14px;width:fit-content;}
+.typing-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.4);animation:td .8s infinite;}
+.typing-dot:nth-child(2){animation-delay:.15s;}
+.typing-dot:nth-child(3){animation-delay:.3s;}
+@keyframes td{0%,100%{transform:scale(1);}50%{transform:scale(1.4);}  }
+
+/* CTA FINAL */
+.cta-block{background:linear-gradient(135deg,var(--navy-dk),var(--navy));border-radius:var(--r);padding:28px 20px;text-align:center;border:1px solid rgba(232,160,32,.2);}
+.cta-title{font-size:22px;font-weight:700;color:#fff;margin-bottom:8px;letter-spacing:-.5px;}
+.cta-sub{font-size:13px;color:rgba(255,255,255,.6);line-height:1.6;margin-bottom:20px;}
+.btn-cta-main{display:block;background:var(--gold);color:var(--navy);font-size:15px;font-weight:700;padding:15px;border-radius:980px;margin-bottom:8px;box-shadow:0 4px 16px rgba(232,160,32,.35);}
+.btn-cta-s{display:block;background:rgba(255,255,255,.1);color:#fff;font-size:13px;font-weight:600;padding:12px;border-radius:980px;border:1px solid rgba(255,255,255,.15);}
+
+footer{background:var(--navy-dk);padding:24px 20px;text-align:center;font-size:10px;color:rgba(255,255,255,.35);line-height:1.8;border-top:2px solid var(--gold);}
+</style>
+</head>
+<body>
+<nav style="position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,.07);height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;">
+  <a href="index.html" style="display:flex;align-items:center;gap:8px;text-decoration:none;">
+    <div style="width:28px;height:28px;background:#1A3C5E;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#E8A020;">H</div>
+    <span style="font-size:13px;font-weight:700;color:#1d1d1f;letter-spacing:-.3px;">Hkr-Studio AI</span>
+  </a>
+  <div style="display:flex;align-items:center;gap:5px;overflow-x:auto;scrollbar-width:none;">
+    <a href="index.html" style="font-size:11px;font-weight:600;color:#1d1d1f;padding:6px 11px;border-radius:20px;background:#f5f5f7;border:1px solid #e8e8ed;">🏠</a><a href="about.html" style="font-size:11px;font-weight:600;color:#1d1d1f;padding:6px 11px;border-radius:20px;background:#f5f5f7;border:1px solid #e8e8ed;">À propos</a><a href="etude-de-cas.html" style="font-size:11px;font-weight:600;color:#1d1d1f;padding:6px 11px;border-radius:20px;background:#f5f5f7;border:1px solid #e8e8ed;">Cas clients</a><a href="tarifs-ia.html" style="font-size:11px;font-weight:700;color:#1A3C5E;padding:6px 11px;border-radius:20px;background:#E8A020;">🤖 IA</a><a href="portfolio.html" style="font-size:11px;font-weight:600;color:#1d1d1f;padding:6px 11px;border-radius:20px;background:#f5f5f7;border:1px solid #e8e8ed;">Portfolio</a><a href="contact.html" style="font-size:11px;font-weight:600;color:#1d1d1f;padding:6px 11px;border-radius:20px;background:#f5f5f7;border:1px solid #e8e8ed;">Contact</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-orb1"></div><div class="hero-orb2"></div>
+  <div class="hero-live"><div class="live-dot"></div><span>Agent actif 24h/24 · 7j/7</span></div>
+  <div class="hero-product-badge">HKR · SALES AI · V1.0</div>
+  <h1>Votre agent commercial<br><em>ne dort jamais.</em></h1>
+  <p class="hero-sub">Sales AI répond à chaque prospect en moins de 5 minutes, qualifie automatiquement les leads, génère vos propositions commerciales et relance jusqu'à signature — pendant que vous dormez.</p>
+  <div class="hero-metrics">
+    <div class="hm"><div class="hm-val">&lt;5min</div><div class="hm-lab">Temps réponse</div></div>
+    <div class="hm"><div class="hm-val">24/7</div><div class="hm-lab">Disponibilité</div></div>
+    <div class="hm"><div class="hm-val">+60%</div><div class="hm-lab">Taux conversion</div></div>
+    <div class="hm"><div class="hm-val">0 lead</div><div class="hm-lab">Perdu</div></div>
+  </div>
+  <div class="hero-btns">
+    <a href="#tarifs" class="btn-gold">Voir les tarifs</a>
+    <a href="demo.html" class="btn-ghost">Tester la démo →</a>
+  </div>
+</section><section style="background:#1A3C5E;padding:20px 24px;">
+  <div style="max-width:600px;margin:0 auto;display:flex;justify-content:space-around;flex-wrap:wrap;gap:12px;">
+    <div style="text-align:center;"><div style="font-size:18px;font-weight:700;color:#E8A020;">58</div><div style="font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;">Services</div></div>
+    <div style="text-align:center;"><div style="font-size:18px;font-weight:700;color:#E8A020;">12</div><div style="font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;">Agents IA</div></div>
+    <div style="text-align:center;"><div style="font-size:18px;font-weight:700;color:#E8A020;">24/7</div><div style="font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;">Disponible</div></div>
+    <div style="text-align:center;"><div style="font-size:18px;font-weight:700;color:#E8A020;">7j</div><div style="font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;">Livraison</div></div>
+  </div>
+</section>
+
+<!-- DÉMO CHAT -->
+<section class="sf sg">
+  <div class="sec" style="padding:0;">
+    <div class="ey rev">Aperçu en direct</div>
+    <h2 class="st rev">Voyez <span style="color:var(--navy);">Sales AI</span> en action</h2>
+    <div class="gb rev"></div>
+    <div class="chat-demo rev">
+      <div class="chat-header">
+        <div class="chat-avatar">S</div>
+        <div><div class="chat-agent-name">Sales AI · Hkr-Studio AI</div><div class="chat-agent-status"><span style="width:6px;height:6px;border-radius:50%;background:#22C55E;display:inline-block;"></span> En ligne maintenant</div></div>
+      </div>
+      <div class="chat-body">
+        <div><div class="msg msg-client">Bonjour, j'ai besoin d'un site web pour mon restaurant à Cocody. Vous pouvez faire ça ?</div><div class="msg-time">14:23</div></div>
+        <div><div class="msg msg-agent">Bonjour ! 🎉 Absolument, c'est exactement notre spécialité. Hkr-Studio AI crée des sites web professionnels pour les restaurants avec menu interactif, système de réservation et commande WhatsApp intégré.<br><br>Pour vous préparer une proposition adaptée, j'aurais quelques questions : votre restaurant est déjà ouvert ou en ouverture prochaine ?</div><div class="msg-agent-time">14:23 · Sales AI</div></div>
+        <div><div class="msg msg-client">Il est déjà ouvert, on a besoin de plus de visibilité en ligne et pouvoir prendre des commandes.</div><div class="msg-time">14:25</div></div>
+        <div><div class="msg msg-agent">Parfait ! Pour un restaurant déjà en activité avec objectif visibilité + commandes en ligne, je vous recommande notre Pack Site Vitrine Restaurant avec module commande WhatsApp intégré.<br><br>📋 Je vous envoie notre formulaire de qualification (2 min) pour préparer votre devis personnalisé :<br>👉 hkrstudioai.github.io/dossier-client<br><br>Notre équipe vous contacte dans les 2 heures !</div><div class="msg-agent-time">14:25 · Sales AI</div></div>
+        <div class="chat-typing"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>
+      </div>
+    </div>
+    <p style="font-size:12px;color:var(--g3);text-align:center;">Cette conversation est générée automatiquement par Sales AI en moins de 5 secondes.</p>
+  </div>
+</section>
+
+<!-- FONCTIONNALITÉS -->
+<section class="sf">
+  <div class="sec" style="padding:0;">
+    <div class="ey rev">Fonctionnalités</div>
+    <h2 class="st rev">Ce que <span style="color:var(--navy);">Sales AI</span> fait pour vous</h2>
+    <div class="gb rev"></div>
+    <div class="feat-list">
+      <div class="feat-item rev"><div class="feat-icon">⚡</div><div><div class="feat-title">Réponse instantanée 24h/24</div><div class="feat-desc">Chaque message entrant sur WhatsApp ou email reçoit une réponse personnalisée en moins de 5 minutes, à toute heure, même le dimanche à 23h.</div><span class="feat-tag">Zéro lead perdu</span></div></div>
+      <div class="feat-item rev"><div class="feat-icon">🎯</div><div><div class="feat-title">Qualification automatique BANT+</div><div class="feat-desc">Sales AI évalue chaque prospect selon 5 critères : Budget, Autorité, Besoin, Timing + Potentiel. Score calculé automatiquement et mis à jour dans votre CRM Google Sheets.</div><span class="feat-tag">Score 0-100%</span></div></div>
+      <div class="feat-item rev"><div class="feat-icon">📄</div><div><div class="feat-title">Propositions commerciales automatiques</div><div class="feat-desc">Pour chaque prospect qualifié (score ≥ 60%), Sales AI génère un draft de proposition commerciale personnalisée avec tarifs et délais adaptés à son profil.</div><span class="feat-tag">En 30 secondes</span></div></div>
+      <div class="feat-item rev"><div class="feat-icon">🔄</div><div><div class="feat-title">Séquence de relance J+1 à J+21</div><div class="feat-desc">Les prospects sans réponse reçoivent automatiquement 6 messages de relance espacés et progressifs sur 21 jours, rédigés dans un ton naturel et professionnel.</div><span class="feat-tag">Automatique</span></div></div>
+      <div class="feat-item rev"><div class="feat-icon">📊</div><div><div class="feat-title">Rapport commercial hebdomadaire</div><div class="feat-desc">Chaque lundi à 8h, vous recevez un rapport complet : leads entrants, scores, propositions envoyées, relances, taux de conversion, CA potentiel en FCFA.</div><span class="feat-tag">Lundi 8h</span></div></div>
+      <div class="feat-item rev"><div class="feat-icon">🚨</div><div><div class="feat-title">Escalade intelligente vers le DG</div><div class="feat-desc">Sales AI vous alerte immédiatement pour les cas critiques : budget > 2M FCFA, client VIP, agressivité détectée, demande hors catalogue, situation ambiguë.</div><span class="feat-tag">Alerte instantanée</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKFLOW -->
+<section class="sf sd">
+  <div class="sec" style="padding:0;">
+    <div class="ey rev">Processus</div>
+    <h2 class="st lt rev">Comment <span style="color:var(--gold);">Sales AI</span> travaille</h2>
+    <div class="gb rev"></div>
+    <div class="workflow">
+      <div class="wf-step rev"><div class="wf-num">1</div><div><div class="wf-title">Message entrant détecté</div><div class="wf-desc">WhatsApp ou Gmail reçoit un message. notre moteur d'automatisation capte le webhook en temps réel et extrait le texte, l'expéditeur et le canal.</div><div class="wf-time">⚡ 0 seconde</div></div></div>
+      <div class="wf-step rev"><div class="wf-num">2</div><div><div class="wf-title">Enrichissement CRM</div><div class="wf-desc">Recherche automatique du contact dans Google Sheets CRM. Chargement de son historique, score actuel et statut.</div><div class="wf-time">⚡ 1 seconde</div></div></div>
+      <div class="wf-step rev"><div class="wf-num">3</div><div><div class="wf-title">Analyse par l'IA HKR</div><div class="wf-desc">Le message + contexte CRM + catalogue HKR sont envoyés à notre moteur IA qui analyse l'intention, classe la demande et rédige la réponse idéale.</div><div class="wf-time">⚡ 3 secondes</div></div></div>
+      <div class="wf-step rev"><div class="wf-num">4</div><div><div class="wf-title">Réponse envoyée</div><div class="wf-desc">La réponse personnalisée est envoyée automatiquement sur le canal d'origine (WhatsApp ou Gmail) avec le bon ton et le bon format.</div><div class="wf-time">⚡ &lt; 5 minutes</div></div></div>
+      <div class="wf-step rev"><div class="wf-num">5</div><div><div class="wf-title">CRM mis à jour</div><div class="wf-desc">Score BANT+ recalculé, statut mis à jour, activité logguée, prochaine action planifiée. Tout est tracé automatiquement.</div><div class="wf-time">⚡ Temps réel</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ROI -->
+<section class="sf sg">
+  <div class="sec" style="padding:0;">
+    <div class="ey rev">Retour sur investissement</div>
+    <h2 class="st rev">Ce que vous <span style="color:var(--navy);">gagnez</span></h2>
+    <div class="gb rev"></div>
+    <div class="roi-grid">
+      <div class="roi-card rev"><div class="roi-val">3h/j</div><div class="roi-label">De temps commercial récupéré chaque jour</div></div>
+      <div class="roi-card rev"><div class="roi-val">0</div><div class="roi-label">Lead perdu à cause d'une réponse tardive</div></div>
+      <div class="roi-card rev"><div class="roi-val">+40%</div><div class="roi-label">De prospects relancés qui ne l'auraient pas été</div></div>
+      <div class="roi-card rev"><div class="roi-val">24/7</div><div class="roi-label">Présence commerciale même pendant vos congés</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TARIFS -->
+<section class="sf" id="tarifs">
+  <div class="sec" style="padding:0;">
+    <div class="ey rev">Tarification</div>
+    <h2 class="st rev">Choisissez votre <span style="color:var(--navy);">formule</span></h2>
+    <div class="gb rev"></div>
+    <div class="tarifs">
+      <div class="tarif rev">
+        <div class="tarif-badge">DÉMARRAGE</div>
+        <div class="tarif-name">Sales AI Starter</div>
+        <div class="tarif-price">350 000 FCFA</div>
+        <div class="tarif-period">Déploiement unique · + 50 000 FCFA/mois maintenance</div>
+        <div class="tarif-div"></div>
+        <div class="tarif-feats">
+          <div class="tf"><span class="tf-check">✓</span>Réponse automatique WhatsApp 24h/24</div>
+          <div class="tf"><span class="tf-check">✓</span>Qualification BANT+ automatique</div>
+          <div class="tf"><span class="tf-check">✓</span>Mise à jour CRM Google Sheets</div>
+          <div class="tf"><span class="tf-check">✓</span>Rapport hebdomadaire basique</div>
+          <div class="tf"><span class="tf-check">✓</span>1 canal (WhatsApp OU Gmail)</div>
+        </div>
+        <a href="https://wa.me/2250715734985?text=Je%20souhaite%20le%20Sales%20AI%20Starter%20%E2%80%94%20350%20000%20FCFA." target="_blank" rel="noopener noreferrer" class="tarif-cta">Commander Starter →</a>
+      </div>
+      <div class="tarif popular rev">
+        <div class="tarif-badge">⭐ LE PLUS CHOISI</div>
+        <div class="tarif-name">Sales AI Business</div>
+        <div class="tarif-price">600 000 FCFA</div>
+        <div class="tarif-period">Déploiement unique · + 50 000 FCFA/mois maintenance</div>
+        <div class="tarif-div"></div>
+        <div class="tarif-feats">
+          <div class="tf"><span class="tf-check">✓</span>Tout le Starter +</div>
+          <div class="tf"><span class="tf-check">✓</span>WhatsApp + Gmail (2 canaux)</div>
+          <div class="tf"><span class="tf-check">✓</span>Génération de propositions commerciales</div>
+          <div class="tf"><span class="tf-check">✓</span>Séquence relance automatique 21 jours</div>
+          <div class="tf"><span class="tf-check">✓</span>Rapport hebdo avancé + alertes DG</div>
+          <div class="tf"><span class="tf-check">✓</span>Formation équipe incluse (90 min)</div>
+        </div>
+        <a href="https://wa.me/2250715734985?text=Je%20souhaite%20le%20Sales%20AI%20Business%20%E2%80%94%20600%20000%20FCFA." target="_blank" rel="noopener noreferrer" class="tarif-cta">Commander Business →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="sf sg">
+  <div class="sec" style="padding:0;">
+    <div class="cta-block rev">
+      <div class="cta-title">Prêt à ne plus perdre un seul lead ?</div>
+      <div class="cta-sub">Déploiement en 7 jours. Aucune compétence technique requise de votre côté. On s'occupe de tout.</div>
+      <a href="https://wa.me/2250715734985?text=Bonjour%2C%20je%20souhaite%20d%C3%A9ployer%20Sales%20AI%20dans%20mon%20entreprise." target="_blank" rel="noopener noreferrer" class="btn-cta-main">💬 Démarrer maintenant sur WhatsApp</a>
+      <a href="dossier-client.html" class="btn-cta-s">📋 Remplir mon dossier client d'abord</a>
+    </div>
+  </div>
+</section>
+
+<section style="padding:40px 24px;background:#f5f5f7;">
+  <div style="max-width:600px;margin:0 auto;">
+    <div style="font-size:10px;font-weight:700;color:#E8A020;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;text-align:center;">À explorer aussi</div>
+    <h3 style="font-size:20px;font-weight:700;color:#1A3C5E;text-align:center;margin-bottom:16px;letter-spacing:-.4px;">Continuez votre découverte</h3>
+    <div style="display:flex;flex-direction:column;gap:10px;"><a href="crm-ai.html" style="display:flex;align-items:center;gap:12px;background:#fff;border-radius:12px;padding:14px;box-shadow:0 2px 10px rgba(0,0,0,.05);text-decoration:none;border:1px solid #e8e8ed;transition:transform .15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+      <div style="width:40px;height:40px;background:#FFF4E0;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🔗</div>
+      <div><div style="font-size:13px;font-weight:700;color:#1A3C5E;margin-bottom:2px;">CRM AI</div><div style="font-size:11px;color:#6e6e73;">Fidélisation et santé client automatisée</div></div>
+      <div style="margin-left:auto;font-size:16px;color:#E8A020;">›</div>
+    </a><a href="demo.html" style="display:flex;align-items:center;gap:12px;background:#fff;border-radius:12px;padding:14px;box-shadow:0 2px 10px rgba(0,0,0,.05);text-decoration:none;border:1px solid #e8e8ed;transition:transform .15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+      <div style="width:40px;height:40px;background:#FFF4E0;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🎮</div>
+      <div><div style="font-size:13px;font-weight:700;color:#1A3C5E;margin-bottom:2px;">Tester la démo</div><div style="font-size:11px;color:#6e6e73;">Essayez Sales AI maintenant</div></div>
+      <div style="margin-left:auto;font-size:16px;color:#E8A020;">›</div>
+    </a><a href="tarifs-ia.html" style="display:flex;align-items:center;gap:12px;background:#fff;border-radius:12px;padding:14px;box-shadow:0 2px 10px rgba(0,0,0,.05);text-decoration:none;border:1px solid #e8e8ed;transition:transform .15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+      <div style="width:40px;height:40px;background:#FFF4E0;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">💰</div>
+      <div><div style="font-size:13px;font-weight:700;color:#1A3C5E;margin-bottom:2px;">Tous les tarifs IA</div><div style="font-size:11px;color:#6e6e73;">Comparer toutes les formules</div></div>
+      <div style="margin-left:auto;font-size:16px;color:#E8A020;">›</div>
+    </a></div>
+  </div>
+</section>
+<footer style="background:#0D2137;padding:32px 20px 40px;border-top:3px solid #E8A020;">
+  <div style="max-width:600px;margin:0 auto;text-align:center;">
+    <!-- Logo -->
+    <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:14px;">
+      <div style="width:36px;height:36px;background:#E8A020;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:#1A3C5E;">H</div>
+      <div style="font-size:16px;font-weight:700;color:#fff;letter-spacing:-.3px;">Hkr-Studio <span style="color:#E8A020;">AI</span></div>
+    </div>
+    <div style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:18px;">Votre Partenaire Digital 360°</div>
+    <!-- Navigation footer -->
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:18px;">
+      <a href="index.html" style="font-size:11px;color:rgba(255,255,255,.5);">Catalogue</a>
+      <span style="color:rgba(255,255,255,.2);">·</span>
+      <a href="about.html" style="font-size:11px;color:rgba(255,255,255,.5);">À propos</a>
+      <span style="color:rgba(255,255,255,.2);">·</span>
+      <a href="etude-de-cas.html" style="font-size:11px;color:rgba(255,255,255,.5);">Cas clients</a>
+      <span style="color:rgba(255,255,255,.2);">·</span>
+      <a href="tarifs-ia.html" style="font-size:11px;color:rgba(255,255,255,.5);">Agents IA</a>
+      <span style="color:rgba(255,255,255,.2);">·</span>
+      <a href="portfolio.html" style="font-size:11px;color:rgba(255,255,255,.5);">Portfolio</a>
+      <span style="color:rgba(255,255,255,.2);">·</span>
+      <a href="faq-ia.html" style="font-size:11px;color:rgba(255,255,255,.5);">FAQ</a>
+      <span style="color:rgba(255,255,255,.2);">·</span>
+      <a href="contact.html" style="font-size:11px;color:rgba(255,255,255,.5);">Contact</a>
+    </div>
+    <!-- Contacts -->
+    <div style="display:flex;flex-direction:column;gap:4px;margin-bottom:16px;">
+      <div style="font-size:12px;color:rgba(255,255,255,.6);">📱 +225 07 15 73 49 85 &nbsp;·&nbsp; 📧 hkrstudioai@gmail.com</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.4);">📍 Abidjan, Cocody Riviera 3, Côte d'Ivoire</div>
+    </div>
+    <!-- CTA WhatsApp -->
+    <a href="https://wa.me/2250715734985?text=Bonjour%20Hkr-Studio%20AI%2C%20je%20souhaite%20un%20devis." target="_blank" rel="noopener noreferrer" style="display:inline-block;background:#E8A020;color:#1A3C5E;font-size:13px;font-weight:700;padding:11px 24px;border-radius:980px;margin-bottom:18px;">💬 Écrire sur WhatsApp</a>
+    <!-- Ligne -->
+    <div style="height:1px;background:rgba(255,255,255,.07);margin-bottom:14px;"></div>
+    <!-- Copyright -->
+    <div style="font-size:10px;color:rgba(255,255,255,.25);line-height:1.8;">
+      © 2025 Hkr-Studio AI · Tous droits réservés<br>
+      <span style="font-size:9px;color:rgba(255,255,255,.15);">© Hkr-Studio AI — Abidjan Cocody Riviera, Côte d'Ivoire</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const obs=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('on');});},{threshold:0.08});
+document.querySelectorAll('.rev').forEach(el=>obs.observe(el));
+</script>
+
+<script>
+/* ── ANIMATIONS GLOBALES HKR ── */
+// 1. Scroll reveal
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach(el => { if(el.isIntersecting) el.target.classList.add('on'); });
+}, {threshold: 0.07});
+document.querySelectorAll('.rev').forEach(el => revObs.observe(el));
+
+// 2. Compteurs animés
+function animCount(el, target, dur=1400){
+  const suffix = target.toString().match(/[^0-9]/g)?.join('') || '';
+  const num = parseInt(target.toString().replace(/\D/g,''));
+  let start = null;
+  const step = ts => {
+    if(!start) start = ts;
+    const p = Math.min((ts-start)/dur, 1);
+    const ease = 1 - Math.pow(1-p, 3);
+    el.textContent = Math.floor(ease*num).toLocaleString() + suffix;
+    if(p < 1) requestAnimationFrame(step);
+    else el.textContent = target;
+  };
+  requestAnimationFrame(step);
+}
+const countObs = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      const val = entry.target.querySelector('[data-count]');
+      if(val && !val.dataset.done){ val.dataset.done='1'; animCount(val, val.dataset.count); }
+    }
+  });
+}, {threshold: 0.5});
+document.querySelectorAll('[data-count-wrap]').forEach(el => countObs.observe(el));
+
+// 3. Ripple sur tous les boutons
+document.querySelectorAll('a[class*="btn"], button[class*="btn"], .tarif-cta, .work-action, .nav-cta').forEach(btn => {
+  btn.style.position = 'relative';
+  btn.style.overflow = 'hidden';
+  btn.addEventListener('click', function(e){
+    const r = document.createElement('span');
+    Object.assign(r.style, {
+      position:'absolute', borderRadius:'50%',
+      background:'rgba(255,255,255,.25)',
+      width:'0', height:'0',
+      transform:'translate(-50%,-50%)',
+      animation:'rippleAnim .6s ease forwards',
+      left: (e.clientX - this.getBoundingClientRect().left) + 'px',
+      top: (e.clientY - this.getBoundingClientRect().top) + 'px',
+      pointerEvents:'none'
+    });
+    this.appendChild(r);
+    setTimeout(()=>r.remove(), 700);
+  });
+});
+
+// 4. Barre de progression scroll
+(function(){
+  const bar = document.createElement('div');
+  Object.assign(bar.style, {
+    position:'fixed', top:'52px', left:'0', height:'2px',
+    background:'#E8A020', zIndex:'99', width:'0%',
+    transition:'width .1s', borderRadius:'0 2px 2px 0',
+    boxShadow:'0 0 8px rgba(232,160,32,.6)'
+  });
+  document.body.appendChild(bar);
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    bar.style.width = (window.scrollY / (h.scrollHeight - h.clientHeight) * 100) + '%';
+  }, {passive:true});
+})();
+
+// 5. Tilt 3D sur les cartes (desktop)
+if(window.innerWidth > 768){
+  document.querySelectorAll('.work-card, .kpi-card, .skill-card, .tarif, .agent-tarif-card, .case-card, .valeur-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = `translateY(-4px) rotateX(${-y*5}deg) rotateY(${x*5}deg)`;
+      card.style.transition = 'transform .08s';
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+      card.style.transition = 'transform .4s cubic-bezier(.22,1,.36,1)';
+    });
+  });
+}
+
+// 6. Smooth scroll sur tous les liens ancres
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth', block:'start'}); }
+  });
+});
+
+// CSS animations injectées
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes rippleAnim { to { width:200px; height:200px; opacity:0; } }
+  .rev { opacity:0; transform:translateY(22px); transition:opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1); }
+  .rev.on { opacity:1; transform:translateY(0); }
+  .rev:nth-child(1){transition-delay:.05s}
+  .rev:nth-child(2){transition-delay:.1s}
+  .rev:nth-child(3){transition-delay:.15s}
+  .rev:nth-child(4){transition-delay:.2s}
+  .rev:nth-child(5){transition-delay:.25s}
+  .rev:nth-child(6){transition-delay:.3s}
+  .work-card, .kpi-card, .skill-card, .tarif, .agent-tarif-card, .case-card, .valeur-card {
+    transition: transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s;
+  }
+`;
+document.head.appendChild(style);
+</script>
+</body>
+</html>

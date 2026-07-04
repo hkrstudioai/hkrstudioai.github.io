@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#ffffff">
+<title>Hkr-Studio AI — Catalogue Services</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{font-size:16px;scroll-behavior:smooth;}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',Helvetica,Arial,sans-serif;
+  background:#fff;color:#1d1d1f;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+a{text-decoration:none;color:inherit;}
+
+:root{
+  --navy:#1A3C5E;--gold:#E8A020;--gold-lt:#FFF4E0;
+  --black:#1d1d1f;--gray1:#f5f5f7;--gray2:#e8e8ed;--gray3:#6e6e73;
+  --white:#fff;--radius:18px;--radius-sm:12px;
+}
+
+/* ── LOADER ────────────────────────────────────────────── */
+#loader{
+  position:fixed;inset:0;z-index:9999;
+  background:var(--navy);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:opacity .6s ease, visibility .6s ease;
+}
+#loader.hide{opacity:0;visibility:hidden;}
+.loader-logo{
+  width:64px;height:64px;background:var(--gold);border-radius:16px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:30px;font-weight:900;color:var(--navy);
+  animation:logoPulse 1.2s ease-in-out infinite;
+  margin-bottom:24px;
+}
+.loader-bar{
+  width:180px;height:3px;background:rgba(255,255,255,0.15);
+  border-radius:10px;overflow:hidden;
+}
+.loader-fill{
+  height:100%;width:0;background:var(--gold);border-radius:10px;
+  animation:fillBar 1.8s ease forwards;
+}
+.loader-text{
+  margin-top:14px;font-size:13px;color:rgba(255,255,255,0.5);
+  letter-spacing:1px;
+}
+@keyframes logoPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
+@keyframes fillBar{0%{width:0;}100%{width:100%;}}
+
+/* ── NAV ────────────────────────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(255,255,255,0.82);
+  backdrop-filter:saturate(180%) blur(24px);
+  -webkit-backdrop-filter:saturate(180%) blur(24px);
+  border-bottom:1px solid rgba(0,0,0,0.07);
+  height:52px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 20px;
+  transform:translateY(-100%);
+  animation:slideNav .5s .4s cubic-bezier(.22,1,.36,1) forwards;
+}
+@keyframes slideNav{to{transform:translateY(0);}}
+.nav-logo{display:flex;align-items:center;gap:9px;}
+.nav-logo-box{
+  width:30px;height:30px;background:var(--navy);
+  border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;font-weight:900;color:#fff;
+  letter-spacing:-0.5px;
+  box-shadow:0 2px 8px rgba(26,60,94,0.25);
+}
+.nav-name{font-size:15px;font-weight:700;color:var(--black);letter-spacing:-0.4px;}
+.nav-cta{
+  background:var(--navy);color:#fff;font-size:13px;font-weight:600;
+  padding:7px 16px;border-radius:20px;letter-spacing:-0.2px;
+  transition:transform .15s,box-shadow .15s;
+}
+.nav-cta:active{transform:scale(0.95);}
+
+/* ── REVEAL ANIMATION ───────────────────────────────────── */
+.reveal{
+  opacity:0;transform:translateY(40px);
+  transition:opacity .7s cubic-bezier(.22,1,.36,1),
+             transform .7s cubic-bezier(.22,1,.36,1);
+}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-delay-1{transition-delay:.1s;}
+.reveal-delay-2{transition-delay:.2s;}
+.reveal-delay-3{transition-delay:.3s;}
+.reveal-delay-4{transition-delay:.4s;}
+
+/* ── HERO ───────────────────────────────────────────────── */
+.hero{
+  min-height:100svh;background:var(--white);
+  display:flex;flex-direction:column;justify-content:center;
+  padding:100px 24px 60px;text-align:center;
+  position:relative;overflow:hidden;
+}
+/* Animated gradient orbs */
+.orb{
+  position:absolute;border-radius:50%;
+  filter:blur(60px);pointer-events:none;opacity:0.55;
+}
+.orb1{
+  width:320px;height:320px;
+  background:radial-gradient(circle,rgba(232,160,32,0.35),transparent 70%);
+  top:-80px;right:-80px;
+  animation:floatOrb 8s ease-in-out infinite;
+}
+.orb2{
+  width:240px;height:240px;
+  background:radial-gradient(circle,rgba(26,60,94,0.2),transparent 70%);
+  bottom:-40px;left:-40px;
+  animation:floatOrb 10s ease-in-out infinite reverse;
+}
+.orb3{
+  width:180px;height:180px;
+  background:radial-gradient(circle,rgba(232,160,32,0.2),transparent 70%);
+  bottom:20%;right:10%;
+  animation:floatOrb 7s ease-in-out 2s infinite;
+}
+@keyframes floatOrb{
+  0%,100%{transform:translate(0,0);}
+  33%{transform:translate(15px,-20px);}
+  66%{transform:translate(-10px,15px);}
+}
+
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--gold-lt);border-radius:20px;padding:5px 14px;
+  margin:0 auto 24px;width:fit-content;
+  animation:fadeUp .7s .8s cubic-bezier(.22,1,.36,1) both;
+}
+.hero-eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.hero-eyebrow span{font-size:12px;font-weight:600;color:var(--gold);letter-spacing:0.3px;}
+
+.hero h1{
+  font-size:clamp(36px,9vw,56px);font-weight:700;letter-spacing:-1.5px;
+  color:var(--black);line-height:1.08;margin-bottom:20px;
+  animation:fadeUp .7s .9s cubic-bezier(.22,1,.36,1) both;
+}
+.hero h1 em{
+  font-style:normal;
+  background:linear-gradient(135deg,var(--navy) 0%,var(--gold) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  background-size:200% 200%;
+  animation:gradShift 4s ease infinite;
+}
+@keyframes gradShift{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
+
+.hero-sub{
+  font-size:clamp(16px,4vw,19px);color:var(--gray3);line-height:1.6;
+  max-width:400px;margin:0 auto 32px;
+  animation:fadeUp .7s 1s cubic-bezier(.22,1,.36,1) both;
+}
+
+.vision-pill{
+  background:var(--gray1);border-radius:16px;padding:18px 20px;
+  margin:0 auto 32px;max-width:420px;text-align:left;
+  border-left:3px solid var(--gold);
+  animation:fadeUp .7s 1.1s cubic-bezier(.22,1,.36,1) both;
+  transition:transform .2s,box-shadow .2s;
+}
+.vision-pill:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(26,60,94,0.1);}
+.vision-label{font-size:10px;font-weight:700;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;}
+.vision-text{font-size:14px;color:var(--black);line-height:1.6;}
+
+.hero-stats{
+  display:flex;justify-content:center;gap:0;
+  background:var(--gray1);border-radius:var(--radius);max-width:360px;
+  margin:0 auto 32px;overflow:hidden;
+  animation:fadeUp .7s 1.2s cubic-bezier(.22,1,.36,1) both;
+  box-shadow:0 2px 20px rgba(0,0,0,0.06);
+}
+.hero-stat{flex:1;padding:16px 10px;text-align:center;border-right:1px solid var(--gray2);}
+.hero-stat:last-child{border-right:none;}
+.hero-stat-val{
+  font-size:22px;font-weight:700;color:var(--navy);letter-spacing:-0.5px;
+  animation:countUp .8s 1.5s cubic-bezier(.22,1,.36,1) both;
+}
+.hero-stat-lab{font-size:10px;color:var(--gray3);letter-spacing:0.3px;margin-top:2px;}
+
+.hero-btns{
+  display:flex;gap:10px;justify-content:center;flex-wrap:wrap;
+  animation:fadeUp .7s 1.3s cubic-bezier(.22,1,.36,1) both;
+}
+.btn-primary{
+  background:var(--navy);color:#fff;font-size:15px;font-weight:600;
+  padding:14px 28px;border-radius:980px;letter-spacing:-0.2px;
+  transition:transform .2s,box-shadow .2s;
+  box-shadow:0 4px 20px rgba(26,60,94,0.25);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(26,60,94,0.35);}
+.btn-primary:active{transform:scale(0.97);}
+.btn-ghost{
+  background:var(--gray1);color:var(--black);font-size:15px;font-weight:600;
+  padding:14px 24px;border-radius:980px;letter-spacing:-0.2px;
+  transition:transform .2s,background .2s;
+}
+.btn-ghost:hover{background:var(--gray2);transform:translateY(-2px);}
+.btn-ghost:active{transform:scale(0.97);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+@keyframes countUp{from{opacity:0;transform:scale(0.5);}to{opacity:1;transform:scale(1);}}
+
+/* ── SCROLL PROGRESS ────────────────────────────────────── */
+#progress{
+  position:fixed;top:52px;left:0;right:0;z-index:99;
+  height:2px;background:transparent;
+}
+#progress-fill{
+  height:100%;width:0;
+  background:linear-gradient(90deg,var(--navy),var(--gold));
+  transition:width .1s linear;
+}
+
+/* ── FLOATING CTA ───────────────────────────────────────── */
+#float-cta{
+  position:fixed;bottom:24px;right:20px;z-index:98;
+  background:var(--gold);color:var(--navy);
+  width:52px;height:52px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;
+  box-shadow:0 4px 20px rgba(232,160,32,0.5);
+  transition:transform .2s,box-shadow .2s;
+  opacity:0;pointer-events:none;
+  animation:none;
+}
+#float-cta.show{opacity:1;pointer-events:auto;}
+#float-cta:hover{transform:scale(1.1) translateY(-3px);box-shadow:0 8px 30px rgba(232,160,32,0.6);}
+#float-cta:active{transform:scale(0.95);}
+
+/* ── SECTIONS ───────────────────────────────────────────── */
+.sec{padding:64px 24px;}
+.sec-gray{background:var(--gray1);}
+.sec-dark{background:var(--navy);}
+.sec-eyebrow{font-size:11px;font-weight:700;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;text-align:center;}
+.sec-title{font-size:clamp(24px,6vw,34px);font-weight:700;color:var(--black);letter-spacing:-0.8px;line-height:1.15;margin-bottom:10px;text-align:center;}
+.sec-title.lt{color:#fff;}
+.sec-title .g{color:var(--gold);}
+.sec-sub{font-size:15px;color:var(--gray3);line-height:1.6;margin-bottom:36px;text-align:center;letter-spacing:-0.1px;}
+.sec-sub.lt{color:rgba(255,255,255,0.6);}
+
+/* ── WHY CARDS ──────────────────────────────────────────── */
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.why-card{
+  background:var(--white);border-radius:var(--radius);padding:20px 16px;
+  transition:transform .25s cubic-bezier(.22,1,.36,1),box-shadow .25s;
+  cursor:default;
+}
+.why-card:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 12px 40px rgba(0,0,0,0.1);}
+.why-icon{font-size:28px;margin-bottom:10px;display:block;}
+.why-title{font-size:14px;font-weight:700;color:var(--black);letter-spacing:-0.3px;margin-bottom:5px;}
+.why-desc{font-size:12px;color:var(--gray3);line-height:1.6;}
+
+/* ── DEPT GRID ──────────────────────────────────────────── */
+.dept-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.dept-tile{
+  background:var(--white);border-radius:var(--radius);padding:20px 16px;
+  cursor:pointer;border:1.5px solid transparent;
+  transition:transform .2s cubic-bezier(.22,1,.36,1),
+             box-shadow .2s,border-color .2s;
+  position:relative;overflow:hidden;
+}
+.dept-tile::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(26,60,94,0.04),transparent);
+  opacity:0;transition:opacity .2s;
+}
+.dept-tile:hover::after{opacity:1;}
+.dept-tile:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(26,60,94,0.1);}
+.dept-tile:active{transform:scale(0.96);}
+.dept-tile.active-tile{border-color:var(--navy);box-shadow:0 4px 20px rgba(26,60,94,0.15);}
+.dept-tile.active-tile .dept-tile-count{background:var(--navy);color:#fff;}
+.dept-tile-icon{font-size:28px;margin-bottom:10px;display:block;transition:transform .3s;}
+.dept-tile:hover .dept-tile-icon{transform:scale(1.15);}
+.dept-tile-code{font-size:9px;font-weight:700;color:var(--gold);letter-spacing:1.5px;margin-bottom:3px;}
+.dept-tile-name{font-size:13px;font-weight:700;color:var(--black);letter-spacing:-0.2px;line-height:1.3;}
+.dept-tile-count{
+  display:inline-block;background:var(--gray1);color:var(--gray3);
+  font-size:10px;font-weight:600;padding:3px 9px;border-radius:10px;margin-top:8px;
+  transition:background .2s,color .2s;
+}
+
+/* ── ACCORDION ──────────────────────────────────────────── */
+.dept-block{margin-bottom:40px;}
+.dept-block:last-child{margin-bottom:0;}
+.dept-label-row{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.dept-label-icon{
+  width:42px;height:42px;flex-shrink:0;background:var(--navy);border-radius:12px;
+  display:flex;align-items:center;justify-content:center;font-size:20px;
+  transition:transform .3s;
+}
+.dept-label-row:hover .dept-label-icon{transform:rotate(-5deg) scale(1.05);}
+.dept-label-name{font-size:17px;font-weight:700;color:var(--black);letter-spacing:-0.4px;}
+.dept-label-code{font-size:10px;color:var(--gray3);letter-spacing:0.5px;}
+
+.acc-list{
+  background:var(--white);border-radius:var(--radius);
+  overflow:hidden;border:1px solid var(--gray2);
+  box-shadow:0 2px 12px rgba(0,0,0,0.04);
+}
+.acc-item{border-bottom:1px solid var(--gray2);}
+.acc-item:last-child{border-bottom:none;}
+.acc-head{
+  display:flex;align-items:center;gap:12px;padding:16px;
+  cursor:pointer;transition:background .15s;user-select:none;
+}
+.acc-head:hover{background:rgba(0,0,0,0.02);}
+.acc-icon{
+  width:34px;height:34px;flex-shrink:0;background:var(--gold-lt);
+  border-radius:9px;display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;color:var(--gold);
+  transition:background .2s,color .2s;
+}
+.acc-item.open .acc-icon{background:var(--navy);color:#fff;}
+.acc-info{flex:1;}
+.acc-code{font-size:9px;font-weight:700;color:var(--gold);letter-spacing:1.2px;margin-bottom:2px;}
+.acc-name{font-size:14px;font-weight:600;color:var(--black);letter-spacing:-0.2px;}
+.acc-chevron{
+  width:22px;height:22px;border-radius:50%;background:var(--gray1);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;color:var(--gray3);flex-shrink:0;
+  transition:transform .3s cubic-bezier(.22,1,.36,1),background .2s,color .2s;
+}
+.acc-item.open .acc-chevron{transform:rotate(180deg);background:var(--navy);color:#fff;}
+
+.acc-body{
+  max-height:0;overflow:hidden;
+  transition:max-height .45s cubic-bezier(.22,1,.36,1),
+             padding .45s cubic-bezier(.22,1,.36,1),
+             opacity .3s ease;
+  opacity:0;padding:0 16px 0 62px;
+}
+.acc-item.open .acc-body{max-height:400px;padding:0 16px 18px 62px;opacity:1;}
+.acc-desc{font-size:13px;color:var(--gray3);line-height:1.7;margin-bottom:12px;margin-top:12px;}
+.acc-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.acc-tag{
+  background:var(--gray1);color:var(--black);
+  font-size:10px;font-weight:600;padding:4px 10px;border-radius:20px;
+  transition:background .2s,color .2s;
+}
+.acc-tag:hover{background:var(--navy);color:#fff;}
+
+/* ── PRICING ────────────────────────────────────────────── */
+.price-stack{display:flex;flex-direction:column;gap:12px;}
+.price-card{
+  background:var(--white);border-radius:var(--radius);
+  border:1.5px solid var(--gray2);padding:24px;
+  position:relative;overflow:hidden;
+  transition:transform .25s cubic-bezier(.22,1,.36,1),box-shadow .25s;
+}
+.price-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.1);}
+.price-card.feat{background:var(--navy);border-color:var(--navy);}
+.price-card.feat:hover{box-shadow:0 12px 40px rgba(26,60,94,0.3);}
+.price-card.feat .price-name,.price-card.feat .price-range{color:#fff;}
+.price-card.feat .price-period,.price-card.feat .price-feat{color:rgba(255,255,255,0.6);}
+.price-card.feat .price-feat::before{background:var(--gold);}
+.price-card.feat .price-div{background:rgba(255,255,255,0.12);}
+.price-pop{
+  position:absolute;top:14px;right:-14px;
+  background:var(--gold);color:var(--navy);
+  font-size:9px;font-weight:800;padding:4px 24px;
+  transform:rotate(35deg);letter-spacing:1px;
+}
+.price-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px;}
+.price-type{font-size:10px;font-weight:700;color:var(--gold);letter-spacing:1px;margin-bottom:4px;}
+.price-name{font-size:20px;font-weight:700;color:var(--black);letter-spacing:-0.5px;}
+.price-range{font-size:18px;font-weight:700;color:var(--navy);letter-spacing:-0.5px;}
+.price-period{font-size:11px;color:var(--gray3);margin-top:2px;}
+.price-div{height:1px;background:var(--gray2);margin-bottom:16px;}
+.price-feats{display:flex;flex-direction:column;gap:8px;margin-bottom:20px;}
+.price-feat{font-size:13px;color:var(--gray3);padding-left:16px;position:relative;}
+.price-feat::before{content:'';position:absolute;left:0;top:7px;width:5px;height:5px;border-radius:50%;background:var(--navy);}
+.price-cta{
+  display:block;text-align:center;background:var(--gold);color:var(--navy);
+  font-size:14px;font-weight:700;padding:13px;border-radius:980px;
+  transition:transform .2s,box-shadow .2s;
+  box-shadow:0 2px 12px rgba(232,160,32,0.3);
+}
+.price-cta:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(232,160,32,0.4);}
+.price-cta:active{transform:scale(0.97);}
+
+/* ── PROCESS ────────────────────────────────────────────── */
+.process-list{display:flex;flex-direction:column;}
+.process-step{
+  display:flex;gap:16px;padding:20px 0;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  transition:transform .2s;
+}
+.process-step:hover{transform:translateX(6px);}
+.process-step:last-child{border-bottom:none;}
+.process-num{
+  width:40px;height:40px;flex-shrink:0;border-radius:50%;
+  border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;
+  font-size:16px;font-weight:700;color:var(--gold);margin-top:2px;
+  transition:background .2s,color .2s;
+}
+.process-step:hover .process-num{background:var(--gold);color:var(--navy);}
+.process-title{font-size:15px;font-weight:700;color:#fff;letter-spacing:-0.3px;margin-bottom:5px;}
+.process-desc{font-size:13px;color:rgba(255,255,255,0.5);line-height:1.6;}
+
+/* ── CONTACT ────────────────────────────────────────────── */
+.contact-list{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;}
+.contact-item{
+  display:flex;align-items:center;gap:14px;
+  background:var(--gray1);border-radius:var(--radius-sm);padding:16px;
+  color:inherit;text-decoration:none;
+  transition:transform .2s,background .2s,box-shadow .2s;
+}
+.contact-item-link:hover{transform:translateX(6px);background:var(--gray2);}
+.contact-item-link:active{transform:scale(0.98);}
+.contact-item-icon{
+  width:40px;height:40px;flex-shrink:0;background:var(--white);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;font-size:18px;
+  box-shadow:0 1px 4px rgba(0,0,0,0.08);
+}
+.contact-item-label{font-size:10px;font-weight:700;color:var(--gray3);letter-spacing:0.5px;margin-bottom:2px;}
+.contact-item-val{font-size:14px;font-weight:600;color:var(--black);letter-spacing:-0.2px;}
+
+.contact-cta{
+  background:var(--navy);border-radius:var(--radius);padding:28px 24px;
+  transition:transform .2s,box-shadow .2s;
+}
+.contact-cta:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(26,60,94,0.25);}
+.contact-cta-title{font-size:22px;font-weight:700;color:#fff;letter-spacing:-0.6px;margin-bottom:8px;}
+.contact-cta-sub{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.6;margin-bottom:22px;}
+.cta-wa{
+  display:block;background:var(--gold);color:var(--navy);
+  font-size:15px;font-weight:700;padding:15px;border-radius:980px;
+  text-align:center;margin-bottom:10px;
+  transition:transform .2s,box-shadow .2s;
+  box-shadow:0 4px 16px rgba(232,160,32,0.35);
+}
+.cta-wa:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(232,160,32,0.5);}
+.cta-wa:active{transform:scale(0.97);}
+.cta-email{
+  display:block;background:rgba(255,255,255,0.1);color:#fff;
+  font-size:15px;font-weight:600;padding:15px;border-radius:980px;
+  text-align:center;transition:background .2s,transform .2s;
+}
+.cta-email:hover{background:rgba(255,255,255,0.18);transform:translateY(-2px);}
+.cta-email:active{transform:scale(0.97);}
+
+/* ── FOOTER ─────────────────────────────────────────────── */
+footer{
+  background:var(--gray1);padding:40px 24px;text-align:center;
+  border-top:1px solid var(--gray2);
+}
+.footer-brand{font-size:17px;font-weight:700;color:var(--black);letter-spacing:-0.5px;margin-bottom:6px;}
+.footer-brand span{color:var(--gold);}
+.footer-tagline{font-size:13px;color:var(--gray3);margin-bottom:16px;}
+.footer-contact{font-size:12px;color:var(--gray3);line-height:1.8;}
+
+/* ── DEPT-11 CTA BLOCK ──────────────────────────────────── */
+.dept11-cta{
+  margin-top:20px;background:var(--navy);border-radius:var(--radius);
+  padding:24px;text-align:center;
+  transition:transform .2s,box-shadow .2s;
+}
+.dept11-cta:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(26,60,94,0.25);}
+.dept11-cta-sub{font-size:13px;color:rgba(255,255,255,0.6);line-height:1.6;margin-bottom:20px;}
+.dept11-cta-btn{
+  display:block;background:var(--gold);color:var(--navy);
+  font-size:14px;font-weight:700;padding:14px;border-radius:980px;
+  transition:transform .2s,box-shadow .2s;
+  box-shadow:0 4px 16px rgba(232,160,32,0.35);
+}
+.dept11-cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(232,160,32,0.5);}
+.dept11-cta-btn:active{transform:scale(0.97);}
+
+/* ── RIPPLE EFFECT ──────────────────────────────────────── */
+.ripple{
+  position:absolute;border-radius:50%;
+  background:rgba(232,160,32,0.25);
+  width:0;height:0;
+  transform:translate(-50%,-50%);
+  animation:rippleOut .6s ease forwards;
+  pointer-events:none;
+}
+@keyframes rippleOut{
+  to{width:200px;height:200px;opacity:0;}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-logo" style="font-size:32px;letter-spacing:-1px;">H</div>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+  <div class="loader-text">Chargement en cours…</div>
+</div>
+
+<!-- SCROLL PROGRESS -->
+<div id="progress"><div id="progress-fill"></div></div>
+
+<!-- FLOATING CTA -->
+<a id="float-cta" href="https://wa.me/2250715734985?text=Bonjour%20Hkr-Studio%20AI%2C%20je%20souhaite%20un%20devis%20gratuit." target="_blank" rel="noopener" title="Nous contacter sur WhatsApp">💬</a>
+
+<!-- NAV -->
+<nav style="position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,.07);height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;">
+  <a href="index.html" style="display:flex;align-items:center;gap:8px;text-decoration:none;">
+    <div style="width:28px;height:28px;background:#1A3C5E;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#E8A020;">H</div>
+    <span style="font-size:13px;font-weight:700;color:#1d1d1f;letter-spacing:-.3px;">Hkr-Studio AI</span>
+  </a>
+  <div style="display:flex;align-items:center;gap:5px;overflow-x:auto;scrollbar-width:none;">
+    <a href="index.html" style="font-size:11px;font-weight:700;color:#1A3C5E;padding:6px 11px;border-radius:20px;background:#E8A020;">🏠</a><a href="about.html" style="font-size:11px;font-weight:600;color:#1d1d1f;padding:6px 11px;border-radius:20px;background:#f5f5f7;border:1px solid #e8e8ed;">À propos</a><a href="etude-de-cas.html" style="font-size:11px;font-weight:600;color:#1d1d1f;padding:6px 11px;border-radius:20px;background:#f5f5f7;border:1px solid #e8e8ed;">Cas clients</a><a href="tarifs-ia.html" style="font-size:11px;font-weight:600;color:#1d1d1f;padding:6px 11px;border-radius:20px;background:#f5f5f7;border:1px solid #e8e8ed;">🤖 IA</a><a href="portfolio.html" style="font-size:11px;font-weight:600;color:#1d1d1f;padding:6px 11px;border-radius:20px;background:#f5f5f7;border:1px solid #e8e8ed;">Portfolio</a><a href="contact.html" style="font-size:11px;font-weight:600;color:#1d1d1f;padding:6px 11px;border-radius:20px;background:#f5f5f7;border:1px solid #e8e8ed;">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+  <div class="hero-eyebrow"><div class="hero-eyebrow-dot"></div><span>Abidjan · Côte d'Ivoire</span></div>
+  <h1>Le digital,<br>simplifié pour <em>vous.</em></h1>
+  <p class="hero-sub">Design, développement, IA, marketing — tout ce dont votre entreprise a besoin, un seul partenaire.</p>
+  <div class="vision-pill">
+    <div class="vision-label">Notre vision</div>
+    <div class="vision-text">Rendre le digital accessible, puissant et rentable pour chaque entreprise africaine — startup, PME ou grand groupe.</div>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="hero-stat-val" data-target="12">0</div><div class="hero-stat-lab">Expertises</div></div>
+    <div class="hero-stat"><div class="hero-stat-val" data-target="58">0</div><div class="hero-stat-lab">Services</div></div>
+    <div class="hero-stat"><div class="hero-stat-val" data-target="1">0</div><div class="hero-stat-lab">Partenaire</div></div>
+  </div>
+  <div class="hero-btns">
+    <a href="#services" class="btn-primary">Voir les services</a>
+    <a href="https://wa.me/2250715734985?text=Bonjour%20Hkr-Studio%20AI%2C%20je%20souhaite%20un%20devis%20gratuit." target="_blank" rel="noopener" class="btn-ghost">Devis gratuit 💬</a>
+    <a href="portfolio.html" style="background:rgba(232,160,32,0.12);border:1.5px solid rgba(232,160,32,0.4);color:var(--gold);font-size:14px;font-weight:600;padding:14px 22px;border-radius:980px;display:block;text-align:center;">🎨 Voir notre portfolio</a>
+    <a href="simulateur-devis.html" style="background:rgba(255,255,255,0.08);border:1.5px solid rgba(255,255,255,0.2);color:#fff;font-size:14px;font-weight:600;padding:14px 22px;border-radius:980px;display:block;text-align:center;">🧮 Estimer mon budget en 60s</a>
+  </div>
+</section>
+
+<!-- POURQUOI HKR -->
+<section class="sec sec-gray">
+  <div class="sec-eyebrow reveal">Pourquoi nous choisir</div>
+  <h2 class="sec-title reveal reveal-delay-1">Conçu pour <span class="g">l'Afrique.</span></h2>
+  <p class="sec-sub reveal reveal-delay-2">Pas des solutions copiées d'ailleurs — des outils pensés pour votre réalité.</p>
+  <div class="why-grid">
+    <div class="why-card reveal reveal-delay-1"><span class="why-icon">🎯</span><div class="why-title">Tout en un seul endroit</div><div class="why-desc">Design, dev, IA, marketing — un seul interlocuteur pour tous vos projets.</div></div>
+    <div class="why-card reveal reveal-delay-2"><span class="why-icon">🌍</span><div class="why-title">Pensé pour l'Afrique</div><div class="why-desc">Nous connaissons votre marché, vos contraintes, vos canaux locaux.</div></div>
+    <div class="why-card reveal reveal-delay-3"><span class="why-icon">🤖</span><div class="why-title">IA dans tout ce qu'on fait</div><div class="why-desc">L'intelligence artificielle est dans notre ADN, pas en option.</div></div>
+    <div class="why-card reveal reveal-delay-4"><span class="why-icon">📊</span><div class="why-title">Résultats mesurables</div><div class="why-desc">Des KPI clairs à chaque mission. Vous savez toujours où vous en êtes.</div></div>
+  </div>
+</section>
+
+<!-- DÉPARTEMENTS -->
+<section class="sec" id="services">
+  <div class="sec-eyebrow reveal">Nos expertises</div>
+  <h2 class="sec-title reveal reveal-delay-1">12 <span class="g">départements</span> à votre service.</h2>
+  <p class="sec-sub reveal reveal-delay-2">Appuyez sur un département — vous y accédez directement.</p>
+  <div class="dept-grid reveal reveal-delay-3">
+    <div class="dept-tile" data-dept="d1" onclick="gotoDept('d1')"><span class="dept-tile-icon">🎨</span><div class="dept-tile-code">DEPT-01</div><div class="dept-tile-name">Design & Infographie</div><div class="dept-tile-count">6 services</div></div>
+    <div class="dept-tile" data-dept="d2" onclick="gotoDept('d2')"><span class="dept-tile-icon">📱</span><div class="dept-tile-code">DEPT-02</div><div class="dept-tile-name">Community Management</div><div class="dept-tile-count">5 services</div></div>
+    <div class="dept-tile" data-dept="d3" onclick="gotoDept('d3')"><span class="dept-tile-icon">🌐</span><div class="dept-tile-code">DEPT-03</div><div class="dept-tile-name">Développement Web</div><div class="dept-tile-count">6 services</div></div>
+    <div class="dept-tile" data-dept="d4" onclick="gotoDept('d4')"><span class="dept-tile-icon">📲</span><div class="dept-tile-code">DEPT-04</div><div class="dept-tile-name">Dev. Mobile</div><div class="dept-tile-count">4 services</div></div>
+    <div class="dept-tile" data-dept="d5" onclick="gotoDept('d5')"><span class="dept-tile-icon">🤖</span><div class="dept-tile-code">DEPT-05</div><div class="dept-tile-name">Intelligence Artificielle</div><div class="dept-tile-count">5 services</div></div>
+    <div class="dept-tile" data-dept="d6" onclick="gotoDept('d6')"><span class="dept-tile-icon">📊</span><div class="dept-tile-code">DEPT-06</div><div class="dept-tile-name">Marketing Digital</div><div class="dept-tile-count">5 services</div></div>
+    <div class="dept-tile" data-dept="d7" onclick="gotoDept('d7')"><span class="dept-tile-icon">🎬</span><div class="dept-tile-code">DEPT-07</div><div class="dept-tile-name">Production AV</div><div class="dept-tile-count">4 services</div></div>
+    <div class="dept-tile" data-dept="d8" onclick="gotoDept('d8')"><span class="dept-tile-icon">🎓</span><div class="dept-tile-code">DEPT-08</div><div class="dept-tile-name">Formation</div><div class="dept-tile-count">4 services</div></div>
+    <div class="dept-tile" data-dept="d9" onclick="gotoDept('d9')"><span class="dept-tile-icon">💼</span><div class="dept-tile-code">DEPT-09</div><div class="dept-tile-name">Conseil & Stratégie</div><div class="dept-tile-count">4 services</div></div>
+    <div class="dept-tile" data-dept="d10" onclick="gotoDept('d10')"><span class="dept-tile-icon">⚙️</span><div class="dept-tile-code">DEPT-10</div><div class="dept-tile-name">Automatisation</div><div class="dept-tile-count">4 services</div></div>
+    <div class="dept-tile" data-dept="d11" onclick="gotoDept('d11')" style="grid-column:span 2;"><span class="dept-tile-icon">🏗️</span><div class="dept-tile-code">DEPT-11 · SERVICE PHARE</div><div class="dept-tile-name">Étude Technique & Développement d'Entreprise</div><div class="dept-tile-count">6 services</div></div>
+    <div class="dept-tile" data-dept="d12" onclick="gotoDept('d12')" style="grid-column:span 2;background:linear-gradient(135deg,#1A3C5E,#0D2137);border:1.5px solid var(--gold);"><span class="dept-tile-icon">📸</span><div class="dept-tile-code" style="color:var(--gold);">DEPT-12 · SERVICE VIP</div><div class="dept-tile-name" style="color:#fff;">Photographe Personnel & Communication VIP</div><div class="dept-tile-count" style="background:var(--gold);color:var(--navy);">5 services</div></div>
+  </div>
+</section>
+
+<!-- CATALOGUE -->
+<section class="sec sec-gray" id="catalogue">
+  <div class="sec-eyebrow reveal">Catalogue</div>
+  <h2 class="sec-title reveal reveal-delay-1">Tous nos <span class="g">services.</span></h2>
+  <p class="sec-sub reveal reveal-delay-2">Appuyez sur un service pour lire le détail.</p>
+
+  <div class="dept-block reveal" id="d1">
+    <div class="dept-label-row"><div class="dept-label-icon">🎨</div><div><div class="dept-label-name">Design & Infographie</div><div class="dept-label-code">DEPT-01 · 6 services</div></div></div>
+    <div class="acc-list">
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">01</div><div class="acc-info"><div class="acc-code">DSIG-01</div><div class="acc-name">Identité Visuelle & Logo</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Création de votre logo professionnel et charte graphique complète : typographies, palettes de couleurs, règles d'usage pour tous vos supports. Fichiers print et digital livrés prêts à l'emploi.</p><div class="acc-tags"><span class="acc-tag">Logo</span><span class="acc-tag">Charte graphique</span><span class="acc-tag">Branding</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">02</div><div class="acc-info"><div class="acc-code">DSIG-02</div><div class="acc-name">Supports Print & Communication</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Flyers, affiches, kakémonos, cartes de visite, brochures, catalogues papier, en-têtes de lettre — tous vos supports de communication conçus et livrés prêts à imprimer.</p><div class="acc-tags"><span class="acc-tag">Flyer</span><span class="acc-tag">Affiche</span><span class="acc-tag">Carte de visite</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">03</div><div class="acc-info"><div class="acc-code">DSIG-03</div><div class="acc-name">Visuels Réseaux Sociaux</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Templates aux couleurs de votre marque pour Instagram, Facebook, LinkedIn et TikTok. Posts, stories, bannières de couverture. Pack de 30 visuels mensuels disponible.</p><div class="acc-tags"><span class="acc-tag">Instagram</span><span class="acc-tag">Facebook</span><span class="acc-tag">LinkedIn</span><span class="acc-tag">TikTok</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">04</div><div class="acc-info"><div class="acc-code">DSIG-04</div><div class="acc-name">Infographie & Datavisualisation</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Vos données complexes transformées en visuels clairs et percutants. Infographies explicatives, rapports visuels, présentations PowerPoint professionnelles.</p><div class="acc-tags"><span class="acc-tag">Infographie</span><span class="acc-tag">Datavisuelle</span><span class="acc-tag">PowerPoint</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">05</div><div class="acc-info"><div class="acc-code">DSIG-05</div><div class="acc-name">UI/UX Design</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Interfaces belles et intuitives pour vos sites web et applications mobiles. Wireframes, maquettes Figma interactives et prototypes testables avant tout développement.</p><div class="acc-tags"><span class="acc-tag">Figma</span><span class="acc-tag">Interface</span><span class="acc-tag">Prototype</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">06</div><div class="acc-info"><div class="acc-code">DSIG-06</div><div class="acc-name">Packaging & Signalétique</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Design d'emballages produits, étiquettes et packaging retail. Signalétique de vos locaux commerciaux, véhicule de marque, objets publicitaires.</p><div class="acc-tags"><span class="acc-tag">Packaging</span><span class="acc-tag">Enseigne</span><span class="acc-tag">Signalétique</span></div></div></div>
+    </div>
+  </div>
+
+  <div class="dept-block reveal" id="d2">
+    <div class="dept-label-row"><div class="dept-label-icon">📱</div><div><div class="dept-label-name">Community Management</div><div class="dept-label-code">DEPT-02 · 5 services</div></div></div>
+    <div class="acc-list">
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">01</div><div class="acc-info"><div class="acc-code">CM-01</div><div class="acc-name">Gestion Complète des Réseaux Sociaux</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Prise en charge totale de vos comptes Instagram, Facebook, LinkedIn et TikTok : calendrier éditorial mensuel, création de tous les contenus, publication aux meilleurs horaires, modération des commentaires.</p><div class="acc-tags"><span class="acc-tag">Instagram</span><span class="acc-tag">Facebook</span><span class="acc-tag">LinkedIn</span><span class="acc-tag">TikTok</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">02</div><div class="acc-info"><div class="acc-code">CM-02</div><div class="acc-name">Stratégie Éditoriale & Contenu</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Ligne éditoriale, thématiques et ton de marque définis sur mesure. Rédaction de captions percutantes, hashtags stratégiques, storytelling qui engage et fidélise votre audience.</p><div class="acc-tags"><span class="acc-tag">Stratégie</span><span class="acc-tag">Copywriting</span><span class="acc-tag">Storytelling</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">03</div><div class="acc-info"><div class="acc-code">CM-03</div><div class="acc-name">Publicité Digitale (Ads)</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Campagnes sur Meta, Google et TikTok. Ciblage précis de votre audience, optimisation du budget, A/B testing et rapport de performance mensuel détaillé.</p><div class="acc-tags"><span class="acc-tag">Meta Ads</span><span class="acc-tag">Google Ads</span><span class="acc-tag">TikTok Ads</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">04</div><div class="acc-info"><div class="acc-code">CM-04</div><div class="acc-name">Influence & Partenariats</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Identification des influenceurs les plus pertinents en Côte d'Ivoire et en Afrique de l'Ouest. Collaboration, briefs créatifs, suivi et mesure des résultats.</p><div class="acc-tags"><span class="acc-tag">Influenceurs</span><span class="acc-tag">Partenariats</span><span class="acc-tag">KOL</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">05</div><div class="acc-info"><div class="acc-code">CM-05</div><div class="acc-name">Reporting & Analyse Performance</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Rapport mensuel complet : portée, engagement, abonnés, clics, conversions. Recommandations concrètes pour améliorer vos performances le mois suivant.</p><div class="acc-tags"><span class="acc-tag">Analytics</span><span class="acc-tag">KPI</span><span class="acc-tag">Rapport mensuel</span></div></div></div>
+    </div>
+  </div>
+
+  <div class="dept-block reveal" id="d3">
+    <div class="dept-label-row"><div class="dept-label-icon">🌐</div><div><div class="dept-label-name">Développement Web</div><div class="dept-label-code">DEPT-03 · 6 services</div></div></div>
+    <div class="acc-list">
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">01</div><div class="acc-info"><div class="acc-code">WEB-01</div><div class="acc-name">Site Vitrine Professionnel</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Site web 5 à 15 pages, responsive (parfait sur mobile), optimisé Google. Design unique à vos couleurs, formulaire de contact, Google Maps, accès admin simple.</p><div class="acc-tags"><span class="acc-tag">Responsive</span><span class="acc-tag">SEO</span><span class="acc-tag">WordPress</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">02</div><div class="acc-info"><div class="acc-code">WEB-02</div><div class="acc-name">Boutique E-commerce</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Boutique en ligne complète : catalogue, panier, paiement sécurisé (Wave, Orange Money, carte bancaire), gestion des stocks et des commandes. Prête à vendre dès la livraison.</p><div class="acc-tags"><span class="acc-tag">E-commerce</span><span class="acc-tag">Wave / Orange Money</span><span class="acc-tag">Paiement en ligne</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">03</div><div class="acc-info"><div class="acc-code">WEB-03</div><div class="acc-name">Application Web Sur Mesure</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Applications web complexes : système de gestion interne, plateforme SaaS, espace membres, tableau de bord analytique, système de réservation sur mesure.</p><div class="acc-tags"><span class="acc-tag">React</span><span class="acc-tag">Node.js</span><span class="acc-tag">Sur mesure</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">04</div><div class="acc-info"><div class="acc-code">WEB-04</div><div class="acc-name">Landing Page & Tunnel de Vente</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Page conçue uniquement pour convertir vos visiteurs en clients. Optimisée à 100%, formulaire de capture, intégration WhatsApp, suivi des résultats en temps réel.</p><div class="acc-tags"><span class="acc-tag">Conversion</span><span class="acc-tag">Landing page</span><span class="acc-tag">Leads</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">05</div><div class="acc-info"><div class="acc-code">WEB-05</div><div class="acc-name">Refonte & Modernisation</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Votre site est lent ou vieillissant ? Nouveau design, performances optimisées, compatibilité mobile parfaite, meilleur référencement Google.</p><div class="acc-tags"><span class="acc-tag">Refonte</span><span class="acc-tag">Performance</span><span class="acc-tag">Mobile-first</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">06</div><div class="acc-info"><div class="acc-code">WEB-06</div><div class="acc-name">Maintenance & Hébergement</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Hébergement sécurisé, sauvegardes automatiques quotidiennes, mises à jour de sécurité, surveillance 24/7 et support technique réactif chaque mois.</p><div class="acc-tags"><span class="acc-tag">Hébergement</span><span class="acc-tag">Sécurité</span><span class="acc-tag">Support</span></div></div></div>
+    </div>
+  </div>
+
+  <div class="dept-block reveal" id="d4">
+    <div class="dept-label-row"><div class="dept-label-icon">📲</div><div><div class="dept-label-name">Développement Mobile</div><div class="dept-label-code">DEPT-04 · 4 services</div></div></div>
+    <div class="acc-list">
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">01</div><div class="acc-info"><div class="acc-code">MOB-01</div><div class="acc-name">Application Android</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Application Android native adaptée aux utilisateurs africains. Notifications push, paiement mobile, fonctionnement en basse connexion, publication Google Play Store.</p><div class="acc-tags"><span class="acc-tag">Android</span><span class="acc-tag">Google Play</span><span class="acc-tag">Native</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">02</div><div class="acc-info"><div class="acc-code">MOB-02</div><div class="acc-name">Application iOS (iPhone)</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Application native pour iPhone et iPad, conforme aux standards Apple, publiée sur l'App Store. Design soigné, performances optimales, intégration Apple Pay.</p><div class="acc-tags"><span class="acc-tag">iOS</span><span class="acc-tag">App Store</span><span class="acc-tag">Swift</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">03</div><div class="acc-info"><div class="acc-code">MOB-03</div><div class="acc-name">Application Cross-Platform</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Une seule application pour Android et iOS. La solution économique sans compromis sur la qualité. Publication simultanée sur les deux stores en une seule mission.</p><div class="acc-tags"><span class="acc-tag">React Native</span><span class="acc-tag">Flutter</span><span class="acc-tag">Android + iOS</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">04</div><div class="acc-info"><div class="acc-code">MOB-04</div><div class="acc-name">PWA — App sans les stores</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Site web qui se comporte comme une app mobile : installable depuis le navigateur, fonctionne hors connexion, envoie des notifications. Idéal pour réduire les coûts.</p><div class="acc-tags"><span class="acc-tag">PWA</span><span class="acc-tag">Hors connexion</span><span class="acc-tag">Installable</span></div></div></div>
+    </div>
+  </div>
+
+  <div class="dept-block reveal" id="d5">
+    <div class="dept-label-row"><div class="dept-label-icon">🤖</div><div><div class="dept-label-name">Intelligence Artificielle</div><div class="dept-label-code">DEPT-05 · 5 services</div></div></div>
+    <div class="acc-list">
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">01</div><div class="acc-info"><div class="acc-code">IA-01</div><div class="acc-name">Agent IA Commercial</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Un agent qui répond à vos prospects WhatsApp en moins de 5 minutes, 24h/24. Il qualifie automatiquement les prospects, génère des propositions et relance pendant 21 jours. Zéro lead perdu.</p><div class="acc-tags"><span class="acc-tag">WhatsApp 24/7</span><span class="acc-tag">Qualification auto</span><span class="acc-tag">Relances auto</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">02</div><div class="acc-info"><div class="acc-code">IA-02</div><div class="acc-name">Agent IA Relation Client</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Prend soin de vos clients après la vente : suivi automatique, détection des insatisfactions avant qu'ils partent, relances de paiement cordiales, rapport mensuel sur votre portefeuille clients.</p><div class="acc-tags"><span class="acc-tag">Fidélisation</span><span class="acc-tag">Suivi client</span><span class="acc-tag">Rapports auto</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">03</div><div class="acc-info"><div class="acc-code">IA-03</div><div class="acc-name">Chatbot & Assistant Virtuel</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Assistant intelligent sur votre site web ou WhatsApp : répond aux questions fréquentes, oriente vos visiteurs, prend des rendez-vous et assure un support de qualité à toute heure.</p><div class="acc-tags"><span class="acc-tag">Chatbot</span><span class="acc-tag">FAQ automatique</span><span class="acc-tag">Prise de RDV</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">04</div><div class="acc-info"><div class="acc-code">IA-04</div><div class="acc-name">Automatisation de Processus</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Identification et automatisation de toutes vos tâches répétitives : rapports, emails, CRM, facturation. Tout ce qui peut être délégué à une machine l'est.</p><div class="acc-tags"><span class="acc-tag">Automatisation</span><span class="acc-tag">Gain de temps</span><span class="acc-tag">notre moteur d'automatisation</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">05</div><div class="acc-info"><div class="acc-code">IA-05</div><div class="acc-name">Dashboard & Analyse IA</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Vos données transformées en tableaux de bord intelligents. Ventes, performances, tendances visibles en un coup d'œil avec des recommandations concrètes générées automatiquement.</p><div class="acc-tags"><span class="acc-tag">Dashboard</span><span class="acc-tag">Analytics</span><span class="acc-tag">Décision data</span></div></div></div>
+    </div>
+  </div>
+
+  <div class="dept-block reveal" id="d6">
+    <div class="dept-label-row"><div class="dept-label-icon">📊</div><div><div class="dept-label-name">Marketing Digital</div><div class="dept-label-code">DEPT-06 · 5 services</div></div></div>
+    <div class="acc-list">
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">01</div><div class="acc-info"><div class="acc-code">MKT-01</div><div class="acc-name">Référencement Naturel (SEO)</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Apparaître en première page Google quand vos clients vous cherchent. Audit SEO, optimisation technique, rédaction de contenu optimisé, suivi mensuel des positions.</p><div class="acc-tags"><span class="acc-tag">Google</span><span class="acc-tag">SEO</span><span class="acc-tag">Contenu optimisé</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">02</div><div class="acc-info"><div class="acc-code">MKT-02</div><div class="acc-name">Email Marketing & Automation</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Newsletter, séquences automatiques, promotions ciblées. Design professionnel, segmentation de vos listes, analyse des taux d'ouverture et de clics.</p><div class="acc-tags"><span class="acc-tag">Email</span><span class="acc-tag">Newsletter</span><span class="acc-tag">Automation</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">03</div><div class="acc-info"><div class="acc-code">MKT-03</div><div class="acc-name">Marketing de Contenu</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Devenez l'expert reconnu de votre secteur : articles de blog, études de cas, guides pratiques, vidéos. Vos clients viennent à vous naturellement.</p><div class="acc-tags"><span class="acc-tag">Blog</span><span class="acc-tag">Contenu expert</span><span class="acc-tag">Notoriété</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">04</div><div class="acc-info"><div class="acc-code">MKT-04</div><div class="acc-name">Stratégie de Croissance</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Analyse de votre parcours client, identification des points de friction, solutions pour augmenter votre taux de conversion et réduire votre coût d'acquisition.</p><div class="acc-tags"><span class="acc-tag">Croissance</span><span class="acc-tag">Conversion</span><span class="acc-tag">Acquisition</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">05</div><div class="acc-info"><div class="acc-code">MKT-05</div><div class="acc-name">WhatsApp Marketing</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">WhatsApp est le canal N°1 en Afrique. Campagnes Business API professionnelles : diffusion ciblée, séquences automatiques, chatbot intégré, suivi des résultats.</p><div class="acc-tags"><span class="acc-tag">WhatsApp</span><span class="acc-tag">Campagnes</span><span class="acc-tag">Afrique</span></div></div></div>
+    </div>
+  </div>
+
+  <div class="dept-block reveal" id="d7">
+    <div class="dept-label-row"><div class="dept-label-icon">🎬</div><div><div class="dept-label-name">Production Audiovisuelle</div><div class="dept-label-code">DEPT-07 · 4 services</div></div></div>
+    <div class="acc-list">
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">01</div><div class="acc-info"><div class="acc-code">AV-01</div><div class="acc-name">Vidéo Promotionnelle</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Vidéo professionnelle de présentation de votre entreprise, produits ou services. De A à Z : script, tournage, montage, musique, sous-titres, livraison en haute définition.</p><div class="acc-tags"><span class="acc-tag">Vidéo corpo</span><span class="acc-tag">Tournage</span><span class="acc-tag">Montage HD</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">02</div><div class="acc-info"><div class="acc-code">AV-02</div><div class="acc-name">Motion Design & Animation</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Animation de logo, vidéos explicatives animées, intros/outros YouTube, reels et stories animés pour les réseaux sociaux.</p><div class="acc-tags"><span class="acc-tag">Animation</span><span class="acc-tag">Motion design</span><span class="acc-tag">Reels</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">03</div><div class="acc-info"><div class="acc-code">AV-03</div><div class="acc-name">Photographie Professionnelle</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Shooting photo pour votre entreprise : équipe, produits, locaux, événements. Retouche et livraison optimisée pour le web et le print.</p><div class="acc-tags"><span class="acc-tag">Photo corporate</span><span class="acc-tag">Produits</span><span class="acc-tag">Événements</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">04</div><div class="acc-info"><div class="acc-code">AV-04</div><div class="acc-name">Podcast d'Entreprise</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Lancement et production de votre podcast : enregistrement, montage audio, jingle, distribution sur Spotify et Apple Podcasts. Positionnez-vous comme expert.</p><div class="acc-tags"><span class="acc-tag">Podcast</span><span class="acc-tag">Spotify</span><span class="acc-tag">Audio pro</span></div></div></div>
+    </div>
+  </div>
+
+  <div class="dept-block reveal" id="d8">
+    <div class="dept-label-row"><div class="dept-label-icon">🎓</div><div><div class="dept-label-name">Formation & Académie HKR</div><div class="dept-label-code">DEPT-08 · 4 services</div></div></div>
+    <div class="acc-list">
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">01</div><div class="acc-info"><div class="acc-code">FORM-01</div><div class="acc-name">Formations Digitales Certifiantes</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Formations pratiques en marketing digital, community management, création graphique, développement web et IA. Présentiel à Abidjan ou à distance. Certificat HKR remis.</p><div class="acc-tags"><span class="acc-tag">Formation pratique</span><span class="acc-tag">Certificat</span><span class="acc-tag">Présentiel / Distanciel</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">02</div><div class="acc-info"><div class="acc-code">FORM-02</div><div class="acc-name">Ateliers & Workshops Intensifs</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Sessions d'une journée sur une thématique précise : utiliser l'IA dans votre business, gérer vos réseaux, créer des vidéos pro avec votre smartphone. Maximum 10 participants.</p><div class="acc-tags"><span class="acc-tag">Workshop</span><span class="acc-tag">1 journée</span><span class="acc-tag">Petit groupe</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">03</div><div class="acc-info"><div class="acc-code">FORM-03</div><div class="acc-name">Coaching Digital Individuel</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Accompagnement personnalisé 1-on-1 pour entrepreneurs et professionnels. Sessions adaptées à votre niveau, votre secteur et vos objectifs.</p><div class="acc-tags"><span class="acc-tag">Coaching 1-on-1</span><span class="acc-tag">Personnalisé</span><span class="acc-tag">Entrepreneur</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">04</div><div class="acc-info"><div class="acc-code">FORM-04</div><div class="acc-name">Formation Intra-Entreprise</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Programme sur mesure pour vos équipes, dans vos locaux ou en ligne. Audit des compétences, programme adapté à vos outils, suivi post-formation.</p><div class="acc-tags"><span class="acc-tag">Équipes</span><span class="acc-tag">Sur mesure</span><span class="acc-tag">En entreprise</span></div></div></div>
+    </div>
+  </div>
+
+  <div class="dept-block reveal" id="d9">
+    <div class="dept-label-row"><div class="dept-label-icon">💼</div><div><div class="dept-label-name">Conseil & Stratégie Digitale</div><div class="dept-label-code">DEPT-09 · 4 services</div></div></div>
+    <div class="acc-list">
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">01</div><div class="acc-info"><div class="acc-code">CONS-01</div><div class="acc-name">Audit Digital 360°</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Évaluation complète de votre situation : site web, réseaux sociaux, visibilité Google, publicité, image en ligne. Rapport clair avec plan d'action priorisé et chiffré.</p><div class="acc-tags"><span class="acc-tag">Audit</span><span class="acc-tag">Diagnostic</span><span class="acc-tag">Plan d'action</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">02</div><div class="acc-info"><div class="acc-code">CONS-02</div><div class="acc-name">Transformation Digitale</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Accompagnement dans la digitalisation pas à pas : priorités, bons outils, feuille de route progressive et formation de vos équipes pour que le changement dure.</p><div class="acc-tags"><span class="acc-tag">Digitalisation</span><span class="acc-tag">Transformation</span><span class="acc-tag">Accompagnement</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">03</div><div class="acc-info"><div class="acc-code">CONS-03</div><div class="acc-name">Système d'Exploitation d'Entreprise</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Vision, processus documentés, procédures (SOP), indicateurs de performance, outils de gestion. Votre entreprise tourne sans que tout dépende de vous seul.</p><div class="acc-tags"><span class="acc-tag">Organisation</span><span class="acc-tag">Processus</span><span class="acc-tag">Scalabilité</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">04</div><div class="acc-info"><div class="acc-code">CONS-04</div><div class="acc-name">Consulting IA pour Entreprises</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Vous voulez intégrer l'IA mais ne savez pas par où commencer ? Nous cartographions vos opportunités, choisissons les outils, concevons la stratégie et accompagnons le déploiement.</p><div class="acc-tags"><span class="acc-tag">IA</span><span class="acc-tag">Stratégie</span><span class="acc-tag">Déploiement</span></div></div></div>
+    </div>
+  </div>
+
+  <div class="dept-block reveal" id="d10">
+    <div class="dept-label-row"><div class="dept-label-icon">⚙️</div><div><div class="dept-label-name">Automatisation & Systèmes</div><div class="dept-label-code">DEPT-10 · 4 services</div></div></div>
+    <div class="acc-list">
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">01</div><div class="acc-info"><div class="acc-code">AUTO-01</div><div class="acc-name">CRM & Suivi Commercial</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Mise en place de votre CRM adapté à votre taille et budget. Suivi prospects, pipeline de vente, historique client, relances automatiques — tout centralisé en un endroit.</p><div class="acc-tags"><span class="acc-tag">CRM</span><span class="acc-tag">Pipeline</span><span class="acc-tag">Suivi client</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">02</div><div class="acc-info"><div class="acc-code">AUTO-02</div><div class="acc-name">Connexions & Workflows Automatisés</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Vos outils qui se parlent entre eux automatiquement. Un formulaire rempli → fiche CRM créée, email envoyé, WhatsApp notifié — sans intervention manuelle. 500+ applications connectables.</p><div class="acc-tags"><span class="acc-tag">Automatisation</span><span class="acc-tag">Intégrations</span><span class="acc-tag">Zéro tâche manuelle</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">03</div><div class="acc-info"><div class="acc-code">AUTO-03</div><div class="acc-name">Facturation & Relances Auto</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Facturation automatique de bout en bout : génération des factures, envoi client, rappels de paiement progressifs, réconciliation comptable. Zéro facture oubliée.</p><div class="acc-tags"><span class="acc-tag">Facturation auto</span><span class="acc-tag">Relances paiement</span><span class="acc-tag">Comptabilité</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">04</div><div class="acc-info"><div class="acc-code">AUTO-04</div><div class="acc-name">Base de Connaissances d'Entreprise</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Mémoire d'entreprise complète : processus, guides et procédures documentés, accessibles à toute votre équipe en un clic. Indispensable pour former rapidement de nouveaux collaborateurs.</p><div class="acc-tags"><span class="acc-tag">Documentation</span><span class="acc-tag">Processus</span><span class="acc-tag">Formation équipe</span></div></div></div>
+    </div>
+  </div>
+
+  <div class="dept-block reveal" id="d11">
+    <div class="dept-label-row"><div class="dept-label-icon">🏗️</div><div><div class="dept-label-name">Étude Technique & Développement d'Entreprise</div><div class="dept-label-code">DEPT-11 · SERVICE PHARE · 6 services</div></div></div>
+    <div class="acc-list">
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">01</div><div class="acc-info"><div class="acc-code">ETD-01</div><div class="acc-name">Business Operating System (BOS)</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Nous concevons le système d'exploitation complet de votre entreprise : vision, mission, valeurs, organigramme, processus métier, KPI par département, fiches de poste et tableaux de bord de pilotage. Votre entreprise cesse de fonctionner à l'instinct et commence à fonctionner comme une machine structurée — scalable et performante, même en votre absence.</p><div class="acc-tags"><span class="acc-tag">Vision & Mission</span><span class="acc-tag">Organigramme</span><span class="acc-tag">KPI</span><span class="acc-tag">Processus</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">02</div><div class="acc-info"><div class="acc-code">ETD-02</div><div class="acc-name">Knowledge Management System (KMS)</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Construction de la mémoire vivante de votre entreprise : bibliothèque de procédures (SOP), documentation de tous vos processus clés, arborescence Google Drive structurée, fiches de retour d'expérience et cycle de capitalisation des connaissances. Chaque collaborateur trouve ce dont il a besoin en moins de 30 secondes.</p><div class="acc-tags"><span class="acc-tag">SOP</span><span class="acc-tag">Documentation</span><span class="acc-tag">Google Drive</span><span class="acc-tag">REX</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">03</div><div class="acc-info"><div class="acc-code">ETD-03</div><div class="acc-name">Architecture Numérique & Plan d'Automatisation</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Conception de l'architecture digitale complète : cartographie de vos outils existants, sélection de la meilleure stack technologique, plan d'automatisation en 3 tiers (quick wins, moyen terme, long terme) avec roadmap 18 mois et estimation du ROI pour chaque action.</p><div class="acc-tags"><span class="acc-tag">Architecture digitale</span><span class="acc-tag">Stack tech</span><span class="acc-tag">Roadmap 18 mois</span><span class="acc-tag">ROI</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">04</div><div class="acc-info"><div class="acc-code">ETD-04</div><div class="acc-name">Système Commercial & CRM (Sales System)</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Pipeline de vente structuré en 9 étapes, scripts de prospection WhatsApp et email, séquences de relance automatisées sur 21 jours, grille de qualification BANT+, matrice de traitement des objections, templates de proposition commerciale et CRM Google Sheets sur mesure.</p><div class="acc-tags"><span class="acc-tag">Pipeline commercial</span><span class="acc-tag">Scripts de vente</span><span class="acc-tag">CRM</span><span class="acc-tag">BANT+</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">05</div><div class="acc-info"><div class="acc-code">ETD-05</div><div class="acc-name">Expérience Client & Système de Livraison (CES)</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Conception du parcours client complet : de la première prise de contact jusqu'à la fidélisation et le programme ambassadeur. Onboarding structuré, séquences post-vente, suivi NPS, gestion des réclamations et programme de referral. Votre client vit une expérience premium à chaque étape.</p><div class="acc-tags"><span class="acc-tag">Parcours client</span><span class="acc-tag">Onboarding</span><span class="acc-tag">NPS</span><span class="acc-tag">Ambassadeur</span></div></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="acc(this)"><div class="acc-icon">06</div><div class="acc-info"><div class="acc-code">ETD-06</div><div class="acc-name">HKR AI Suite — Agents IA Métier</div></div><div class="acc-chevron">↓</div></div><div class="acc-body"><p class="acc-desc">Développement et déploiement d'agents IA sur mesure pour automatiser les fonctions clés : agent commercial (répond aux leads 24h/24), agent CRM, agent support, agent administration. Chaque agent est conçu sur la base de vos processus documentés — méthodologie AILAB-7 propriétaire HKR.</p><div class="acc-tags"><span class="acc-tag">Agent IA commercial</span><span class="acc-tag">IA HKR</span><span class="acc-tag">notre moteur d'automatisation</span><span class="acc-tag">AILAB-7</span></div></div></div>
+    </div>
+    <div class="dept11-cta">
+      <div style="font-size:11px;font-weight:700;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;">SERVICE PHARE HKR</div>
+      <div style="font-size:18px;font-weight:700;color:#fff;letter-spacing:-0.4px;margin-bottom:8px;">Votre entreprise, structurée de A à Z.</div>
+      <div class="dept11-cta-sub">Diagnostic · Documentation · Digitalisation · Automatisation IA.<br>Un accompagnement complet pour bâtir une entreprise qui tourne sans vous.</div>
+      <a href="https://wa.me/2250715734985?text=Bonjour%20Hkr-Studio%20AI%2C%20je%20suis%20int%C3%A9ress%C3%A9%20par%20votre%20service%20d%27%C3%A9tude%20technique%20et%20de%20d%C3%A9veloppement%20d%27entreprise." target="_blank" rel="noopener" class="dept11-cta-btn">💬 Discuter de mon projet →</a>
+    </div>
+  </div>
+
+  <!-- D12 -->
+  <div class="dept-block reveal" id="d12">
+    <div class="dept-label-row">
+      <div class="dept-label-icon" style="background:linear-gradient(135deg,var(--navy),#0D2137);border:1.5px solid var(--gold);">📸</div>
+      <div>
+        <div class="dept-label-name">Photographe Personnel & Communication VIP</div>
+        <div class="dept-label-code">DEPT-12 · SERVICE VIP · 5 services</div>
+      </div>
+    </div>
+    <div class="acc-list">
+
+      <div class="acc-item">
+        <div class="acc-head" onclick="acc(this)">
+          <div class="acc-icon">01</div>
+          <div class="acc-info"><div class="acc-code">VIP-01</div><div class="acc-name">Photographe Personnel Attitré</div></div>
+          <div class="acc-chevron">↓</div>
+        </div>
+        <div class="acc-body">
+          <p class="acc-desc">Un photographe professionnel dédié exclusivement à votre image, disponible pour tous vos déplacements, événements, apparitions publiques et moments du quotidien. Chaque cliché est retouché et livré en haute résolution dans les 24 heures. Vous êtes toujours prêt à publier, à paraître et à impressionner.</p>
+          <div class="acc-tags"><span class="acc-tag">Dédié exclusif</span><span class="acc-tag">Retouche 24h</span><span class="acc-tag">Haute résolution</span><span class="acc-tag">Déplacements</span></div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <div class="acc-head" onclick="acc(this)">
+          <div class="acc-icon">02</div>
+          <div class="acc-info"><div class="acc-code">VIP-02</div><div class="acc-name">Gestion de l'Image & Personal Branding</div></div>
+          <div class="acc-chevron">↓</div>
+        </div>
+        <div class="acc-body">
+          <p class="acc-desc">Conception et gestion complète de votre image publique : définition de votre identité visuelle personnelle, cohérence de votre apparence sur tous les médias, direction artistique de chaque prise de vue. Votre image devient un message puissant, reconnaissable et mémorable.</p>
+          <div class="acc-tags"><span class="acc-tag">Personal branding</span><span class="acc-tag">Direction artistique</span><span class="acc-tag">Cohérence visuelle</span><span class="acc-tag">Image publique</span></div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <div class="acc-head" onclick="acc(this)">
+          <div class="acc-icon">03</div>
+          <div class="acc-info"><div class="acc-code">VIP-03</div><div class="acc-name">Gestion des Réseaux Sociaux Personnels</div></div>
+          <div class="acc-chevron">↓</div>
+        </div>
+        <div class="acc-body">
+          <p class="acc-desc">Prise en charge totale de vos comptes Instagram, Facebook, LinkedIn et TikTok personnels. Calendrier éditorial mensuel, rédaction de tous les textes dans votre voix et votre style, publication aux meilleurs horaires, modération et gestion de votre communauté. Vous vivez, nous communiquons.</p>
+          <div class="acc-tags"><span class="acc-tag">Instagram</span><span class="acc-tag">LinkedIn</span><span class="acc-tag">TikTok</span><span class="acc-tag">Votre voix</span><span class="acc-tag">Communauté</span></div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <div class="acc-head" onclick="acc(this)">
+          <div class="acc-icon">04</div>
+          <div class="acc-info"><div class="acc-code">VIP-04</div><div class="acc-name">Couverture Photo & Vidéo d'Événements</div></div>
+          <div class="acc-chevron">↓</div>
+        </div>
+        <div class="acc-body">
+          <p class="acc-desc">Couverture complète de vos événements privés et professionnels : galas, conférences, remises de prix, voyages officiels, cérémonies, inaugurations. Photos et vidéos de qualité magazine, livrées en moins de 48h avec sélection et retouche professionnelle incluses.</p>
+          <div class="acc-tags"><span class="acc-tag">Événements</span><span class="acc-tag">Galas</span><span class="acc-tag">Conférences</span><span class="acc-tag">Qualité magazine</span><span class="acc-tag">48h livraison</span></div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <div class="acc-head" onclick="acc(this)">
+          <div class="acc-icon">05</div>
+          <div class="acc-info"><div class="acc-code">VIP-05</div><div class="acc-name">Pack Relations Presse & Visibilité Médias</div></div>
+          <div class="acc-chevron">↓</div>
+        </div>
+        <div class="acc-body">
+          <p class="acc-desc">Création et diffusion de votre dossier de presse personnel, rédaction de communiqués, gestion de vos relations avec les médias locaux et régionaux. Production de votre kit média complet : biographie officielle, photos de presse haute résolution, fiche de présentation pour les partenaires et organisateurs.</p>
+          <div class="acc-tags"><span class="acc-tag">Dossier de presse</span><span class="acc-tag">Kit média</span><span class="acc-tag">Relations médias</span><span class="acc-tag">Biographie</span><span class="acc-tag">Visibilité</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CTA VIP -->
+    <div style="margin-top:20px;background:linear-gradient(135deg,#1A3C5E 0%,#0D2137 100%);border-radius:var(--radius);border:1px solid rgba(232,160,32,0.3);padding:28px 24px;text-align:center;">
+      <div style="font-size:11px;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">SERVICE VIP & CONFIDENTIEL</div>
+      <div style="font-size:20px;font-weight:700;color:#fff;letter-spacing:-0.5px;margin-bottom:10px;">Votre image, notre priorité absolue.</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.7;margin-bottom:22px;">Photographe dédié · Gestion réseaux personnels · Direction artistique.<br>Un service discret, exclusif et sur mesure pour les personnalités qui soignent leur image.</div>
+      <a href="https://wa.me/2250715734985?text=Bonjour%20Hkr-Studio%20AI%2C%20je%20suis%20int%C3%A9ress%C3%A9%20par%20votre%20service%20de%20Photographe%20Personnel%20%26%20Communication%20VIP.%20Pouvez-vous%20me%20contacter%20%3F" target="_blank" rel="noopener" style="display:block;background:var(--gold);color:var(--navy);font-size:14px;font-weight:700;padding:14px;border-radius:980px;text-decoration:none;transition:transform .2s;">💬 Demander une consultation privée →</a>
+    </div>
+  </div>
+</section>
+
+<!-- TARIFS -->
+<section class="sec" id="tarifs">
+  <div class="sec-eyebrow reveal">Tarification</div>
+  <h2 class="sec-title reveal reveal-delay-1">Un pack pour <span class="g">chaque étape.</span></h2>
+  <p class="sec-sub reveal reveal-delay-2">En FCFA. Consultation de 30 min toujours gratuite.</p>
+  <div class="price-stack">
+    <div class="price-card reveal">
+      <div class="price-head"><div><div class="price-type">DÉMARRAGE</div><div class="price-name">Starter</div></div><div><div class="price-range">350K – 600K</div><div class="price-period">FCFA · projet</div></div></div>
+      <div class="price-div"></div>
+      <div class="price-feats"><div class="price-feat">Logo + charte graphique</div><div class="price-feat">Site vitrine 5 pages</div><div class="price-feat">10 visuels réseaux sociaux</div><div class="price-feat">1 mois de CM inclus</div><div class="price-feat">Support 30 jours</div></div>
+      <a href="https://wa.me/2250715734985?text=Bonjour%20Hkr-Studio%20AI%2C%20je%20suis%20int%C3%A9ress%C3%A9%20par%20le%20pack%20Starter%20(350K%E2%80%93600K%20FCFA)." target="_blank" rel="noopener" class="price-cta">Démarrer →</a>
+    </div>
+    <div class="price-card feat reveal reveal-delay-1">
+      <div class="price-pop">POPULAIRE</div>
+      <div class="price-head"><div><div class="price-type">CROISSANCE</div><div class="price-name">Business</div></div><div><div class="price-range">1,5M – 3M</div><div class="price-period">FCFA · projet</div></div></div>
+      <div class="price-div"></div>
+      <div class="price-feats"><div class="price-feat">Identité visuelle complète</div><div class="price-feat">Site web + e-commerce</div><div class="price-feat">3 mois CM (4 réseaux)</div><div class="price-feat">Campagnes publicitaires</div><div class="price-feat">Rapport mensuel inclus</div></div>
+      <a href="https://wa.me/2250715734985?text=Bonjour%20Hkr-Studio%20AI%2C%20je%20suis%20int%C3%A9ress%C3%A9%20par%20le%20pack%20Business%20(1%2C5M%E2%80%933M%20FCFA)." target="_blank" rel="noopener" class="price-cta">Choisir →</a>
+    </div>
+    <div class="price-card reveal reveal-delay-2">
+      <div class="price-head"><div><div class="price-type">TRANSFORMATION</div><div class="price-name">Premium</div></div><div><div class="price-range">5M – 12M</div><div class="price-period">FCFA · projet</div></div></div>
+      <div class="price-div"></div>
+      <div class="price-feats"><div class="price-feat">Design + Dev complet</div><div class="price-feat">Application mobile incluse</div><div class="price-feat">Agent IA commercial</div><div class="price-feat">CM 6 mois + Ads</div><div class="price-feat">Coaching stratégique</div></div>
+      <a href="https://wa.me/2250715734985?text=Bonjour%20Hkr-Studio%20AI%2C%20je%20suis%20int%C3%A9ress%C3%A9%20par%20le%20pack%20Premium%20(5M%E2%80%9312M%20FCFA)." target="_blank" rel="noopener" class="price-cta">En savoir plus →</a>
+    </div>
+    <div class="price-card reveal reveal-delay-3">
+      <div class="price-head"><div><div class="price-type">SUR MESURE</div><div class="price-name">Enterprise</div></div><div><div class="price-range">≥ 20M</div><div class="price-period">FCFA · devis</div></div></div>
+      <div class="price-div"></div>
+      <div class="price-feats"><div class="price-feat">Transformation digitale 360°</div><div class="price-feat">Suite IA complète</div><div class="price-feat">Équipe dédiée</div><div class="price-feat">Support prioritaire</div><div class="price-feat">Partenariat long terme</div></div>
+      <a href="https://wa.me/2250715734985?text=Bonjour%20Hkr-Studio%20AI%2C%20je%20souhaite%20discuter%20d%27un%20projet%20Enterprise%20sur%20mesure." target="_blank" rel="noopener" class="price-cta">Nous contacter →</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESSUS -->
+<section class="sec sec-dark" id="processus">
+  <div class="sec-eyebrow reveal">Notre méthode</div>
+  <h2 class="sec-title lt reveal reveal-delay-1">Simple. <span class="g">Sans surprise.</span></h2>
+  <p class="sec-sub lt reveal reveal-delay-2">Du premier contact à la livraison — vous savez toujours où vous en êtes.</p>
+  <div class="process-list reveal reveal-delay-3">
+    <div class="process-step"><div class="process-num">1</div><div><div class="process-title">Consultation gratuite (30 min)</div><div class="process-desc">On discute de votre projet, vos objectifs et votre budget. Par WhatsApp ou en personne à Abidjan.</div></div></div>
+    <div class="process-step"><div class="process-num">2</div><div><div class="process-title">Proposition sous 24h</div><div class="process-desc">Livrables clairs, délais définis, tarif transparent. Pas de surprise, pas de coût caché.</div></div></div>
+    <div class="process-step"><div class="process-num">3</div><div><div class="process-title">Lancement du projet</div><div class="process-desc">Chef de projet dédié, accès à votre espace en ligne, planning confirmé.</div></div></div>
+    <div class="process-step"><div class="process-num">4</div><div><div class="process-title">Production avec révisions</div><div class="process-desc">Vous suivez l'avancement. 2 à 3 rounds de corrections inclus dans chaque mission.</div></div></div>
+    <div class="process-step"><div class="process-num">5</div><div><div class="process-title">Livraison & suivi</div><div class="process-desc">Tous vos fichiers, formation à l'utilisation, support inclus après livraison.</div></div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="sec" id="contact">
+  <div class="sec-eyebrow reveal">Contact</div>
+  <h2 class="sec-title reveal reveal-delay-1">Parlons de votre <span class="g">projet.</span></h2>
+  <p class="sec-sub reveal reveal-delay-2">Réponse garantie en moins de 2 heures aux heures ouvrées.</p>
+  <div class="contact-list reveal reveal-delay-3">
+    <a href="mailto:hkrstudioai@gmail.com?subject=Demande%20de%20devis%20-%20Hkr-Studio%20AI&body=Bonjour%20Hkr-Studio%20AI%2C%0A%0AJe%20souhaite%20obtenir%20un%20devis%20pour%20le%20service%20suivant%20%3A%0A%0AService%20%3A%20%0ANom%20%2F%20Entreprise%20%3A%20%0ANum%C3%A9ro%20WhatsApp%20%3A%20%0ADescription%20du%20projet%20%3A%20%0A%0AMerci." class="contact-item contact-item-link"><div class="contact-item-icon">📧</div><div><div class="contact-item-label">Email</div><div class="contact-item-val">hkrstudioai@gmail.com ↗</div></div></a>
+    <a href="https://wa.me/2250715734985?text=Bonjour%20Hkr-Studio%20AI%2C%20je%20souhaite%20d%C3%A9couvrir%20vos%20services." target="_blank" rel="noopener" class="contact-item contact-item-link"><div class="contact-item-icon">📱</div><div><div class="contact-item-label">WhatsApp & Téléphone</div><div class="contact-item-val">+225 07 15 73 49 85 ↗</div></div></a>
+    <div class="contact-item"><div class="contact-item-icon">📍</div><div><div class="contact-item-label">Localisation</div><div class="contact-item-val">Abidjan Cocody Riviera, Côte d'Ivoire</div></div></div>
+    <div class="contact-item"><div class="contact-item-icon">⏰</div><div><div class="contact-item-label">Disponibilité</div><div class="contact-item-val">Lun – Sam · 8h à 20h</div></div></div>
+  </div>
+  <div class="contact-cta reveal reveal-delay-4">
+    <div class="contact-cta-title">Prêt à démarrer ?</div>
+    <div class="contact-cta-sub">Remplissez votre dossier client avant notre échange — cela nous permet de vous préparer une solution sur mesure dès le premier contact.</div>
+    <a href="dossier-client" class="cta-wa" style="background:var(--gold);">📋  Remplir mon dossier client</a>
+    <a href="https://wa.me/2250715734985?text=Bonjour%20Hkr-Studio%20AI%2C%20je%20souhaite%20un%20devis%20gratuit." target="_blank" rel="noopener" class="cta-email" style="background:rgba(255,255,255,0.12);margin-bottom:10px;margin-top:10px;">💬  Écrire sur WhatsApp</a>
+    <a href="mailto:hkrstudioai@gmail.com?subject=Demande%20de%20devis%20-%20Hkr-Studio%20AI&body=Bonjour%20Hkr-Studio%20AI%2C%0A%0AJe%20souhaite%20obtenir%20un%20devis%20pour%20le%20service%20suivant%20%3A%0A%0AService%20%3A%20%0ANom%20%2F%20Entreprise%20%3A%20%0ANum%C3%A9ro%20WhatsApp%20%3A%20%0ADescription%20du%20projet%20%3A%20%0A%0AMerci." class="cta-email">📧  Envoyer un email</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background:#0D2137;padding:32px 20px 40px;border-top:3px solid #E8A020;">
+  <div style="max-width:600px;margin:0 auto;text-align:center;">
+    <!-- Logo -->
+    <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:14px;">
+      <div style="width:36px;height:36px;background:#E8A020;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:#1A3C5E;">H</div>
+      <div style="font-size:16px;font-weight:700;color:#fff;letter-spacing:-.3px;">Hkr-Studio <span style="color:#E8A020;">AI</span></div>
+    </div>
+    <div style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:18px;">Votre Partenaire Digital 360°</div>
+    <!-- Navigation footer -->
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:18px;">
+      <a href="index.html" style="font-size:11px;color:rgba(255,255,255,.5);">Catalogue</a>
+      <span style="color:rgba(255,255,255,.2);">·</span>
+      <a href="about.html" style="font-size:11px;color:rgba(255,255,255,.5);">À propos</a>
+      <span style="color:rgba(255,255,255,.2);">·</span>
+      <a href="etude-de-cas.html" style="font-size:11px;color:rgba(255,255,255,.5);">Cas clients</a>
+      <span style="color:rgba(255,255,255,.2);">·</span>
+      <a href="tarifs-ia.html" style="font-size:11px;color:rgba(255,255,255,.5);">Agents IA</a>
+      <span style="color:rgba(255,255,255,.2);">·</span>
+      <a href="portfolio.html" style="font-size:11px;color:rgba(255,255,255,.5);">Portfolio</a>
+      <span style="color:rgba(255,255,255,.2);">·</span>
+      <a href="faq-ia.html" style="font-size:11px;color:rgba(255,255,255,.5);">FAQ</a>
+      <span style="color:rgba(255,255,255,.2);">·</span>
+      <a href="contact.html" style="font-size:11px;color:rgba(255,255,255,.5);">Contact</a>
+    </div>
+    <!-- Contacts -->
+    <div style="display:flex;flex-direction:column;gap:4px;margin-bottom:16px;">
+      <div style="font-size:12px;color:rgba(255,255,255,.6);">📱 +225 07 15 73 49 85 &nbsp;·&nbsp; 📧 hkrstudioai@gmail.com</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.4);">📍 Abidjan, Cocody Riviera 3, Côte d'Ivoire</div>
+    </div>
+    <!-- CTA WhatsApp -->
+    <a href="https://wa.me/2250715734985?text=Bonjour%20Hkr-Studio%20AI%2C%20je%20souhaite%20un%20devis." target="_blank" rel="noopener noreferrer" style="display:inline-block;background:#E8A020;color:#1A3C5E;font-size:13px;font-weight:700;padding:11px 24px;border-radius:980px;margin-bottom:18px;">💬 Écrire sur WhatsApp</a>
+    <!-- Ligne -->
+    <div style="height:1px;background:rgba(255,255,255,.07);margin-bottom:14px;"></div>
+    <!-- Copyright -->
+    <div style="font-size:10px;color:rgba(255,255,255,.25);line-height:1.8;">
+      © 2025 Hkr-Studio AI · Tous droits réservés<br>
+      <span style="font-size:9px;color:rgba(255,255,255,.15);">© Hkr-Studio AI — Abidjan Cocody Riviera, Côte d'Ivoire</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── LOADER ── */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hide');
+    startCounters();
+  }, 2000);
+});
+
+/* ── SCROLL PROGRESS ── */
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const pct = (window.scrollY / (h.scrollHeight - h.clientHeight)) * 100;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  const fc = document.getElementById('float-cta');
+  window.scrollY > 400 ? fc.classList.add('show') : fc.classList.remove('show');
+});
+
+/* ── REVEAL ON SCROLL ── */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+/* ── COUNT UP ANIMATION ── */
+function startCounters() {
+  document.querySelectorAll('[data-target]').forEach(el => {
+    const target = +el.dataset.target;
+    let current = 0;
+    const step = Math.ceil(target / 30);
+    const timer = setInterval(() => {
+      current = Math.min(current + step, target);
+      el.textContent = current;
+      if (current >= target) clearInterval(timer);
+    }, 50);
+  });
+}
+
+/* ── ACCORDION ── */
+function acc(head) {
+  const item = head.closest('.acc-item');
+  const wasOpen = item.classList.contains('open');
+  item.closest('.acc-list').querySelectorAll('.acc-item').forEach(i => i.classList.remove('open'));
+  if (!wasOpen) item.classList.add('open');
+}
+
+/* ── DEPT NAVIGATION ── */
+function gotoDept(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  document.querySelectorAll('.dept-tile').forEach(t => t.classList.remove('active-tile'));
+  const tile = document.querySelector('[data-dept="' + id + '"]');
+  if (tile) tile.classList.add('active-tile');
+  const top = el.getBoundingClientRect().top + window.scrollY - 72;
+  window.scrollTo({ top, behavior: 'smooth' });
+  setTimeout(() => {
+    el.querySelectorAll('.acc-item').forEach(i => i.classList.remove('open'));
+    const first = el.querySelector('.acc-item');
+    if (first) first.classList.add('open');
+  }, 520);
+}
+
+/* ── RIPPLE EFFECT ON TILES ── */
+document.querySelectorAll('.dept-tile, .btn-primary, .btn-ghost').forEach(el => {
+  el.style.position = 'relative';
+  el.style.overflow = 'hidden';
+  el.addEventListener('click', function(e) {
+    const r = document.createElement('span');
+    r.className = 'ripple';
+    const rect = this.getBoundingClientRect();
+    r.style.left = (e.clientX - rect.left) + 'px';
+    r.style.top  = (e.clientY - rect.top)  + 'px';
+    this.appendChild(r);
+    setTimeout(() => r.remove(), 700);
+  });
+});
+</script>
+
+<script>
+/* ── ANIMATIONS GLOBALES HKR ── */
+// 1. Scroll reveal
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach(el => { if(el.isIntersecting) el.target.classList.add('on'); });
+}, {threshold: 0.07});
+document.querySelectorAll('.rev').forEach(el => revObs.observe(el));
+
+// 2. Compteurs animés
+function animCount(el, target, dur=1400){
+  const suffix = target.toString().match(/[^0-9]/g)?.join('') || '';
+  const num = parseInt(target.toString().replace(/\D/g,''));
+  let start = null;
+  const step = ts => {
+    if(!start) start = ts;
+    const p = Math.min((ts-start)/dur, 1);
+    const ease = 1 - Math.pow(1-p, 3);
+    el.textContent = Math.floor(ease*num).toLocaleString() + suffix;
+    if(p < 1) requestAnimationFrame(step);
+    else el.textContent = target;
+  };
+  requestAnimationFrame(step);
+}
+const countObs = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      const val = entry.target.querySelector('[data-count]');
+      if(val && !val.dataset.done){ val.dataset.done='1'; animCount(val, val.dataset.count); }
+    }
+  });
+}, {threshold: 0.5});
+document.querySelectorAll('[data-count-wrap]').forEach(el => countObs.observe(el));
+
+// 3. Ripple sur tous les boutons
+document.querySelectorAll('a[class*="btn"], button[class*="btn"], .tarif-cta, .work-action, .nav-cta').forEach(btn => {
+  btn.style.position = 'relative';
+  btn.style.overflow = 'hidden';
+  btn.addEventListener('click', function(e){
+    const r = document.createElement('span');
+    Object.assign(r.style, {
+      position:'absolute', borderRadius:'50%',
+      background:'rgba(255,255,255,.25)',
+      width:'0', height:'0',
+      transform:'translate(-50%,-50%)',
+      animation:'rippleAnim .6s ease forwards',
+      left: (e.clientX - this.getBoundingClientRect().left) + 'px',
+      top: (e.clientY - this.getBoundingClientRect().top) + 'px',
+      pointerEvents:'none'
+    });
+    this.appendChild(r);
+    setTimeout(()=>r.remove(), 700);
+  });
+});
+
+// 4. Barre de progression scroll
+(function(){
+  const bar = document.createElement('div');
+  Object.assign(bar.style, {
+    position:'fixed', top:'52px', left:'0', height:'2px',
+    background:'#E8A020', zIndex:'99', width:'0%',
+    transition:'width .1s', borderRadius:'0 2px 2px 0',
+    boxShadow:'0 0 8px rgba(232,160,32,.6)'
+  });
+  document.body.appendChild(bar);
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    bar.style.width = (window.scrollY / (h.scrollHeight - h.clientHeight) * 100) + '%';
+  }, {passive:true});
+})();
+
+// 5. Tilt 3D sur les cartes (desktop)
+if(window.innerWidth > 768){
+  document.querySelectorAll('.work-card, .kpi-card, .skill-card, .tarif, .agent-tarif-card, .case-card, .valeur-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = `translateY(-4px) rotateX(${-y*5}deg) rotateY(${x*5}deg)`;
+      card.style.transition = 'transform .08s';
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+      card.style.transition = 'transform .4s cubic-bezier(.22,1,.36,1)';
+    });
+  });
+}
+
+// 6. Smooth scroll sur tous les liens ancres
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth', block:'start'}); }
+  });
+});
+
+// CSS animations injectées
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes rippleAnim { to { width:200px; height:200px; opacity:0; } }
+  .rev { opacity:0; transform:translateY(22px); transition:opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1); }
+  .rev.on { opacity:1; transform:translateY(0); }
+  .rev:nth-child(1){transition-delay:.05s}
+  .rev:nth-child(2){transition-delay:.1s}
+  .rev:nth-child(3){transition-delay:.15s}
+  .rev:nth-child(4){transition-delay:.2s}
+  .rev:nth-child(5){transition-delay:.25s}
+  .rev:nth-child(6){transition-delay:.3s}
+  .work-card, .kpi-card, .skill-card, .tarif, .agent-tarif-card, .case-card, .valeur-card {
+    transition: transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s;
+  }
+`;
+document.head.appendChild(style);
+</script>
+</body>
+</html>
