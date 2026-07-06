@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#0D2137">
+<meta name="description" content="Estimez le budget de votre projet digital en 60 secondes avec le simulateur Hkr-Studio AI. Gratuit et sans engagement.">
+<title>Simulateur de Devis — Hkr-Studio AI</title>
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',Arial,sans-serif;background:#f5f5f7;color:#1d1d1f;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+:root{--navy:#1A3C5E;--dk:#0D2137;--gold:#E8A020;--gold-lt:#FFF4E0;--g1:#f5f5f7;--g2:#e8e8ed;--g3:#6e6e73;--green:#1A7A4A;--green-lt:#E6F4EC;--r:16px;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,.07);height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.nav-logo-box{width:28px;height:28px;background:var(--navy);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:var(--gold);}
+.nav-name{font-size:13px;font-weight:700;color:#1d1d1f;}
+.nav-back{font-size:12px;color:var(--g3);padding:6px 12px;border-radius:20px;background:var(--g1);text-decoration:none;}
+
+.hero{background:var(--dk);padding:84px 24px 36px;text-align:center;position:relative;overflow:hidden;}
+.orb{position:absolute;width:300px;height:300px;top:-60px;right:-60px;border-radius:50%;background:radial-gradient(circle,rgba(232,160,32,.16),transparent 70%);filter:blur(40px);pointer-events:none;}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(232,160,32,.12);border:1px solid rgba(232,160,32,.3);border-radius:20px;padding:5px 14px;margin-bottom:14px;}
+.hero-badge span{font-size:11px;font-weight:700;color:var(--gold);letter-spacing:1px;text-transform:uppercase;}
+h1{font-size:clamp(24px,6vw,36px);font-weight:700;color:#fff;letter-spacing:-.7px;line-height:1.15;margin-bottom:10px;}
+h1 em{font-style:normal;color:var(--gold);}
+.hero-sub{font-size:13.5px;color:rgba(255,255,255,.6);line-height:1.7;max-width:380px;margin:0 auto;}
+
+.wrap{max-width:560px;margin:0 auto;padding:24px 20px 60px;}
+
+/* PROGRESS */
+.steps-bar{display:flex;gap:6px;margin-bottom:24px;}
+.step-seg{flex:1;height:4px;border-radius:4px;background:var(--g2);transition:background .3s;}
+.step-seg.done{background:var(--gold);}
+
+/* CARD */
+.sim-card{background:#fff;border-radius:var(--r);padding:22px;box-shadow:0 4px 20px rgba(0,0,0,.06);margin-bottom:14px;}
+.q-num{font-size:10px;font-weight:800;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;}
+.q-title{font-size:17px;font-weight:700;color:var(--navy);letter-spacing:-.3px;margin-bottom:4px;}
+.q-sub{font-size:12px;color:var(--g3);margin-bottom:16px;}
+
+/* OPTIONS */
+.opts{display:flex;flex-direction:column;gap:8px;}
+.opt{display:flex;align-items:center;gap:12px;padding:14px;border-radius:12px;border:1.5px solid var(--g2);cursor:pointer;transition:all .18s;background:#fff;}
+.opt:hover{border-color:var(--gold);transform:translateX(3px);}
+.opt.sel{border-color:var(--gold);background:var(--gold-lt);}
+.opt-icon{width:38px;height:38px;border-radius:10px;background:var(--g1);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;transition:background .18s;}
+.opt.sel .opt-icon{background:var(--gold);}
+.opt-name{font-size:13.5px;font-weight:700;color:var(--navy);}
+.opt-desc{font-size:11px;color:var(--g3);margin-top:1px;}
+.opt-price{margin-left:auto;font-size:11px;font-weight:700;color:var(--gold);flex-shrink:0;text-align:right;}
+.opt-check{width:20px;height:20px;border-radius:50%;border:2px solid var(--g2);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;color:transparent;transition:all .18s;}
+.opt.sel .opt-check{background:var(--gold);border-color:var(--gold);color:var(--navy);font-weight:900;}
+
+/* ESTIMATE */
+.estimate{position:sticky;bottom:12px;background:var(--dk);border-radius:var(--r);padding:16px 18px;display:flex;align-items:center;gap:14px;box-shadow:0 10px 30px rgba(13,33,55,.35);border:1px solid rgba(232,160,32,.3);z-index:50;}
+.est-label{font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1px;}
+.est-val{font-size:20px;font-weight:800;color:var(--gold);letter-spacing:-.5px;transition:transform .2s;}
+.est-val.pop{transform:scale(1.12);}
+.est-btn{margin-left:auto;background:var(--gold);color:var(--navy);font-size:13px;font-weight:700;padding:11px 18px;border-radius:980px;border:none;cursor:pointer;white-space:nowrap;transition:transform .15s;}
+.est-btn:hover{transform:scale(1.05);}
+.est-btn:disabled{opacity:.4;}
+
+/* RESULT */
+.result{display:none;}
+.result.show{display:block;animation:fadeUp .5s ease both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.res-head{background:linear-gradient(135deg,var(--dk),var(--navy));border-radius:var(--r);padding:26px 22px;text-align:center;margin-bottom:14px;border:1px solid rgba(232,160,32,.3);}
+.res-icon{font-size:38px;margin-bottom:8px;}
+.res-title{font-size:18px;font-weight:700;color:#fff;margin-bottom:4px;}
+.res-range{font-size:30px;font-weight:800;color:var(--gold);letter-spacing:-1px;margin:8px 0 4px;}
+.res-note{font-size:11px;color:rgba(255,255,255,.5);}
+.res-detail{background:#fff;border-radius:var(--r);padding:18px;margin-bottom:14px;box-shadow:0 2px 12px rgba(0,0,0,.05);}
+.res-detail-title{font-size:11px;font-weight:800;color:var(--g3);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px;}
+.res-line{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--g2);font-size:13px;}
+.res-line:last-child{border-bottom:none;}
+.res-line-name{color:var(--navy);font-weight:600;}
+.res-line-price{color:var(--g3);font-weight:600;}
+.res-delai{background:var(--green-lt);border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:10px;margin-bottom:14px;font-size:13px;color:var(--green);font-weight:600;}
+.btn-wa{display:block;background:#25D366;color:#fff;font-size:15px;font-weight:700;padding:15px;border-radius:980px;text-align:center;text-decoration:none;margin-bottom:8px;box-shadow:0 4px 16px rgba(37,211,102,.35);}
+.btn-dossier{display:block;background:var(--navy);color:#fff;font-size:13px;font-weight:600;padding:13px;border-radius:980px;text-align:center;text-decoration:none;margin-bottom:8px;}
+.btn-restart{display:block;background:var(--g1);color:var(--g3);font-size:12px;font-weight:600;padding:11px;border-radius:980px;text-align:center;border:none;cursor:pointer;width:100%;font-family:inherit;}
+
+footer{background:var(--dk);padding:24px 20px;text-align:center;font-size:10px;color:rgba(255,255,255,.35);line-height:1.8;border-top:2px solid var(--gold);}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo"><div class="nav-logo-box">H</div><span class="nav-name">Hkr-Studio AI</span></a>
+  <a href="index.html" class="nav-back">← Catalogue</a>
+</nav>
+
+<div class="hero">
+  <div class="orb"></div>
+  <div class="hero-badge"><span>Simulateur · Estimation en 60 secondes</span></div>
+  <h1>Estimez votre projet<br><em>en 4 questions.</em></h1>
+  <p class="hero-sub">Cochez vos besoins et découvrez immédiatement votre fourchette de budget en FCFA. Gratuit, sans engagement.</p>
+</div>
+
+<div class="wrap">
+
+  <div class="steps-bar" id="steps-bar">
+    <div class="step-seg" id="seg1"></div>
+    <div class="step-seg" id="seg2"></div>
+    <div class="step-seg" id="seg3"></div>
+    <div class="step-seg" id="seg4"></div>
+  </div>
+
+  <div id="questions">
+
+    <!-- Q1 : SECTEUR -->
+    <div class="sim-card">
+      <div class="q-num">Question 1 / 4</div>
+      <div class="q-title">Quel est votre secteur d'activité ?</div>
+      <div class="q-sub">Pour adapter la solution à vos codes métier.</div>
+      <div class="opts" data-q="secteur" data-multi="false">
+        <div class="opt" data-v="restaurant" onclick="pick(this)"><div class="opt-icon">🍽️</div><div><div class="opt-name">Restaurant & Food</div></div><div class="opt-check">✓</div></div>
+        <div class="opt" data-v="commerce" onclick="pick(this)"><div class="opt-icon">🛍️</div><div><div class="opt-name">Commerce & Boutique</div></div><div class="opt-check">✓</div></div>
+        <div class="opt" data-v="medical" onclick="pick(this)"><div class="opt-icon">🏥</div><div><div class="opt-name">Santé & Médical</div></div><div class="opt-check">✓</div></div>
+        <div class="opt" data-v="immobilier" onclick="pick(this)"><div class="opt-icon">🏠</div><div><div class="opt-name">Immobilier</div></div><div class="opt-check">✓</div></div>
+        <div class="opt" data-v="institution" onclick="pick(this)"><div class="opt-icon">🎓</div><div><div class="opt-name">École & Institution</div></div><div class="opt-check">✓</div></div>
+        <div class="opt" data-v="ong" onclick="pick(this)"><div class="opt-icon">🌿</div><div><div class="opt-name">ONG & Association</div></div><div class="opt-check">✓</div></div>
+        <div class="opt" data-v="autre" onclick="pick(this)"><div class="opt-icon">💼</div><div><div class="opt-name">Autre secteur</div></div><div class="opt-check">✓</div></div>
+      </div>
+    </div>
+
+    <!-- Q2 : BESOINS -->
+    <div class="sim-card">
+      <div class="q-num">Question 2 / 4</div>
+      <div class="q-title">De quoi avez-vous besoin ?</div>
+      <div class="q-sub">Cochez tout ce qui vous intéresse — le prix s'ajuste en direct.</div>
+      <div class="opts" data-q="besoins" data-multi="true">
+        <div class="opt" data-v="logo" data-min="50000" data-max="200000" onclick="pick(this)"><div class="opt-icon">🎨</div><div><div class="opt-name">Logo & identité visuelle</div><div class="opt-desc">Kit complet multi-formats</div></div><div class="opt-price">50K – 200K</div><div class="opt-check">✓</div></div>
+        <div class="opt" data-v="vitrine" data-min="100000" data-max="400000" onclick="pick(this)"><div class="opt-icon">🌐</div><div><div class="opt-name">Site vitrine</div><div class="opt-desc">Présence en ligne professionnelle</div></div><div class="opt-price">100K – 400K</div><div class="opt-check">✓</div></div>
+        <div class="opt" data-v="ecommerce" data-min="400000" data-max="800000" onclick="pick(this)"><div class="opt-icon">🛒</div><div><div class="opt-name">Boutique en ligne</div><div class="opt-desc">E-commerce avec panier</div></div><div class="opt-price">400K – 800K</div><div class="opt-check">✓</div></div>
+        <div class="opt" data-v="cm" data-min="100000" data-max="300000" onclick="pick(this)"><div class="opt-icon">📱</div><div><div class="opt-name">Community Management</div><div class="opt-desc">Gestion réseaux sociaux /mois</div></div><div class="opt-price">100K – 300K/mois</div><div class="opt-check">✓</div></div>
+        <div class="opt" data-v="agent" data-min="350000" data-max="600000" onclick="pick(this)"><div class="opt-icon">🤖</div><div><div class="opt-name">Agent IA</div><div class="opt-desc">Commercial ou SAV automatisé 24/7</div></div><div class="opt-price">350K – 600K</div><div class="opt-check">✓</div></div>
+        <div class="opt" data-v="video" data-min="200000" data-max="600000" onclick="pick(this)"><div class="opt-icon">🎬</div><div><div class="opt-name">Vidéo promotionnelle</div><div class="opt-desc">Publicité ou contenu de marque</div></div><div class="opt-price">200K – 600K</div><div class="opt-check">✓</div></div>
+        <div class="opt" data-v="strategie" data-min="150000" data-max="500000" onclick="pick(this)"><div class="opt-icon">📊</div><div><div class="opt-name">Stratégie digitale</div><div class="opt-desc">Plan d'action 90 jours</div></div><div class="opt-price">150K – 500K</div><div class="opt-check">✓</div></div>
+      </div>
+    </div>
+
+    <!-- Q3 : NIVEAU -->
+    <div class="sim-card">
+      <div class="q-num">Question 3 / 4</div>
+      <div class="q-title">Quel niveau de finition ?</div>
+      <div class="q-sub">Cela ajuste la fourchette de votre estimation.</div>
+      <div class="opts" data-q="niveau" data-multi="false">
+        <div class="opt" data-v="essentiel" data-mult="0.85" onclick="pick(this)"><div class="opt-icon">⚡</div><div><div class="opt-name">Essentiel</div><div class="opt-desc">L'indispensable, efficace et propre</div></div><div class="opt-check">✓</div></div>
+        <div class="opt" data-v="pro" data-mult="1" onclick="pick(this)"><div class="opt-icon">💎</div><div><div class="opt-name">Professionnel</div><div class="opt-desc">Le standard HKR — recommandé</div></div><div class="opt-check">✓</div></div>
+        <div class="opt" data-v="premium" data-mult="1.3" onclick="pick(this)"><div class="opt-icon">👑</div><div><div class="opt-name">Premium</div><div class="opt-desc">Animations, sur-mesure, haut de gamme</div></div><div class="opt-check">✓</div></div>
+      </div>
+    </div>
+
+    <!-- Q4 : TIMING -->
+    <div class="sim-card">
+      <div class="q-num">Question 4 / 4</div>
+      <div class="q-title">Quand souhaitez-vous démarrer ?</div>
+      <div class="q-sub">Nous adaptons notre planning à votre urgence.</div>
+      <div class="opts" data-q="timing" data-multi="false">
+        <div class="opt" data-v="urgent" onclick="pick(this)"><div class="opt-icon">🔥</div><div><div class="opt-name">Le plus vite possible</div><div class="opt-desc">Démarrage sous 48h</div></div><div class="opt-check">✓</div></div>
+        <div class="opt" data-v="mois" onclick="pick(this)"><div class="opt-icon">📅</div><div><div class="opt-name">Ce mois-ci</div></div><div class="opt-check">✓</div></div>
+        <div class="opt" data-v="trimestre" onclick="pick(this)"><div class="opt-icon">🗓️</div><div><div class="opt-name">Dans les 3 mois</div></div><div class="opt-check">✓</div></div>
+        <div class="opt" data-v="reflexion" onclick="pick(this)"><div class="opt-icon">💭</div><div><div class="opt-name">Je me renseigne</div></div><div class="opt-check">✓</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RESULT -->
+  <div class="result" id="result">
+    <div class="res-head">
+      <div class="res-icon">🎯</div>
+      <div class="res-title">Votre estimation personnalisée</div>
+      <div class="res-range" id="res-range">—</div>
+      <div class="res-note">Fourchette indicative — devis précis gratuit sous 2h</div>
+    </div>
+    <div class="res-detail">
+      <div class="res-detail-title">Détail de votre sélection</div>
+      <div id="res-lines"></div>
+    </div>
+    <div class="res-delai" id="res-delai">⏱️ Délai estimé : —</div>
+    <a href="#" target="_blank" rel="noopener" class="btn-wa" id="btn-wa">💬 Recevoir mon devis précis sur WhatsApp</a>
+    <a href="dossier-client.html" class="btn-dossier">📋 Ou remplir mon dossier client complet</a>
+    <button class="btn-restart" onclick="restart()">↺ Recommencer la simulation</button>
+  </div>
+
+  <!-- STICKY ESTIMATE -->
+  <div class="estimate" id="estimate">
+    <div>
+      <div class="est-label">Estimation en direct</div>
+      <div class="est-val" id="est-val">0 FCFA</div>
+    </div>
+    <button class="est-btn" id="est-btn" onclick="showResult()" disabled>Voir mon devis →</button>
+  </div>
+
+</div>
+
+<footer><a href="mentions-legales.html" style="color:rgba(255,255,255,.35);">Mentions légales</a> · © 2025 Hkr-Studio AI — Abidjan Cocody Riviera, Côte d'Ivoire<br>hkrstudioai@gmail.com · +225 07 15 73 49 85<br><span style="font-size:9px;color:rgba(255,255,255,.15);">Conçu par Hkr-Studio AI</span></footer>
+
+<script>
+const state = { secteur:null, besoins:[], niveau:null, mult:1, timing:null };
+const NAMES = {logo:'Logo & identité',vitrine:'Site vitrine',ecommerce:'Boutique en ligne',cm:'Community Management',agent:'Agent IA',video:'Vidéo promo',strategie:'Stratégie digitale'};
+const DELAIS = {logo:5,vitrine:7,ecommerce:14,cm:3,agent:14,video:10,strategie:14};
+
+function pick(el){
+  const group = el.closest('.opts');
+  const multi = group.dataset.multi === 'true';
+  const q = group.dataset.q;
+
+  if(multi){
+    el.classList.toggle('sel');
+    state.besoins = Array.from(group.querySelectorAll('.opt.sel')).map(o=>({
+      v:o.dataset.v, min:+o.dataset.min, max:+o.dataset.max
+    }));
+  } else {
+    group.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
+    el.classList.add('sel');
+    if(q==='secteur') state.secteur = el.dataset.v;
+    if(q==='niveau'){ state.niveau = el.dataset.v; state.mult = +el.dataset.mult; }
+    if(q==='timing') state.timing = el.dataset.v;
+  }
+  update();
+}
+
+function fmt(n){ return Math.round(n/1000)*1000; }
+function fcfa(n){ return n.toLocaleString('fr-FR') + ' FCFA'; }
+
+function update(){
+  // Progress
+  document.getElementById('seg1').classList.toggle('done', !!state.secteur);
+  document.getElementById('seg2').classList.toggle('done', state.besoins.length>0);
+  document.getElementById('seg3').classList.toggle('done', !!state.niveau);
+  document.getElementById('seg4').classList.toggle('done', !!state.timing);
+
+  // Estimation
+  const min = state.besoins.reduce((s,b)=>s+b.min,0) * state.mult;
+  const max = state.besoins.reduce((s,b)=>s+b.max,0) * state.mult;
+  const el = document.getElementById('est-val');
+  el.textContent = state.besoins.length ? fcfa(fmt(min)) + ' – ' + fcfa(fmt(max)) : '0 FCFA';
+  el.classList.add('pop');
+  setTimeout(()=>el.classList.remove('pop'), 200);
+
+  // Bouton
+  const ready = state.secteur && state.besoins.length && state.niveau && state.timing;
+  document.getElementById('est-btn').disabled = !ready;
+}
+
+function showResult(){
+  const min = fmt(state.besoins.reduce((s,b)=>s+b.min,0) * state.mult);
+  const max = fmt(state.besoins.reduce((s,b)=>s+b.max,0) * state.mult);
+  document.getElementById('res-range').textContent = fcfa(min) + ' – ' + fcfa(max);
+
+  // Lignes détail
+  document.getElementById('res-lines').innerHTML = state.besoins.map(b=>
+    `<div class="res-line"><span class="res-line-name">${NAMES[b.v]}</span><span class="res-line-price">${fcfa(fmt(b.min*state.mult))} – ${fcfa(fmt(b.max*state.mult))}</span></div>`
+  ).join('');
+
+  // Délai
+  const delai = Math.max(...state.besoins.map(b=>DELAIS[b.v]));
+  document.getElementById('res-delai').textContent = `⏱️ Délai estimé : ${delai} jours ouvrés après validation`;
+
+  // WhatsApp pré-rempli
+  const msg = `Bonjour Hkr-Studio AI ! 🎯\n\nJe viens d'utiliser votre simulateur de devis :\n\n🏢 Secteur : ${state.secteur}\n📋 Besoins : ${state.besoins.map(b=>NAMES[b.v]).join(', ')}\n💎 Niveau : ${state.niveau}\n📅 Démarrage : ${state.timing}\n💰 Estimation : ${fcfa(min)} – ${fcfa(max)}\n\nJe souhaite recevoir mon devis précis. Merci !`;
+  document.getElementById('btn-wa').href = 'https://wa.me/2250715734985?text=' + encodeURIComponent(msg);
+
+  document.getElementById('questions').style.display = 'none';
+  document.getElementById('estimate').style.display = 'none';
+  document.getElementById('result').classList.add('show');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function restart(){
+  location.reload();
+}
+</script>
+</body>
+</html>

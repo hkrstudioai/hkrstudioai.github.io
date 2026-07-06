@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#1A3C5E">
+<meta name="description" content="Découvrez Hkr-Studio AI : studio technologique ivoirien, 12 départements experts au service de la transformation digitale des entreprises africaines.">
+<title>À Propos — Hkr-Studio AI</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',Arial,sans-serif;background:#fff;color:#1d1d1f;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+:root{--navy:#1A3C5E;--navy-dk:#0D2137;--gold:#E8A020;--gold-lt:#FFF4E0;--g1:#f5f5f7;--g2:#e8e8ed;--g3:#6e6e73;--green:#1A7A4A;--green-lt:#E6F4EC;--r:16px;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.9);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,.07);height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;}
+.nav-logo{display:flex;align-items:center;gap:8px;}
+.nav-logo-box{width:28px;height:28px;background:var(--navy);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#fff;}
+.nav-name{font-size:13px;font-weight:700;color:#1d1d1f;}
+.nav-r{display:flex;gap:8px;}
+.nav-back{font-size:12px;color:var(--g3);padding:6px 12px;border-radius:20px;background:var(--g1);}
+.nav-cta{background:var(--gold);color:var(--navy);font-size:12px;font-weight:700;padding:7px 16px;border-radius:20px;}
+
+/* HERO */
+.hero{min-height:90svh;background:var(--navy-dk);display:flex;flex-direction:column;justify-content:center;padding:100px 24px 60px;position:relative;overflow:hidden;}
+.orb1{position:absolute;width:320px;height:320px;top:-80px;right:-60px;border-radius:50%;background:radial-gradient(circle,rgba(232,160,32,.18),transparent 70%);filter:blur(50px);}
+.orb2{position:absolute;width:200px;height:200px;bottom:-40px;left:-40px;border-radius:50%;background:radial-gradient(circle,rgba(26,60,94,.5),transparent 70%);filter:blur(30px);}
+.hero-eyebrow{font-size:10px;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;}
+h1{font-size:clamp(28px,7vw,44px);font-weight:700;color:#fff;letter-spacing:-.8px;line-height:1.1;margin-bottom:16px;}
+h1 em{font-style:normal;color:var(--gold);}
+.hero-desc{font-size:15px;color:rgba(255,255,255,.65);line-height:1.8;max-width:420px;margin-bottom:28px;}
+.hero-founder{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:var(--r);padding:16px;}
+.founder-avatar{width:52px;height:52px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:var(--navy);flex-shrink:0;border:2px solid rgba(232,160,32,.4);}
+.founder-name{font-size:15px;font-weight:700;color:#fff;margin-bottom:3px;}
+.founder-title{font-size:11px;color:rgba(255,255,255,.5);line-height:1.4;}
+.founder-loc{font-size:10px;color:var(--gold);margin-top:4px;font-weight:600;}
+
+/* SECTIONS */
+.sf{padding:56px 24px;}.sec{max-width:600px;margin:0 auto;}.sg{background:var(--g1);}.sd{background:var(--navy-dk);}
+.ey{font-size:10px;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;text-align:center;}
+.st{font-size:clamp(22px,5.5vw,30px);font-weight:700;color:#1d1d1f;letter-spacing:-.5px;line-height:1.2;margin-bottom:10px;text-align:center;}
+.st.lt{color:#fff;}
+.ss{font-size:14px;color:var(--g3);line-height:1.7;margin-bottom:28px;text-align:center;}
+.gb{width:36px;height:3px;background:var(--gold);border-radius:2px;margin:0 auto 20px;}
+.rev{opacity:0;transform:translateY(24px);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1);}.rev.on{opacity:1;transform:translateY(0);}
+
+/* HISTOIRE */
+.story-block{background:#fff;border-radius:var(--r);padding:22px;box-shadow:0 2px 14px rgba(0,0,0,.05);margin-bottom:14px;border-left:4px solid var(--gold);}
+.story-year{font-size:10px;font-weight:700;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;}
+.story-title{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:8px;letter-spacing:-.3px;}
+.story-text{font-size:13px;color:var(--g3);line-height:1.8;}
+
+/* VALEURS */
+.valeurs-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.valeur-card{background:#fff;border-radius:var(--r);padding:20px 16px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.05);border-top:3px solid var(--gold);}
+.valeur-icon{font-size:28px;margin-bottom:10px;}
+.valeur-name{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+.valeur-desc{font-size:12px;color:var(--g3);line-height:1.6;}
+
+/* CHIFFRES */
+.chiffres-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.chiffre-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:var(--r);padding:20px 14px;text-align:center;}
+.chiffre-val{font-size:28px;font-weight:700;color:var(--gold);letter-spacing:-.8px;}
+.chiffre-label{font-size:11px;color:rgba(255,255,255,.5);margin-top:4px;line-height:1.4;}
+
+/* VISION */
+.vision-block{background:linear-gradient(135deg,var(--navy-dk),var(--navy));border-radius:var(--r);padding:24px 20px;border:1px solid rgba(232,160,32,.2);}
+.vision-quote{font-size:16px;font-weight:600;color:#fff;line-height:1.7;font-style:italic;margin-bottom:14px;border-left:3px solid var(--gold);padding-left:16px;}
+.vision-author{font-size:12px;color:var(--gold);font-weight:700;}
+
+/* ÉQUIPE TECH */
+.team-stack{display:flex;flex-direction:column;gap:10px;}
+.team-row{background:#fff;border-radius:var(--r-sm);padding:14px 16px;display:flex;align-items:center;gap:14px;box-shadow:0 2px 8px rgba(0,0,0,.04);}
+.team-icon{font-size:24px;flex-shrink:0;}
+.team-name{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:2px;}
+.team-desc{font-size:12px;color:var(--g3);}
+.team-badge{font-size:9px;font-weight:700;background:var(--gold-lt);color:var(--navy);padding:3px 8px;border-radius:8px;margin-left:auto;flex-shrink:0;}
+
+/* MISSION */
+.mission-list{display:flex;flex-direction:column;gap:10px;}
+.mission-item{display:flex;align-items:flex-start;gap:12px;background:rgba(255,255,255,.06);border-radius:10px;padding:14px;}
+.mission-icon{font-size:20px;flex-shrink:0;}
+.mission-title{font-size:13px;font-weight:700;color:#fff;margin-bottom:3px;}
+.mission-desc{font-size:12px;color:rgba(255,255,255,.55);line-height:1.5;}
+
+/* CTA */
+.cta-block{background:linear-gradient(135deg,var(--navy-dk),var(--navy));border-radius:var(--r);padding:26px 20px;text-align:center;border:1px solid rgba(232,160,32,.2);}
+.cta-title{font-size:20px;font-weight:700;color:#fff;margin-bottom:8px;}
+.cta-sub{font-size:13px;color:rgba(255,255,255,.6);line-height:1.6;margin-bottom:16px;}
+.btn-main{display:block;background:var(--gold);color:var(--navy);font-size:15px;font-weight:700;padding:14px;border-radius:980px;margin-bottom:8px;box-shadow:0 4px 16px rgba(232,160,32,.35);}
+.btn-s{display:block;background:rgba(255,255,255,.1);color:#fff;font-size:13px;font-weight:600;padding:12px;border-radius:980px;border:1px solid rgba(255,255,255,.15);}
+
+:root{--r-sm:10px;}
+footer{background:var(--navy-dk);padding:24px 20px;text-align:center;font-size:10px;color:rgba(255,255,255,.35);line-height:1.8;border-top:2px solid var(--gold);}
+</style>
+</head>
+<body>
+<nav style="position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,.07);height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;">
+  <a href="index.html" style="display:flex;align-items:center;gap:8px;text-decoration:none;">
+    <div style="width:28px;height:28px;background:#1A3C5E;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#E8A020;">H</div>
+    <span style="font-size:13px;font-weight:700;color:#1d1d1f;letter-spacing:-.3px;">Hkr-Studio AI</span>
+  </a>
+  <div style="display:flex;align-items:center;gap:5px;overflow-x:auto;scrollbar-width:none;">
+    <a href="index.html" style="font-size:11px;font-weight:600;color:#1d1d1f;padding:6px 11px;border-radius:20px;background:#f5f5f7;border:1px solid #e8e8ed;">🏠</a><a href="about.html" style="font-size:11px;font-weight:700;color:#1A3C5E;padding:6px 11px;border-radius:20px;background:#E8A020;">À propos</a><a href="etude-de-cas.html" style="font-size:11px;font-weight:600;color:#1d1d1f;padding:6px 11px;border-radius:20px;background:#f5f5f7;border:1px solid #e8e8ed;">Cas clients</a><a href="tarifs-ia.html" style="font-size:11px;font-weight:600;color:#1d1d1f;padding:6px 11px;border-radius:20px;background:#f5f5f7;border:1px solid #e8e8ed;">🤖 IA</a><a href="portfolio.html" style="font-size:11px;font-weight:600;color:#1d1d1f;padding:6px 11px;border-radius:20px;background:#f5f5f7;border:1px solid #e8e8ed;">Portfolio</a><a href="contact.html" style="font-size:11px;font-weight:600;color:#1d1d1f;padding:6px 11px;border-radius:20px;background:#f5f5f7;border:1px solid #e8e8ed;">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="orb1"></div><div class="orb2"></div>
+  <div class="hero-eyebrow">Notre Histoire · Notre Vision</div>
+  <h1>Nous rendons le digital<br><em>accessible à l'Afrique.</em></h1>
+  <p class="hero-desc">Hkr-Studio AI est un studio technologique 360° fondé à Abidjan. Notre mission : donner à chaque entreprise ivoirienne et africaine les outils digitaux des grandes entreprises mondiales — à des prix accessibles, avec un service humain et local.</p>
+  <div class="hero-founder">
+    <div class="founder-avatar">H</div>
+    <div>
+      <div class="founder-name">Kpogue Hodonou Robert</div>
+      <div class="founder-title">Fondateur & Directeur Général<br>BTS Finance · Entrepreneur Digital · Expert IA</div>
+      <div class="founder-loc">📍 Abidjan, Cocody Riviera 3, Côte d'Ivoire</div>
+    </div>
+  </div>
+</section><section style="background:#1A3C5E;padding:20px 24px;">
+  <div style="max-width:600px;margin:0 auto;display:flex;justify-content:space-around;flex-wrap:wrap;gap:12px;">
+    <div style="text-align:center;"><div style="font-size:18px;font-weight:700;color:#E8A020;">58</div><div style="font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;">Services</div></div>
+    <div style="text-align:center;"><div style="font-size:18px;font-weight:700;color:#E8A020;">12</div><div style="font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;">Agents IA</div></div>
+    <div style="text-align:center;"><div style="font-size:18px;font-weight:700;color:#E8A020;">24/7</div><div style="font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;">Disponible</div></div>
+    <div style="text-align:center;"><div style="font-size:18px;font-weight:700;color:#E8A020;">7j</div><div style="font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;">Livraison</div></div>
+  </div>
+</section>
+
+<!-- HISTOIRE -->
+<section class="sf sg">
+  <div class="sec" style="padding:0;">
+    <div class="ey rev">Notre Histoire</div>
+    <h2 class="st rev">Comment tout <span style="color:var(--navy);">a commencé</span></h2>
+    <div class="gb rev"></div>
+    <div class="story-block rev">
+      <div class="story-year">Le constat de départ</div>
+      <div class="story-title">Trop d'entreprises africaines sans présence digitale digne de ce nom</div>
+      <div class="story-text">En parcourant le tissu économique ivoirien, un constat s'est imposé : des milliers d'entreprises compétentes, des entrepreneurs talentueux, des produits et services de qualité — mais une présence digitale inexistante ou médiocre. Les agences existantes proposaient soit des services trop chers, soit une qualité insuffisante, soit des délais interminables.</div>
+    </div>
+    <div class="story-block rev">
+      <div class="story-year">La décision</div>
+      <div class="story-title">Créer l'agence qu'on aurait voulu trouver</div>
+      <div class="story-text">Robert, fort de sa formation en finance et comptabilité et de plusieurs années d'autoformation intensive aux métiers du digital, décide de créer Hkr-Studio AI. Une agence qui combine rigueur financière, créativité digitale et intelligence artificielle pour offrir à chaque entreprise ivoirienne un accompagnement 360° de qualité internationale.</div>
+    </div>
+    <div class="story-block rev">
+      <div class="story-year">La méthode HKR</div>
+      <div class="story-title">IA + Humain = Résultats 10x plus rapides</div>
+      <div class="story-text">Hkr-Studio AI a développé une approche unique : utiliser l'intelligence artificielle (IA HKR, notre moteur d'automatisation, automatisation) pour multiplier par 10 la vitesse de production, tout en conservant le regard humain et la sensibilité culturelle africaine dans chaque création. Résultat : des livrables de qualité internationale, en des délais défiant toute concurrence, à des prix accessibles.</div>
+    </div>
+    <div class="story-block rev">
+      <div class="story-year">Aujourd'hui</div>
+      <div class="story-title">58 services · 12 agents IA · 13 templates · Une vision claire</div>
+      <div class="story-text">Hkr-Studio AI s'est structuré en 12 départements couvrant l'intégralité des besoins digitaux d'une entreprise moderne. Avec une suite de 12 agents IA propriétaires (HKR AI Suite), l'agence est capable de traiter simultanément plusieurs projets clients sans jamais sacrifier la qualité ni le service.</div>
+    </div>
+  </div>
+</section>
+
+<!-- VALEURS -->
+<section class="sf">
+  <div class="sec" style="padding:0;">
+    <div class="ey rev">Nos Valeurs</div>
+    <h2 class="st rev">Ce qui nous <span style="color:var(--navy);">guide</span></h2>
+    <div class="gb rev"></div>
+    <div class="valeurs-grid">
+      <div class="valeur-card rev">
+        <div class="valeur-icon">🎯</div>
+        <div class="valeur-name">Excellence</div>
+        <div class="valeur-desc">Chaque livrable est testé, validé et signé avant d'atteindre le client. Notre standard minimum : qualité internationale.</div>
+      </div>
+      <div class="valeur-card rev">
+        <div class="valeur-icon">⚡</div>
+        <div class="valeur-name">Rapidité</div>
+        <div class="valeur-desc">L'IA nous permet de livrer en jours ce que d'autres font en semaines. Votre temps est précieux.</div>
+      </div>
+      <div class="valeur-card rev">
+        <div class="valeur-icon">🤝</div>
+        <div class="valeur-name">Transparence</div>
+        <div class="valeur-desc">Tarifs clairs, délais respectés, communication proactive. Aucune surprise, aucun coût caché.</div>
+      </div>
+      <div class="valeur-card rev">
+        <div class="valeur-icon">🌍</div>
+        <div class="valeur-name">Identité Africaine</div>
+        <div class="valeur-desc">Nous créons avec les codes culturels africains au cœur de chaque projet. Digital mais enraciné.</div>
+      </div>
+      <div class="valeur-card rev">
+        <div class="valeur-icon">🔬</div>
+        <div class="valeur-name">Innovation</div>
+        <div class="valeur-desc">Premiers à déployer IA HKR et notre moteur d'automatisation pour les entreprises ivoiriennes. Toujours en avance d'une longueur.</div>
+      </div>
+      <div class="valeur-card rev">
+        <div class="valeur-icon">📈</div>
+        <div class="valeur-name">Impact Mesurable</div>
+        <div class="valeur-desc">Chaque projet est accompagné de KPI. On ne livre pas juste un site — on livre des résultats.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHIFFRES -->
+<section class="sf sd">
+  <div class="sec" style="padding:0;">
+    <div class="ey rev">En Chiffres</div>
+    <h2 class="st lt rev">Hkr-Studio AI <span style="color:var(--gold);">en données</span></h2>
+    <div class="gb rev"></div>
+    <div class="chiffres-grid">
+      <div class="chiffre-card rev"><div class="chiffre-val">12</div><div class="chiffre-label">Départements de services digitaux</div></div>
+      <div class="chiffre-card rev"><div class="chiffre-val">58</div><div class="chiffre-label">Services disponibles pour vos projets</div></div>
+      <div class="chiffre-card rev"><div class="chiffre-val">12</div><div class="chiffre-label">Agents IA de la HKR AI Suite</div></div>
+      <div class="chiffre-card rev"><div class="chiffre-val">13</div><div class="chiffre-label">Templates HTML prêts à déployer</div></div>
+      <div class="chiffre-card rev"><div class="chiffre-val">24/7</div><div class="chiffre-label">Disponibilité des agents commerciaux</div></div>
+      <div class="chiffre-card rev"><div class="chiffre-val">7j</div><div class="chiffre-label">Délai moyen de livraison d'un site web</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- VISION -->
+<section class="sf sg">
+  <div class="sec" style="padding:0;">
+    <div class="ey rev">Notre Vision</div>
+    <h2 class="st rev">Où nous allons <span style="color:var(--navy);">aller</span></h2>
+    <div class="gb rev"></div>
+    <div class="vision-block rev">
+      <div class="vision-quote">"Dans 5 ans, chaque PME ivoirienne devrait avoir accès à des outils IA aussi puissants que ceux des multinationales mondiales — au même prix qu'un abonnement téléphonique. C'est ce sur quoi nous travaillons chaque jour."</div>
+      <div class="vision-author">— Kpogue Hodonou Robert, Fondateur & DG</div>
+    </div>
+  </div>
+</section>
+
+<!-- STACK TECHNIQUE -->
+<section class="sf sd">
+  <div class="sec" style="padding:0;">
+    <div class="ey rev">Notre Stack</div>
+    <h2 class="st lt rev">Les outils qui <span style="color:var(--gold);">nous propulsent</span></h2>
+    <div class="gb rev"></div>
+    <div class="team-stack">
+      <div class="team-row rev"><span class="team-icon">🤖</span><div><div class="team-name">Intelligence Artificielle</div><div class="team-desc">Moteur IA de dernière génération alimentant toute la HKR AI Suite.</div></div><span class="team-badge">IA Principale</span></div>
+      <div class="team-row rev"><span class="team-icon">⚙️</span><div><div class="team-name">Orchestration & Workflows</div><div class="team-desc">Workflows d'automatisation connectant tous nos outils et agents.</div></div><span class="team-badge">Automatisation</span></div>
+      <div class="team-row rev"><span class="team-icon">📊</span><div><div class="team-name">Google Workspace</div><div class="team-desc">Sheets (CRM), Drive, Gmail, Calendar, Forms, Docs — écosystème complet.</div></div><span class="team-badge">Productivité</span></div>
+      <div class="team-row rev"><span class="team-icon">📱</span><div><div class="team-name">WhatsApp Business API</div><div class="team-desc">Canal principal de communication client et de déploiement des agents.</div></div><span class="team-badge">Communication</span></div>
+      <div class="team-row rev"><span class="team-icon">🌐</span><div><div class="team-name">HTML / CSS / JavaScript</div><div class="team-desc">Sites web sur mesure, sans dépendance à des CMS coûteux ou lents.</div></div><span class="team-badge">Développement</span></div>
+      <div class="team-row rev"><span class="team-icon">🎨</span><div><div class="team-name">Création Visuelle & Design</div><div class="team-desc">Outils professionnels de design graphique, motion design et production de kits livrables complets.</div></div><span class="team-badge">Design</span></div>
+      <div class="team-row rev"><span class="team-icon">🎬</span><div><div class="team-name">Production Vidéo & Montage</div><div class="team-desc">Suite de montage professionnelle pour reels, vidéos promotionnelles, motion design et contenus RS.</div></div><span class="team-badge">Vidéo</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION -->
+<section class="sf sg">
+  <div class="sec" style="padding:0;">
+    <div class="ey rev">Notre Mission</div>
+    <h2 class="st rev">Pourquoi nous <span style="color:var(--navy);">existons</span></h2>
+    <div class="gb rev"></div>
+    <div class="mission-list">
+      <div style="background:var(--navy);border-radius:var(--r);padding:20px;" class="rev">
+        <div class="mission-list">
+          <div class="mission-item"><span class="mission-icon">🌍</span><div><div class="mission-title">Démocratiser le digital en Afrique</div><div class="mission-desc">Rendre accessible aux PME africaines ce que seules les grandes entreprises mondiales s'offraient : sites modernes, agents IA, automatisation, branding premium.</div></div></div>
+          <div class="mission-item"><span class="mission-icon">⚡</span><div><div class="mission-title">Multiplier la vitesse de croissance de nos clients</div><div class="mission-desc">Chaque client HKR doit voir sa présence digitale transformée en moins de 30 jours et son efficacité commerciale doublée en 90 jours.</div></div></div>
+          <div class="mission-item"><span class="mission-icon">🏆</span><div><div class="mission-title">Porter l'excellence africaine à l'international</div><div class="mission-desc">Montrer que des créations faites à Abidjan peuvent rivaliser avec les meilleures agences de Paris, Lagos ou Nairobi.</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="sf">
+  <div class="sec" style="padding:0;">
+    <div class="cta-block rev">
+      <div class="cta-title">Construisons quelque chose ensemble.</div>
+      <div class="cta-sub">Consultation gratuite de 30 minutes. On écoute votre projet et on vous propose la solution la plus adaptée à votre réalité.</div>
+      <a href="https://wa.me/2250715734985?text=Bonjour%20Robert%2C%20j%27ai%20lu%20votre%20page%20%C3%80%20propos%20et%20je%20souhaite%20discuter%20de%20mon%20projet." target="_blank" rel="noopener noreferrer" class="btn-main">💬 Discutons sur WhatsApp</a>
+      <a href="contact.html" class="btn-s">📋 Voir tous nos contacts</a>
+    </div>
+  </div>
+</section>
+
+<section style="padding:40px 24px;background:#f5f5f7;">
+  <div style="max-width:600px;margin:0 auto;">
+    <div style="font-size:10px;font-weight:700;color:#E8A020;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;text-align:center;">À explorer aussi</div>
+    <h3 style="font-size:20px;font-weight:700;color:#1A3C5E;text-align:center;margin-bottom:16px;letter-spacing:-.4px;">Continuez votre découverte</h3>
+    <div style="display:flex;flex-direction:column;gap:10px;"><a href="etude-de-cas.html" style="display:flex;align-items:center;gap:12px;background:#fff;border-radius:12px;padding:14px;box-shadow:0 2px 10px rgba(0,0,0,.05);text-decoration:none;border:1px solid #e8e8ed;transition:transform .15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+      <div style="width:40px;height:40px;background:#FFF4E0;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">📊</div>
+      <div><div style="font-size:13px;font-weight:700;color:#1A3C5E;margin-bottom:2px;">Études de cas</div><div style="font-size:11px;color:#6e6e73;">Découvrez nos scénarios de transformation</div></div>
+      <div style="margin-left:auto;font-size:16px;color:#E8A020;">›</div>
+    </a><a href="tarifs-ia.html" style="display:flex;align-items:center;gap:12px;background:#fff;border-radius:12px;padding:14px;box-shadow:0 2px 10px rgba(0,0,0,.05);text-decoration:none;border:1px solid #e8e8ed;transition:transform .15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+      <div style="width:40px;height:40px;background:#FFF4E0;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🤖</div>
+      <div><div style="font-size:13px;font-weight:700;color:#1A3C5E;margin-bottom:2px;">Agents IA</div><div style="font-size:11px;color:#6e6e73;">Découvrez la HKR AI Suite complète</div></div>
+      <div style="margin-left:auto;font-size:16px;color:#E8A020;">›</div>
+    </a><a href="contact.html" style="display:flex;align-items:center;gap:12px;background:#fff;border-radius:12px;padding:14px;box-shadow:0 2px 10px rgba(0,0,0,.05);text-decoration:none;border:1px solid #e8e8ed;transition:transform .15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+      <div style="width:40px;height:40px;background:#FFF4E0;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">💬</div>
+      <div><div style="font-size:13px;font-weight:700;color:#1A3C5E;margin-bottom:2px;">Nous contacter</div><div style="font-size:11px;color:#6e6e73;">Démarrons votre projet ensemble</div></div>
+      <div style="margin-left:auto;font-size:16px;color:#E8A020;">›</div>
+    </a></div>
+  </div>
+</section>
+<footer style="background:#0D2137;padding:32px 20px 40px;border-top:3px solid #E8A020;">
+  <div style="max-width:600px;margin:0 auto;text-align:center;">
+    <!-- Logo -->
+    <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:14px;">
+      <div style="width:36px;height:36px;background:#E8A020;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:#1A3C5E;">H</div>
+      <div style="font-size:16px;font-weight:700;color:#fff;letter-spacing:-.3px;">Hkr-Studio <span style="color:#E8A020;">AI</span></div>
+    </div>
+    <div style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:18px;">Votre Partenaire Digital 360°</div>
+    <!-- Navigation footer -->
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:18px;">
+      <a href="index.html" style="font-size:11px;color:rgba(255,255,255,.5);">Catalogue</a>
+      <span style="color:rgba(255,255,255,.2);">·</span>
+      <a href="about.html" style="font-size:11px;color:rgba(255,255,255,.5);">À propos</a>
+      <span style="color:rgba(255,255,255,.2);">·</span>
+      <a href="etude-de-cas.html" style="font-size:11px;color:rgba(255,255,255,.5);">Cas clients</a>
+      <span style="color:rgba(255,255,255,.2);">·</span>
+      <a href="tarifs-ia.html" style="font-size:11px;color:rgba(255,255,255,.5);">Agents IA</a>
+      <span style="color:rgba(255,255,255,.2);">·</span>
+      <a href="portfolio.html" style="font-size:11px;color:rgba(255,255,255,.5);">Portfolio</a>
+      <span style="color:rgba(255,255,255,.2);">·</span>
+      <a href="faq-ia.html" style="font-size:11px;color:rgba(255,255,255,.5);">FAQ</a>
+      <span style="color:rgba(255,255,255,.2);">·</span>
+      <a href="contact.html" style="font-size:11px;color:rgba(255,255,255,.5);">Contact</a>
+    </div>
+    <!-- Contacts -->
+    <div style="display:flex;flex-direction:column;gap:4px;margin-bottom:16px;">
+      <div style="font-size:12px;color:rgba(255,255,255,.6);">📱 +225 07 15 73 49 85 &nbsp;·&nbsp; 📧 hkrstudioai@gmail.com</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.4);">📍 Abidjan, Cocody Riviera 3, Côte d'Ivoire</div>
+    </div>
+    <!-- CTA WhatsApp -->
+    <a href="https://wa.me/2250715734985?text=Bonjour%20Hkr-Studio%20AI%2C%20je%20souhaite%20un%20devis." target="_blank" rel="noopener noreferrer" style="display:inline-block;background:#E8A020;color:#1A3C5E;font-size:13px;font-weight:700;padding:11px 24px;border-radius:980px;margin-bottom:18px;">💬 Écrire sur WhatsApp</a>
+    <!-- Ligne -->
+    <div style="height:1px;background:rgba(255,255,255,.07);margin-bottom:14px;"></div>
+    <!-- Copyright -->
+    <div style="font-size:10px;color:rgba(255,255,255,.25);line-height:1.8;">
+      © 2025 Hkr-Studio AI · Tous droits réservés · <a href="mentions-legales.html" style="color:rgba(255,255,255,.35);">Mentions légales</a><br>
+      <span style="font-size:9px;color:rgba(255,255,255,.15);">© Hkr-Studio AI — Abidjan Cocody Riviera, Côte d'Ivoire</span>
+    </div>
+  </div>
+</footer>
+<script>
+const obs=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('on');});},{threshold:0.08});
+document.querySelectorAll('.rev').forEach(el=>obs.observe(el));
+</script>
+
+<script>
+/* ── ANIMATIONS GLOBALES HKR ── */
+// 1. Scroll reveal
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach(el => { if(el.isIntersecting) el.target.classList.add('on'); });
+}, {threshold: 0.07});
+document.querySelectorAll('.rev').forEach(el => revObs.observe(el));
+
+// 2. Compteurs animés
+function animCount(el, target, dur=1400){
+  const suffix = target.toString().match(/[^0-9]/g)?.join('') || '';
+  const num = parseInt(target.toString().replace(/\D/g,''));
+  let start = null;
+  const step = ts => {
+    if(!start) start = ts;
+    const p = Math.min((ts-start)/dur, 1);
+    const ease = 1 - Math.pow(1-p, 3);
+    el.textContent = Math.floor(ease*num).toLocaleString() + suffix;
+    if(p < 1) requestAnimationFrame(step);
+    else el.textContent = target;
+  };
+  requestAnimationFrame(step);
+}
+const countObs = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      const val = entry.target.querySelector('[data-count]');
+      if(val && !val.dataset.done){ val.dataset.done='1'; animCount(val, val.dataset.count); }
+    }
+  });
+}, {threshold: 0.5});
+document.querySelectorAll('[data-count-wrap]').forEach(el => countObs.observe(el));
+
+// 3. Ripple sur tous les boutons
+document.querySelectorAll('a[class*="btn"], button[class*="btn"], .tarif-cta, .work-action, .nav-cta').forEach(btn => {
+  btn.style.position = 'relative';
+  btn.style.overflow = 'hidden';
+  btn.addEventListener('click', function(e){
+    const r = document.createElement('span');
+    Object.assign(r.style, {
+      position:'absolute', borderRadius:'50%',
+      background:'rgba(255,255,255,.25)',
+      width:'0', height:'0',
+      transform:'translate(-50%,-50%)',
+      animation:'rippleAnim .6s ease forwards',
+      left: (e.clientX - this.getBoundingClientRect().left) + 'px',
+      top: (e.clientY - this.getBoundingClientRect().top) + 'px',
+      pointerEvents:'none'
+    });
+    this.appendChild(r);
+    setTimeout(()=>r.remove(), 700);
+  });
+});
+
+// 4. Barre de progression scroll
+(function(){
+  const bar = document.createElement('div');
+  Object.assign(bar.style, {
+    position:'fixed', top:'52px', left:'0', height:'2px',
+    background:'#E8A020', zIndex:'99', width:'0%',
+    transition:'width .1s', borderRadius:'0 2px 2px 0',
+    boxShadow:'0 0 8px rgba(232,160,32,.6)'
+  });
+  document.body.appendChild(bar);
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    bar.style.width = (window.scrollY / (h.scrollHeight - h.clientHeight) * 100) + '%';
+  }, {passive:true});
+})();
+
+// 5. Tilt 3D sur les cartes (desktop)
+if(window.innerWidth > 768){
+  document.querySelectorAll('.work-card, .kpi-card, .skill-card, .tarif, .agent-tarif-card, .case-card, .valeur-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = `translateY(-4px) rotateX(${-y*5}deg) rotateY(${x*5}deg)`;
+      card.style.transition = 'transform .08s';
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+      card.style.transition = 'transform .4s cubic-bezier(.22,1,.36,1)';
+    });
+  });
+}
+
+// 6. Smooth scroll sur tous les liens ancres
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth', block:'start'}); }
+  });
+});
+
+// CSS animations injectées
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes rippleAnim { to { width:200px; height:200px; opacity:0; } }
+  .rev { opacity:0; transform:translateY(22px); transition:opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1); }
+  .rev.on { opacity:1; transform:translateY(0); }
+  .rev:nth-child(1){transition-delay:.05s}
+  .rev:nth-child(2){transition-delay:.1s}
+  .rev:nth-child(3){transition-delay:.15s}
+  .rev:nth-child(4){transition-delay:.2s}
+  .rev:nth-child(5){transition-delay:.25s}
+  .rev:nth-child(6){transition-delay:.3s}
+  .work-card, .kpi-card, .skill-card, .tarif, .agent-tarif-card, .case-card, .valeur-card {
+    transition: transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s;
+  }
+`;
+document.head.appendChild(style);
+</script>
+</body>
+</html>
